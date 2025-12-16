@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Reader Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .upload-section {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            background: #fafafa;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .upload-btn {
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .upload-btn:hover {
+            background: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .result-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        .stat {
+            display: inline-block;
+            margin: 10px 20px 10px 0;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .page {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        .page-header {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            max-height: 300px;
+            border: 1px solid #e0e0e0;
+        }
+        .table-container {
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #007bff;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .error {
+            color: #dc3545;
+            padding: 15px;
+            background: #f8d7da;
+            border-radius: 6px;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Reader Test</h1>
+        <p class="subtitle">Test the @yogeshvitekar/pdf-reader package</p>
+
+        <div class="upload-section">
+            <label for="pdfInput" class="upload-btn">
+                Choose PDF File
+            </label>
+            <input type="file" id="pdfInput" accept=".pdf" />
+            <p style="margin-top: 15px; color: #666;">Select a PDF file to extract text and tables</p>
+        </div>
+
+        <div id="output"></div>
+    </div>
+
+    <!-- Load PDF.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/5.4.449/pdf.min.mjs" type="module"></script>
+
+    <!-- Load PDF Reader (local build) -->
+    <script src="dist/index.js"></script>
+
+    <script>
+        document.getElementById('pdfInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '<div class="loading">Processing PDF... Please wait.</div>';
+
+            try {
+                console.log('Processing PDF...');
+                const result = await PDFReader.extract(file, {
+                    onProgress: (progress) => {
+                        console.log(`Progress: ${Math.round(progress.loaded / progress.total * 100)}%`);
+                    }
+                });
+
+                console.log('Result:', result);
+
+                if (!result.success) {
+                    outputDiv.innerHTML = `
+                        <div class="error">
+                            <strong>Error:</strong> ${result.error}
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '<div class="result-section">';
+                html += '<h2>PDF Information</h2>';
+                html += '<div>';
+                html += `<div class="stat"><div class="stat-label">Pages</div><div class="stat-value">${result.numPages}</div></div>`;
+                html += `<div class="stat"><div class="stat-label">Characters</div><div class="stat-value">${result.fullText.length.toLocaleString()}</div></div>`;
+                html += `<div class="stat"><div class="stat-label">Words</div><div class="stat-value">${result.fullText.split(/\s+/).length.toLocaleString()}</div></div>`;
+
+                const totalTables = result.pages.reduce((sum, p) => sum + p.tables.length, 0);
+                html += `<div class="stat"><div class="stat-label">Tables</div><div class="stat-value">${totalTables}</div></div>`;
+                html += '</div>';
+
+                // Metadata
+                if (result.metadata && result.metadata.info) {
+                    html += '<h3 style="margin-top: 30px;">Metadata</h3>';
+                    html += '<div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e0e0e0;">';
+                    if (result.metadata.info.title) html += `<p><strong>Title:</strong> ${result.metadata.info.title}</p>`;
+                    if (result.metadata.info.author) html += `<p><strong>Author:</strong> ${result.metadata.info.author}</p>`;
+                    if (result.metadata.info.subject) html += `<p><strong>Subject:</strong> ${result.metadata.info.subject}</p>`;
+                    if (result.metadata.info.creator) html += `<p><strong>Creator:</strong> ${result.metadata.info.creator}</p>`;
+                    html += '</div>';
+                }
+
+                html += '</div>';
+
+                // Full text preview
+                html += '<div class="result-section">';
+                html += '<h2>Full Text Preview</h2>';
+                html += `<pre>${result.fullText.substring(0, 1000)}${result.fullText.length > 1000 ? '...' : ''}</pre>`;
+                html += '</div>';
+
+                // Pages
+                result.pages.forEach((page, index) => {
+                    html += '<div class="page">';
+                    html += `<div class="page-header">Page ${page.pageNumber} of ${result.numPages}</div>`;
+
+                    // Page stats
+                    html += '<div style="margin: 15px 0;">';
+                    html += `<span style="margin-right: 20px;"><strong>Text Length:</strong> ${page.text.length} chars</span>`;
+                    html += `<span style="margin-right: 20px;"><strong>Elements:</strong> ${page.elements.length}</span>`;
+                    html += `<span><strong>Tables:</strong> ${page.tables.length}</span>`;
+                    html += '</div>';
+
+                    // Tables
+                    if (page.tables.length > 0) {
+                        html += `<h4>Tables Found: ${page.tables.length}</h4>`;
+                        page.tables.forEach((table, tableIndex) => {
+                            html += '<div class="table-container">';
+                            html += `<p><strong>Table ${tableIndex + 1}</strong> - ${table.rowCount} rows × ${table.columnCount} columns</p>`;
+                            html += '<table>';
+
+                            // Table headers
+                            if (table.headers && table.headers.length > 0) {
+                                html += '<thead><tr>';
+                                table.headers.forEach(header => {
+                                    html += `<th>${header || ''}</th>`;
+                                });
+                                html += '</tr></thead>';
+                            }
+
+                            // Table rows
+                            html += '<tbody>';
+                            const dataRows = table.rows || table.data.slice(1);
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                row.forEach(cell => {
+                                    html += `<td>${cell || ''}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+
+                            html += '</table>';
+                            html += '</div>';
+                        });
+                    }
+
+                    // Text preview
+                    html += '<h4>Text Content</h4>';
+                    html += `<pre>${page.text.substring(0, 500)}${page.text.length > 500 ? '...' : ''}</pre>`;
+
+                    html += '</div>';
+                });
+
+                outputDiv.innerHTML = html;
+
+            } catch (error) {
+                console.error('Error:', error);
+                outputDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${error.message}
+                        <br><br>
+                        <details>
+                            <summary>Stack Trace</summary>
+                            <pre>${error.stack}</pre>
+                        </details>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
