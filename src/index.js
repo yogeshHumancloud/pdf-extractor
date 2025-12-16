@@ -1,6 +1,9 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import { extractText } from './textExtractor';
 import { detectTables } from './tableDetector';
+import { detectImages, isPoorTextQuality } from './imageDetector';
+import { performOCR, terminateWorker } from './ocrEngine';
+import { renderPageToCanvas, cleanupCanvas } from './pageRenderer';
 
 /**
  * PDFReader - A frontend PDF reader and text extractor
@@ -27,6 +30,8 @@ class PDFReader {
    * @param {Object} options - Configuration options
    * @param {boolean} options.detectTables - Enable table detection (default: true)
    * @param {boolean} options.includeMetadata - Include PDF metadata (default: true)
+   * @param {boolean} options.enableOCR - Enable OCR for images (default: true)
+   * @param {string} options.ocrLanguage - OCR language (default: 'eng')
    * @param {Function} options.onProgress - Progress callback function
    * @returns {Promise<Object>} Extracted content
    */
@@ -37,10 +42,12 @@ class PDFReader {
         this.initWorker();
       }
 
-      // Default options
+      // Default options - OCR enabled by default
       const config = {
         detectTables: options.detectTables !== false,
         includeMetadata: options.includeMetadata !== false,
+        enableOCR: options.enableOCR !== false, // OCR enabled by default
+        ocrLanguage: options.ocrLanguage || 'eng',
         onProgress: options.onProgress || null
       };
 
@@ -65,12 +72,64 @@ class PDFReader {
       // Extract content from all pages
       const pages = [];
       let fullText = '';
+      let ocrUsedCount = 0;
 
       for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
         const page = await pdf.getPage(pageNum);
 
         // Extract text content
         const textContent = await extractText(page);
+
+        // Detect images in page
+        const imageDetection = config.enableOCR
+          ? await detectImages(page)
+          : { hasImages: false, imageCount: 0, needsOCR: false };
+
+        // Determine if OCR is needed
+        const needsOCR = config.enableOCR && (
+          imageDetection.needsOCR ||
+          isPoorTextQuality(textContent.text)
+        );
+
+        let finalText = textContent.text;
+        let ocrResult = null;
+        let canvas = null;
+
+        // Perform OCR if needed
+        if (needsOCR) {
+          try {
+            console.log(`Page ${pageNum}: Images detected (${imageDetection.imageCount}), using OCR...`);
+
+            // Render page to canvas
+            canvas = await renderPageToCanvas(page);
+
+            // Perform OCR
+            ocrResult = await performOCR(canvas, {
+              language: config.ocrLanguage
+            });
+
+            if (ocrResult.success && ocrResult.text) {
+              // Merge OCR text with extracted text
+              // If original text is poor quality, prefer OCR text
+              if (isPoorTextQuality(textContent.text)) {
+                finalText = ocrResult.text;
+              } else {
+                // Combine both, OCR text might capture text in images
+                finalText = textContent.text + '\n\n[OCR Content]\n' + ocrResult.text;
+              }
+              ocrUsedCount++;
+            }
+
+            // Clean up canvas
+            if (canvas) {
+              cleanupCanvas(canvas);
+            }
+          } catch (ocrError) {
+            console.warn(`OCR failed on page ${pageNum}:`, ocrError);
+            // Fall back to regular text extraction
+            finalText = textContent.text;
+          }
+        }
 
         // Detect tables if enabled
         const tables = config.detectTables
@@ -79,17 +138,30 @@ class PDFReader {
 
         const pageData = {
           pageNumber: pageNum,
-          text: textContent.text,
+          text: finalText,
           elements: textContent.elements,
           tables: tables,
           viewport: {
             width: page.view[2],
             height: page.view[3]
+          },
+          ocr: needsOCR ? {
+            used: true,
+            imageCount: imageDetection.imageCount,
+            confidence: ocrResult?.confidence || 0,
+            duration: ocrResult?.duration || 0
+          } : {
+            used: false
           }
         };
 
         pages.push(pageData);
-        fullText += textContent.text + '\n\n';
+        fullText += finalText + '\n\n';
+      }
+
+      // Clean up OCR worker
+      if (ocrUsedCount > 0) {
+        await terminateWorker();
       }
 
       // Build result object
@@ -97,7 +169,12 @@ class PDFReader {
         success: true,
         numPages: pdf.numPages,
         fullText: fullText.trim(),
-        pages: pages
+        pages: pages,
+        ocrStats: {
+          enabled: config.enableOCR,
+          pagesWithOCR: ocrUsedCount,
+          totalPages: pdf.numPages
+        }
       };
 
       // Add metadata if requested
