@@ -1,0 +1,235 @@
+{
+  "name": "Indian Income Tax Return (ITR-1) Extractor",
+  "version": "1.0.0",
+  "description": "Rules to extract data from ITR-1 acknowledgement forms",
+  "rules": {
+    "acknowledgement_number": {
+      "pattern": "Acknowledgement Number:(\\d+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Unique acknowledgement number for the ITR filing"
+    },
+    "filing_date": {
+      "pattern": "Date of filing\\s*:\\s*([\\d]{2}-[A-Za-z]{3}-[\\d]{4})",
+      "type": "regex",
+      "group": 1,
+      "description": "Date when the ITR was filed"
+    },
+    "assessment_year": {
+      "pattern": "Assessment\\s+Year\\s+([\\d]{4}-[\\d]{2})",
+      "type": "regex",
+      "group": 1,
+      "description": "Assessment year for the tax return"
+    },
+    "pan": {
+      "pattern": "PAN[\\s\\n]+([A-Z]{5,6}\\d{4}[A-Z])",
+      "type": "regex",
+      "group": 1,
+      "description": "Permanent Account Number"
+    },
+    "name": {
+      "pattern": "Name([A-Za-z\\s]+?)Address",
+      "type": "regex",
+      "group": 1,
+      "description": "Taxpayer's name"
+    },
+    "address": {
+      "pattern": "Address([A-Za-z0-9,\\s]+?)Status",
+      "type": "regex",
+      "group": 1,
+      "description": "Taxpayer's address"
+    },
+    "status": {
+      "pattern": "Status(Individual|HUF|Firm|Company)",
+      "type": "regex",
+      "group": 1,
+      "description": "Tax filing status"
+    },
+    "form_number": {
+      "pattern": "Form Number(ITR-\\d+)",
+      "type": "regex",
+      "group": 1,
+      "description": "ITR form type"
+    },
+    "efiling_ack_number": {
+      "pattern": "e-Filing Acknowledgement Number(\\d+)",
+      "type": "regex",
+      "group": 1,
+      "description": "E-filing acknowledgement number"
+    },
+    "filed_under_section": {
+      "pattern": "Filed u/s\\s*([\\d\\(\\)\\-A-Za-z\\s]+?)e-Filing",
+      "type": "regex",
+      "group": 1,
+      "description": "Section under which return was filed"
+    },
+    "current_year_loss": {
+      "pattern": "Current Year business loss, if any\\s*1\\s*(\\d+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Current year business loss"
+    },
+    "total_income": {
+      "pattern": "Total Income\\s*1A\\s*([\\d,]+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total income declared"
+    },
+    "book_profit": {
+      "pattern": "Book Profit under MAT.*?\\s*2\\s*(\\d+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Book profit under MAT"
+    },
+    "adjusted_income": {
+      "pattern": "Adjusted Total Income under AMT.*?\\s*3\\s*(\\d+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Adjusted total income under AMT"
+    },
+    "net_tax_payable": {
+      "pattern": "Net tax payable\\s*4\\s*([\\d,]+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Net tax payable amount"
+    },
+    "interest_and_fee": {
+      "pattern": "Interest and Fee Payable\\s*5\\s*(\\d+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Interest and fee payable"
+    },
+    "total_tax_payable": {
+      "pattern": "Total tax, interest and Fee payable\\s*6\\s*([\\d,]+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total tax, interest and fee payable"
+    },
+    "taxes_paid": {
+      "pattern": "Taxes Paid\\s*7\\s*([\\d,]+)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total taxes already paid"
+    },
+    "refund_or_payable": {
+      "pattern": "\\(\\+\\) Tax Payable /\\(-\\) Refundable \\(6-7\\)\\s*8\\s*\\((-)?\\)\\s*([\\d,]+)",
+      "type": "regex",
+      "group": 2,
+      "transform": "refund",
+      "signGroup": 1,
+      "description": "Tax payable or refundable amount"
+    },
+    "transmission_date": {
+      "pattern": "electronically transmitted on\\s+([\\d]{2}-[A-Za-z]{3}-[\\d]{4}\\s+[\\d:]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Date and time of electronic transmission"
+    },
+    "ip_address": {
+      "pattern": "from IP address\\s+([\\d\\.]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "IP address from which return was filed"
+    },
+    "verified_by": {
+      "pattern": "verified by\\s+([A-Za-z\\s]+?)\\s+having PAN",
+      "type": "regex",
+      "group": 1,
+      "description": "Name of person who verified"
+    },
+    "verified_by_pan": {
+      "pattern": "having PAN\\s+([A-Z\\d]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "PAN of person who verified the return"
+    },
+    "verification_date": {
+      "pattern": "on\\s+([\\d]{2}-[A-Za-z]{3}-[\\s\\n]*[\\d]{4})",
+      "type": "regex",
+      "group": 1,
+      "description": "Date of verification"
+    },
+    "verification_method": {
+      "pattern": "([A-Za-z]+\\s+OTP)\\s+mode",
+      "type": "regex",
+      "group": 1,
+      "description": "Method used for verification"
+    },
+    "verification_code": {
+      "pattern": "Electronic Verification Code\\s+([A-Z\\d]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Electronic verification code"
+    },
+    "barcode": {
+      "pattern": "Barcode/QR Code\\s+([A-Za-z0-9]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Barcode or QR code identifier"
+    }
+  },
+  "output_format": {
+    "sections": [
+      {
+        "name": "Basic Details",
+        "fields": [
+          "acknowledgement_number",
+          "filing_date",
+          "assessment_year",
+          "form_number",
+          "efiling_ack_number",
+          "barcode"
+        ]
+      },
+      {
+        "name": "Personal Information",
+        "fields": [
+          "pan",
+          "name",
+          "address",
+          "status"
+        ]
+      },
+      {
+        "name": "Filing Details",
+        "fields": [
+          "filed_under_section",
+          "transmission_date",
+          "ip_address",
+          "verified_by",
+          "verified_by_pan",
+          "verification_date",
+          "verification_method",
+          "verification_code"
+        ]
+      },
+      {
+        "name": "Tax Details - Income",
+        "fields": [
+          "current_year_loss",
+          "total_income",
+          "book_profit",
+          "adjusted_income"
+        ]
+      },
+      {
+        "name": "Tax Details - Payment",
+        "fields": [
+          "net_tax_payable",
+          "interest_and_fee",
+          "total_tax_payable",
+          "taxes_paid",
+          "refund_or_payable"
+        ]
+      }
+    ]
+  }
+}
