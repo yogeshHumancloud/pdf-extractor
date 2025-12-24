@@ -1,0 +1,779 @@
+{
+  "name": "GST GSTR-3B Monthly/Quarterly Return Extractor",
+  "version": "1.0.0",
+  "description": "Rules to extract data from GSTR-3B return forms",
+  "rules": {
+    "year": {
+      "pattern": "Year(\\d{4}-\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "description": "Financial year"
+    },
+    "period": {
+      "pattern": "Period([A-Za-z]{3}-[A-Za-z]{3})",
+      "type": "regex",
+      "group": 1,
+      "description": "Return period"
+    },
+    "gstin": {
+      "pattern": "GSTIN of the supplier([A-Z0-9]{15})",
+      "type": "regex",
+      "group": 1,
+      "description": "GSTIN of the supplier"
+    },
+    "legal_name": {
+      "pattern": "2\\(a\\)\\. Legal name of the registered person([A-Za-z\\s]+?)2\\(b\\)",
+      "type": "regex",
+      "group": 1,
+      "description": "Legal name of the registered person"
+    },
+    "trade_name": {
+      "pattern": "2\\(b\\)\\. Trade name, if any([A-Za-z0-9\\s\\-]*?)2\\(c\\)",
+      "type": "regex",
+      "group": 1,
+      "description": "Trade name if any"
+    },
+    "arn": {
+      "pattern": "2\\(c\\)\\. ARN([A-Z0-9]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Application Reference Number"
+    },
+    "date_of_arn": {
+      "pattern": "2\\(d\\)\\. Date of ARN(\\d{2}/\\d{2}/\\d{4})",
+      "type": "regex",
+      "group": 1,
+      "description": "Date of ARN"
+    },
+    "outward_taxable_supplies_total_value": {
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Outward taxable supplies - Total taxable value"
+    },
+    "outward_taxable_supplies_integrated_tax": {
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Outward taxable supplies - Integrated tax"
+    },
+    "outward_taxable_supplies_central_tax": {
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Outward taxable supplies - Central tax"
+    },
+    "outward_taxable_supplies_state_tax": {
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Outward taxable supplies - State/UT tax"
+    },
+    "outward_taxable_supplies_cess": {
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Outward taxable supplies - Cess"
+    },
+    "outward_zero_rated_total_value": {
+      "pattern": "\\(b\\) Outward taxable supplies \\(zero rated\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Outward zero rated supplies - Total value"
+    },
+    "outward_zero_rated_integrated_tax": {
+      "pattern": "\\(b\\) Outward taxable supplies \\(zero rated\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Outward zero rated supplies - Integrated tax"
+    },
+    "inward_reverse_charge_total_value": {
+      "pattern": "\\(d\\) Inward supplies \\(liable to reverse charge\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward supplies (reverse charge) - Total value"
+    },
+    "inward_reverse_charge_integrated_tax": {
+      "pattern": "\\(d\\) Inward supplies \\(liable to reverse charge\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward supplies (reverse charge) - Integrated tax"
+    },
+    "inward_reverse_charge_central_tax": {
+      "pattern": "\\(d\\) Inward supplies \\(liable to reverse charge\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward supplies (reverse charge) - Central tax"
+    },
+    "inward_reverse_charge_state_tax": {
+      "pattern": "\\(d\\) Inward supplies \\(liable to reverse charge\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward supplies (reverse charge) - State/UT tax"
+    },
+    "inward_reverse_charge_cess": {
+      "pattern": "\\(d\\) Inward supplies \\(liable to reverse charge\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward supplies (reverse charge) - Cess"
+    },
+    "itc_import_of_goods_integrated_tax": {
+      "pattern": "\\(1\\) Import of goods([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of goods - Integrated tax"
+    },
+    "itc_import_of_goods_central_tax": {
+      "pattern": "\\(1\\) Import of goods[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of goods - Central tax"
+    },
+    "itc_import_of_goods_state_tax": {
+      "pattern": "\\(1\\) Import of goods[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of goods - State/UT tax"
+    },
+    "itc_import_of_goods_cess": {
+      "pattern": "\\(1\\) Import of goods[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of goods - Cess"
+    },
+    "itc_import_of_services_integrated_tax": {
+      "pattern": "\\(2\\) Import of services([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of services - Integrated tax"
+    },
+    "itc_import_of_services_central_tax": {
+      "pattern": "\\(2\\) Import of services[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of services - Central tax"
+    },
+    "itc_import_of_services_state_tax": {
+      "pattern": "\\(2\\) Import of services[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of services - State/UT tax"
+    },
+    "itc_import_of_services_cess": {
+      "pattern": "\\(2\\) Import of services[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Import of services - Cess"
+    },
+    "itc_inward_reverse_charge_integrated_tax": {
+      "pattern": "\\(3\\) Inward supplies liable to reverse charge \\(other than 1 & 2 above\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies (reverse charge) - Integrated tax"
+    },
+    "itc_inward_reverse_charge_central_tax": {
+      "pattern": "\\(3\\) Inward supplies liable to reverse charge \\(other than 1 & 2 above\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies (reverse charge) - Central tax"
+    },
+    "itc_inward_reverse_charge_state_tax": {
+      "pattern": "\\(3\\) Inward supplies liable to reverse charge \\(other than 1 & 2 above\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies (reverse charge) - State/UT tax"
+    },
+    "itc_inward_reverse_charge_cess": {
+      "pattern": "\\(3\\) Inward supplies liable to reverse charge \\(other than 1 & 2 above\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies (reverse charge) - Cess"
+    },
+    "itc_from_isd_integrated_tax": {
+      "pattern": "\\(4\\) Inward supplies from ISD([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies from ISD - Integrated tax"
+    },
+    "itc_from_isd_central_tax": {
+      "pattern": "\\(4\\) Inward supplies from ISD[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies from ISD - Central tax"
+    },
+    "itc_from_isd_state_tax": {
+      "pattern": "\\(4\\) Inward supplies from ISD[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies from ISD - State/UT tax"
+    },
+    "itc_from_isd_cess": {
+      "pattern": "\\(4\\) Inward supplies from ISD[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - Inward supplies from ISD - Cess"
+    },
+    "itc_all_other_integrated_tax": {
+      "pattern": "\\(5\\) All other ITC([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - All other ITC - Integrated tax"
+    },
+    "itc_all_other_central_tax": {
+      "pattern": "\\(5\\) All other ITC[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - All other ITC - Central tax"
+    },
+    "itc_all_other_state_tax": {
+      "pattern": "\\(5\\) All other ITC[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - All other ITC - State/UT tax"
+    },
+    "itc_all_other_cess": {
+      "pattern": "\\(5\\) All other ITC[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC - All other ITC - Cess"
+    },
+    "itc_reversed_rules_integrated_tax": {
+      "pattern": "\\(1\\) As per rules 38,42 & 43 of CGST Rules and section 17\\(5\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - As per rules 38,42,43 - Integrated tax"
+    },
+    "itc_reversed_rules_central_tax": {
+      "pattern": "\\(1\\) As per rules 38,42 & 43 of CGST Rules and section 17\\(5\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - As per rules 38,42,43 - Central tax"
+    },
+    "itc_reversed_rules_state_tax": {
+      "pattern": "\\(1\\) As per rules 38,42 & 43 of CGST Rules and section 17\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - As per rules 38,42,43 - State/UT tax"
+    },
+    "itc_reversed_rules_cess": {
+      "pattern": "\\(1\\) As per rules 38,42 & 43 of CGST Rules and section 17\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - As per rules 38,42,43 - Cess"
+    },
+    "itc_reversed_others_integrated_tax": {
+      "pattern": "B\\. ITC Reversed[\\s\\S]*?\\(2\\) Others([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - Others - Integrated tax"
+    },
+    "itc_reversed_others_central_tax": {
+      "pattern": "B\\. ITC Reversed[\\s\\S]*?\\(2\\) Others[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - Others - Central tax"
+    },
+    "itc_reversed_others_state_tax": {
+      "pattern": "B\\. ITC Reversed[\\s\\S]*?\\(2\\) Others[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - Others - State/UT tax"
+    },
+    "itc_reversed_others_cess": {
+      "pattern": "B\\. ITC Reversed[\\s\\S]*?\\(2\\) Others[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversed - Others - Cess"
+    },
+    "net_itc_integrated_tax": {
+      "pattern": "C\\. Net ITC available \\(A-B\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Net ITC available - Integrated tax"
+    },
+    "net_itc_central_tax": {
+      "pattern": "C\\. Net ITC available \\(A-B\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Net ITC available - Central tax"
+    },
+    "net_itc_state_tax": {
+      "pattern": "C\\. Net ITC available \\(A-B\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Net ITC available - State/UT tax"
+    },
+    "net_itc_cess": {
+      "pattern": "C\\. Net ITC available \\(A-B\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Net ITC available - Cess"
+    },
+    "exempt_nil_rated_composition_interstate": {
+      "pattern": "5  Values of exempt, nil-rated and non-GST inward supplies[\\s\\S]{1,200}From a supplier under composition scheme, Exempt, Nil rated supply([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5 - Exempt/Nil-rated from composition scheme - Inter-State"
+    },
+    "exempt_nil_rated_composition_intrastate": {
+      "pattern": "5  Values of exempt, nil-rated and non-GST inward supplies[\\s\\S]{1,200}From a supplier under composition scheme, Exempt, Nil rated supply[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5 - Exempt/Nil-rated from composition scheme - Intra-State"
+    },
+    "non_gst_supply_interstate": {
+      "pattern": "5  Values of exempt, nil-rated and non-GST inward supplies[\\s\\S]{1,250}Non GST supply([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5 - Non-GST supply - Inter-State"
+    },
+    "non_gst_supply_intrastate": {
+      "pattern": "5  Values of exempt, nil-rated and non-GST inward supplies[\\s\\S]{1,250}Non GST supply[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5 - Non-GST supply - Intra-State"
+    },
+    "interest_paid_integrated_tax": {
+      "pattern": "5\\.1 Interest and Late fee for previous tax period[\\s\\S]{1,200}Interest Paid([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5.1 - Interest Paid - Integrated tax"
+    },
+    "interest_paid_central_tax": {
+      "pattern": "5\\.1 Interest and Late fee for previous tax period[\\s\\S]{1,200}Interest Paid[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5.1 - Interest Paid - Central tax"
+    },
+    "interest_paid_state_tax": {
+      "pattern": "5\\.1 Interest and Late fee for previous tax period[\\s\\S]{1,200}Interest Paid[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5.1 - Interest Paid - State/UT tax"
+    },
+    "interest_paid_cess": {
+      "pattern": "5\\.1 Interest and Late fee for previous tax period[\\s\\S]{1,200}Interest Paid[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5.1 - Interest Paid - Cess"
+    },
+    "late_fee_central_tax": {
+      "pattern": "5\\.1 Interest and Late fee for previous tax period[\\s\\S]{1,250}Late fee-([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}-",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5.1 - Late fee - Central tax"
+    },
+    "late_fee_state_tax": {
+      "pattern": "5\\.1 Interest and Late fee for previous tax period[\\s\\S]{1,250}Late fee-[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})-",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5.1 - Late fee - State/UT tax"
+    },
+    "payment_central_tax_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,200}Central\\s+tax\\s+(\\d+\\.\\d{2})\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}--",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Central tax - Tax payable"
+    },
+    "payment_central_tax_net_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,200}Central\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})\\d+\\.\\d{2}\\d+\\.\\d{2}--",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Central tax - Net tax payable"
+    },
+    "payment_central_tax_paid_itc_integrated": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,200}Central\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})\\d+\\.\\d{2}--",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Central tax - Paid through ITC (Integrated)"
+    },
+    "payment_central_tax_paid_itc_central": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,200}Central\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})--",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Central tax - Paid through ITC (Central)"
+    },
+    "payment_state_tax_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,300}State/UT\\s+tax\\s+(\\d+\\.\\d{2})\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-\\d+\\.\\d{2}-",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - State/UT tax - Tax payable"
+    },
+    "payment_state_tax_net_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,300}State/UT\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})\\d+\\.\\d{2}-\\d+\\.\\d{2}-",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - State/UT tax - Net tax payable"
+    },
+    "payment_integrated_tax_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,100}Integrated\\s+tax\\s+(\\d+\\.\\d{2})\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Integrated tax - Tax payable"
+    },
+    "payment_integrated_tax_net_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,100}Integrated\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Integrated tax - Net tax payable"
+    },
+    "payment_integrated_tax_paid_cash": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,100}Integrated\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Integrated tax - Tax paid in cash"
+    },
+    "payment_integrated_tax_interest": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,100}Integrated\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-\\d+\\.\\d{2}(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Integrated tax - Interest paid in cash"
+    },
+    "payment_central_tax_paid_cash": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,200}Central\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}--(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Central tax - Tax paid in cash"
+    },
+    "payment_central_tax_interest": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,200}Central\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}--\\d+\\.\\d{2}(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Central tax - Interest paid in cash"
+    },
+    "payment_central_tax_late_fee": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,200}Central\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}--\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Central tax - Late fee paid in cash"
+    },
+    "payment_state_tax_paid_itc_state": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,300}State/UT\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - State/UT tax - Paid through ITC (State/UT)"
+    },
+    "payment_state_tax_paid_cash": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,300}State/UT\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-\\d+\\.\\d{2}-(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - State/UT tax - Tax paid in cash"
+    },
+    "payment_state_tax_interest": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,300}State/UT\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-\\d+\\.\\d{2}-\\d+\\.\\d{2}(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - State/UT tax - Interest paid in cash"
+    },
+    "payment_state_tax_late_fee": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,300}State/UT\\s+tax\\s+\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}-\\d+\\.\\d{2}-\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - State/UT tax - Late fee paid in cash"
+    },
+    "payment_cess_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,400}Cess(\\d+\\.\\d{2})\\d+\\.\\d{2}\\d+\\.\\d{2}---",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Cess - Tax payable"
+    },
+    "payment_cess_net_payable": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,400}Cess\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})---",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Cess - Net tax payable"
+    },
+    "payment_cess_paid_cash": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,400}Cess\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}---(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Cess - Tax paid in cash"
+    },
+    "payment_cess_interest": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,400}Cess\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}---\\d+\\.\\d{2}(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Cess - Interest paid in cash"
+    },
+    "payment_cess_late_fee": {
+      "pattern": "\\(A\\) Other than reverse charge[\\s\\S]{1,400}Cess\\d+\\.\\d{2}\\d+\\.\\d{2}\\d+\\.\\d{2}---\\d+\\.\\d{2}\\d+\\.\\d{2}(\\d+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Payment - Cess - Late fee paid in cash"
+    },
+    "verification_date": {
+      "pattern": "Date: (\\d{2}/\\d{2}/\\d{4})",
+      "type": "regex",
+      "group": 1,
+      "description": "Verification date"
+    },
+    "authorized_signatory_name": {
+      "pattern": "Name of Authorized Signatory([A-Za-z\\s]+?)Designation",
+      "type": "regex",
+      "group": 1,
+      "description": "Name of authorized signatory"
+    },
+    "authorized_signatory_designation": {
+      "pattern": "Designation /Status([A-Za-z\\s]+?)(?:FILED|$)",
+      "type": "regex",
+      "group": 1,
+      "description": "Designation/Status of signatory"
+    }
+  },
+  "output_format": {
+    "sections": [
+      {
+        "name": "Basic Details",
+        "fields": [
+          "year",
+          "period",
+          "gstin",
+          "legal_name",
+          "trade_name",
+          "arn",
+          "date_of_arn"
+        ]
+      },
+      {
+        "name": "Section 3.1(a) - Outward Taxable Supplies",
+        "fields": [
+          "outward_taxable_supplies_total_value",
+          "outward_taxable_supplies_integrated_tax",
+          "outward_taxable_supplies_central_tax",
+          "outward_taxable_supplies_state_tax",
+          "outward_taxable_supplies_cess"
+        ]
+      },
+      {
+        "name": "Section 3.1(b) - Outward Zero Rated Supplies",
+        "fields": [
+          "outward_zero_rated_total_value",
+          "outward_zero_rated_integrated_tax"
+        ]
+      },
+      {
+        "name": "Section 3.1(d) - Inward Supplies (Reverse Charge)",
+        "fields": [
+          "inward_reverse_charge_total_value",
+          "inward_reverse_charge_integrated_tax",
+          "inward_reverse_charge_central_tax",
+          "inward_reverse_charge_state_tax",
+          "inward_reverse_charge_cess"
+        ]
+      },
+      {
+        "name": "Section 4.A(1) - ITC Import of Goods",
+        "fields": [
+          "itc_import_of_goods_integrated_tax",
+          "itc_import_of_goods_central_tax",
+          "itc_import_of_goods_state_tax",
+          "itc_import_of_goods_cess"
+        ]
+      },
+      {
+        "name": "Section 4.A(2) - ITC Import of Services",
+        "fields": [
+          "itc_import_of_services_integrated_tax",
+          "itc_import_of_services_central_tax",
+          "itc_import_of_services_state_tax",
+          "itc_import_of_services_cess"
+        ]
+      },
+      {
+        "name": "Section 4.A(3) - ITC Inward Supplies (Reverse Charge)",
+        "fields": [
+          "itc_inward_reverse_charge_integrated_tax",
+          "itc_inward_reverse_charge_central_tax",
+          "itc_inward_reverse_charge_state_tax",
+          "itc_inward_reverse_charge_cess"
+        ]
+      },
+      {
+        "name": "Section 4.A(4) - ITC from ISD",
+        "fields": [
+          "itc_from_isd_integrated_tax",
+          "itc_from_isd_central_tax",
+          "itc_from_isd_state_tax",
+          "itc_from_isd_cess"
+        ]
+      },
+      {
+        "name": "Section 4.A(5) - ITC All Other",
+        "fields": [
+          "itc_all_other_integrated_tax",
+          "itc_all_other_central_tax",
+          "itc_all_other_state_tax",
+          "itc_all_other_cess"
+        ]
+      },
+      {
+        "name": "Section 4.B - ITC Reversed",
+        "fields": [
+          "itc_reversed_rules_integrated_tax",
+          "itc_reversed_rules_central_tax",
+          "itc_reversed_rules_state_tax",
+          "itc_reversed_rules_cess",
+          "itc_reversed_others_integrated_tax",
+          "itc_reversed_others_central_tax",
+          "itc_reversed_others_state_tax",
+          "itc_reversed_others_cess"
+        ]
+      },
+      {
+        "name": "Section 4.C - Net ITC Available",
+        "fields": [
+          "net_itc_integrated_tax",
+          "net_itc_central_tax",
+          "net_itc_state_tax",
+          "net_itc_cess"
+        ]
+      },
+      {
+        "name": "Section 5 - Exempt/Nil-rated/Non-GST Inward Supplies",
+        "fields": [
+          "exempt_nil_rated_composition_interstate",
+          "exempt_nil_rated_composition_intrastate",
+          "non_gst_supply_interstate",
+          "non_gst_supply_intrastate"
+        ]
+      },
+      {
+        "name": "Section 5.1 - Interest and Late Fee",
+        "fields": [
+          "interest_paid_integrated_tax",
+          "interest_paid_central_tax",
+          "interest_paid_state_tax",
+          "interest_paid_cess",
+          "late_fee_central_tax",
+          "late_fee_state_tax"
+        ]
+      },
+      {
+        "name": "Section 6.1 - Payment of Tax (Integrated)",
+        "fields": [
+          "payment_integrated_tax_payable",
+          "payment_integrated_tax_net_payable",
+          "payment_integrated_tax_paid_cash",
+          "payment_integrated_tax_interest"
+        ]
+      },
+      {
+        "name": "Section 6.1 - Payment of Tax (Central)",
+        "fields": [
+          "payment_central_tax_payable",
+          "payment_central_tax_net_payable",
+          "payment_central_tax_paid_itc_integrated",
+          "payment_central_tax_paid_itc_central",
+          "payment_central_tax_paid_cash",
+          "payment_central_tax_interest",
+          "payment_central_tax_late_fee"
+        ]
+      },
+      {
+        "name": "Section 6.1 - Payment of Tax (State/UT)",
+        "fields": [
+          "payment_state_tax_payable",
+          "payment_state_tax_net_payable",
+          "payment_state_tax_paid_itc_state",
+          "payment_state_tax_paid_cash",
+          "payment_state_tax_interest",
+          "payment_state_tax_late_fee"
+        ]
+      },
+      {
+        "name": "Section 6.1 - Payment of Tax (Cess)",
+        "fields": [
+          "payment_cess_payable",
+          "payment_cess_net_payable",
+          "payment_cess_paid_cash",
+          "payment_cess_interest",
+          "payment_cess_late_fee"
+        ]
+      },
+      {
+        "name": "Verification",
+        "fields": [
+          "verification_date",
+          "authorized_signatory_name",
+          "authorized_signatory_designation"
+        ]
+      }
+    ]
+  }
+}

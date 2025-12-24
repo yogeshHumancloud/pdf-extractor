@@ -1,0 +1,613 @@
+{
+  "name": "GST GSTR-2B Auto-drafted ITC Statement Extractor",
+  "version": "1.0.0",
+  "description": "Rules to extract data from GSTR-2B Auto-drafted ITC Statement forms",
+  "rules": {
+    "financial_year": {
+      "pattern": "Financial Year(\\d{4}-\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "description": "Financial year of the statement"
+    },
+    "period": {
+      "pattern": "Period([A-Za-z]{3}-[A-Za-z]{3})",
+      "type": "regex",
+      "group": 1,
+      "description": "Period covered (e.g., Apr-Jun)"
+    },
+    "gstin": {
+      "pattern": "1\\.GSTIN([A-Z0-9]{15})",
+      "type": "regex",
+      "group": 1,
+      "description": "Goods and Services Tax Identification Number"
+    },
+    "legal_name": {
+      "pattern": "2\\(a\\)\\.Legal name of the registered person([A-Za-z\\s]+?)2\\(b\\)",
+      "type": "regex",
+      "group": 1,
+      "description": "Legal name of the registered person"
+    },
+    "trade_name": {
+      "pattern": "2\\(b\\)\\.Trade name, if any([A-Za-z0-9\\s\\-]+?)2\\(c\\)",
+      "type": "regex",
+      "group": 1,
+      "description": "Trade name if any"
+    },
+    "date_of_generation": {
+      "pattern": "2\\(c\\)\\.Date of generation(\\d{2}/\\d{2}/\\d{4})",
+      "type": "regex",
+      "group": 1,
+      "description": "Date when the statement was generated"
+    },
+    "b2b_invoices_integrated_tax": {
+      "pattern": "B2B - Invoices \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices - Integrated Tax amount"
+    },
+    "b2b_invoices_central_tax": {
+      "pattern": "B2B - Invoices \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices - Central Tax amount"
+    },
+    "b2b_invoices_state_tax": {
+      "pattern": "B2B - Invoices \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices - State/UT Tax amount"
+    },
+    "b2b_invoices_cess": {
+      "pattern": "B2B - Invoices \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices - Cess amount"
+    },
+    "all_other_itc_integrated_tax": {
+      "pattern": "All other ITC - Supplies from\\s+registered persons other than reverse\\s+charge \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "All other ITC - Integrated Tax"
+    },
+    "all_other_itc_central_tax": {
+      "pattern": "All other ITC - Supplies from\\s+registered persons other than reverse\\s+charge \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "All other ITC - Central Tax"
+    },
+    "all_other_itc_state_tax": {
+      "pattern": "All other ITC - Supplies from\\s+registered persons other than reverse\\s+charge \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "All other ITC - State/UT Tax"
+    },
+    "all_other_itc_cess": {
+      "pattern": "All other ITC - Supplies from\\s+registered persons other than reverse\\s+charge \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "All other ITC - Cess"
+    },
+    "b2b_debit_notes_integrated_tax": {
+      "pattern": "B2B - Debit Notes \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes - Integrated Tax"
+    },
+    "b2b_debit_notes_central_tax": {
+      "pattern": "B2B - Debit Notes \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes - Central Tax"
+    },
+    "b2b_debit_notes_state_tax": {
+      "pattern": "B2B - Debit Notes \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes - State/UT Tax"
+    },
+    "b2b_debit_notes_cess": {
+      "pattern": "B2B - Debit Notes \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes - Cess"
+    },
+    "b2b_credit_notes_integrated_tax": {
+      "pattern": "B2B - Credit Notes \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes - Integrated Tax"
+    },
+    "b2b_credit_notes_central_tax": {
+      "pattern": "B2B - Credit Notes \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes - Central Tax"
+    },
+    "b2b_credit_notes_state_tax": {
+      "pattern": "B2B - Credit Notes \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes - State/UT Tax"
+    },
+    "b2b_credit_notes_cess": {
+      "pattern": "B2B - Credit Notes \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes - Cess"
+    },
+    "inward_supplies_isd_integrated_tax": {
+      "pattern": "Inward Supplies from ISD[\\s\\S]*?4\\(A\\)\\(4\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward Supplies from ISD - Integrated Tax"
+    },
+    "inward_supplies_isd_central_tax": {
+      "pattern": "Inward Supplies from ISD[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward Supplies from ISD - Central Tax"
+    },
+    "inward_supplies_isd_state_tax": {
+      "pattern": "Inward Supplies from ISD[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward Supplies from ISD - State/UT Tax"
+    },
+    "inward_supplies_isd_cess": {
+      "pattern": "Inward Supplies from ISD[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inward Supplies from ISD - Cess"
+    },
+    "reverse_charge_integrated_tax": {
+      "pattern": "IIIInward Supplies liable for reverse[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\s\\S]*?([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge Supplies - Integrated Tax"
+    },
+    "reverse_charge_central_tax": {
+      "pattern": "IIIInward Supplies liable for reverse[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\s\\S]*?[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge Supplies - Central Tax"
+    },
+    "reverse_charge_state_tax": {
+      "pattern": "IIIInward Supplies liable for reverse[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\s\\S]*?[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge Supplies - State/UT Tax"
+    },
+    "reverse_charge_cess": {
+      "pattern": "IIIInward Supplies liable for reverse[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\s\\S]*?[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge Supplies - Cess"
+    },
+    "import_goods_integrated_tax": {
+      "pattern": "Import of Goods[\\s\\S]*?4\\(A\\)\\(1\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods - Integrated Tax"
+    },
+    "import_goods_central_tax": {
+      "pattern": "Import of Goods[\\s\\S]*?4\\(A\\)\\(1\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods - Central Tax"
+    },
+    "import_goods_state_tax": {
+      "pattern": "Import of Goods[\\s\\S]*?4\\(A\\)\\(1\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods - State/UT Tax"
+    },
+    "import_goods_cess": {
+      "pattern": "Import of Goods[\\s\\S]*?4\\(A\\)\\(1\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods - Cess"
+    },
+    "itc_not_available_all_other_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than reverse[\\s\\S]*?charge[\\s\\S]*?4\\(D\\)\\(2\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - All other ITC - Integrated Tax"
+    },
+    "itc_not_available_all_other_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than reverse[\\s\\S]*?charge[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - All other ITC - Central Tax"
+    },
+    "itc_not_available_all_other_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than reverse[\\s\\S]*?charge[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - All other ITC - State/UT Tax"
+    },
+    "itc_not_available_all_other_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than reverse[\\s\\S]*?charge[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - All other ITC - Cess"
+    },
+    "itc_not_available_isd_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?4\\(D\\)\\(2\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Inward Supplies from ISD - Integrated Tax"
+    },
+    "itc_not_available_isd_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Inward Supplies from ISD - Central Tax"
+    },
+    "itc_not_available_isd_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Inward Supplies from ISD - State/UT Tax"
+    },
+    "itc_not_available_isd_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Inward Supplies from ISD - Cess"
+    },
+    "itc_not_available_reverse_charge_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge - Integrated Tax"
+    },
+    "itc_not_available_reverse_charge_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge - Central Tax"
+    },
+    "itc_not_available_reverse_charge_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge - State/UT Tax"
+    },
+    "itc_not_available_reverse_charge_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge - Cess"
+    },
+    "itc_not_available_others_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?4\\(A\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Others (Credit Notes) - Integrated Tax"
+    },
+    "itc_not_available_others_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?4\\(A\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Others (Credit Notes) - Central Tax"
+    },
+    "itc_not_available_others_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?4\\(A\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Others (Credit Notes) - State/UT Tax"
+    },
+    "itc_not_available_others_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?4\\(A\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Others (Credit Notes) - Cess"
+    },
+    "itc_reversal_rule37a_integrated_tax": {
+      "pattern": "5\\. ITC Reversal Summary[\\s\\S]*?ITC Reversal on account of Rule 37A[\\s\\S]*?4\\(B\\)\\(2\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversal Rule 37A - Integrated Tax"
+    },
+    "itc_reversal_rule37a_central_tax": {
+      "pattern": "5\\. ITC Reversal Summary[\\s\\S]*?ITC Reversal on account of Rule 37A[\\s\\S]*?4\\(B\\)\\(2\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversal Rule 37A - Central Tax"
+    },
+    "itc_reversal_rule37a_state_tax": {
+      "pattern": "5\\. ITC Reversal Summary[\\s\\S]*?ITC Reversal on account of Rule 37A[\\s\\S]*?4\\(B\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversal Rule 37A - State/UT Tax"
+    },
+    "itc_reversal_rule37a_cess": {
+      "pattern": "5\\. ITC Reversal Summary[\\s\\S]*?ITC Reversal on account of Rule 37A[\\s\\S]*?4\\(B\\)\\(2\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Reversal Rule 37A - Cess"
+    },
+    "itc_rejected_all_other_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than[\\s\\S]*?reverse charge \\(IMS\\)[\\s\\S]*?NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - All other ITC - Integrated Tax"
+    },
+    "itc_rejected_all_other_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than[\\s\\S]*?reverse charge \\(IMS\\)[\\s\\S]*?NA[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - All other ITC - Central Tax"
+    },
+    "itc_rejected_all_other_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than[\\s\\S]*?reverse charge \\(IMS\\)[\\s\\S]*?NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - All other ITC - State/UT Tax"
+    },
+    "itc_rejected_all_other_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC - Supplies from[\\s\\S]*?registered persons other than[\\s\\S]*?reverse charge \\(IMS\\)[\\s\\S]*?NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - All other ITC - Cess"
+    },
+    "itc_rejected_isd_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Inward Supplies from ISD - Integrated Tax"
+    },
+    "itc_rejected_isd_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?NA[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Inward Supplies from ISD - Central Tax"
+    },
+    "itc_rejected_isd_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Inward Supplies from ISD - State/UT Tax"
+    },
+    "itc_rejected_isd_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Inward Supplies from ISD - Cess"
+    },
+    "itc_rejected_others_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Others (Credit Notes) - Integrated Tax"
+    },
+    "itc_rejected_others_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?NA[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Others (Credit Notes) - Central Tax"
+    },
+    "itc_rejected_others_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Others (Credit Notes) - State/UT Tax"
+    },
+    "itc_rejected_others_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - Others (Credit Notes) - Cess"
+    }
+  },
+  "output_format": {
+    "sections": [
+      {
+        "name": "Basic Details",
+        "fields": [
+          "financial_year",
+          "period",
+          "gstin",
+          "legal_name",
+          "trade_name",
+          "date_of_generation"
+        ]
+      },
+      {
+        "name": "ITC Available - All Other ITC (Supplies from registered persons)",
+        "fields": [
+          "all_other_itc_integrated_tax",
+          "all_other_itc_central_tax",
+          "all_other_itc_state_tax",
+          "all_other_itc_cess"
+        ]
+      },
+      {
+        "name": "B2B Invoices (IMS)",
+        "fields": [
+          "b2b_invoices_integrated_tax",
+          "b2b_invoices_central_tax",
+          "b2b_invoices_state_tax",
+          "b2b_invoices_cess"
+        ]
+      },
+      {
+        "name": "B2B Debit Notes (IMS)",
+        "fields": [
+          "b2b_debit_notes_integrated_tax",
+          "b2b_debit_notes_central_tax",
+          "b2b_debit_notes_state_tax",
+          "b2b_debit_notes_cess"
+        ]
+      },
+      {
+        "name": "B2B Credit Notes (IMS)",
+        "fields": [
+          "b2b_credit_notes_integrated_tax",
+          "b2b_credit_notes_central_tax",
+          "b2b_credit_notes_state_tax",
+          "b2b_credit_notes_cess"
+        ]
+      },
+      {
+        "name": "Inward Supplies from ISD",
+        "fields": [
+          "inward_supplies_isd_integrated_tax",
+          "inward_supplies_isd_central_tax",
+          "inward_supplies_isd_state_tax",
+          "inward_supplies_isd_cess"
+        ]
+      },
+      {
+        "name": "Reverse Charge Supplies",
+        "fields": [
+          "reverse_charge_integrated_tax",
+          "reverse_charge_central_tax",
+          "reverse_charge_state_tax",
+          "reverse_charge_cess"
+        ]
+      },
+      {
+        "name": "Import of Goods",
+        "fields": [
+          "import_goods_integrated_tax",
+          "import_goods_central_tax",
+          "import_goods_state_tax",
+          "import_goods_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - All Other ITC",
+        "fields": [
+          "itc_not_available_all_other_integrated_tax",
+          "itc_not_available_all_other_central_tax",
+          "itc_not_available_all_other_state_tax",
+          "itc_not_available_all_other_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Inward Supplies from ISD",
+        "fields": [
+          "itc_not_available_isd_integrated_tax",
+          "itc_not_available_isd_central_tax",
+          "itc_not_available_isd_state_tax",
+          "itc_not_available_isd_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Reverse Charge",
+        "fields": [
+          "itc_not_available_reverse_charge_integrated_tax",
+          "itc_not_available_reverse_charge_central_tax",
+          "itc_not_available_reverse_charge_state_tax",
+          "itc_not_available_reverse_charge_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Others (Credit Notes)",
+        "fields": [
+          "itc_not_available_others_integrated_tax",
+          "itc_not_available_others_central_tax",
+          "itc_not_available_others_state_tax",
+          "itc_not_available_others_cess"
+        ]
+      },
+      {
+        "name": "ITC Reversal - Rule 37A",
+        "fields": [
+          "itc_reversal_rule37a_integrated_tax",
+          "itc_reversal_rule37a_central_tax",
+          "itc_reversal_rule37a_state_tax",
+          "itc_reversal_rule37a_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - All Other ITC",
+        "fields": [
+          "itc_rejected_all_other_integrated_tax",
+          "itc_rejected_all_other_central_tax",
+          "itc_rejected_all_other_state_tax",
+          "itc_rejected_all_other_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Inward Supplies from ISD",
+        "fields": [
+          "itc_rejected_isd_integrated_tax",
+          "itc_rejected_isd_central_tax",
+          "itc_rejected_isd_state_tax",
+          "itc_rejected_isd_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Others (Credit Notes)",
+        "fields": [
+          "itc_rejected_others_integrated_tax",
+          "itc_rejected_others_central_tax",
+          "itc_rejected_others_state_tax",
+          "itc_rejected_others_cess"
+        ]
+      }
+    ]
+  }
+}

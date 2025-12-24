@@ -1,0 +1,1120 @@
+{
+  "metadata": {
+    "name": "GST GSTR-1 Return Extractor",
+    "version": "1.0.0",
+    "description": "Rules to extract data from GSTR-1 return forms - Details of outward supplies",
+    "created_at": "2025-12-24"
+  },
+  "rules": {
+    "financial_year": {
+      "pattern": "Financial year(\\d{4}-\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "description": "Financial year"
+    },
+    "tax_period": {
+      "pattern": "Tax period([A-Za-z]{3}-[A-Za-z]{3})",
+      "type": "regex",
+      "group": 1,
+      "description": "Tax period"
+    },
+    "gstin": {
+      "pattern": "1GSTIN([A-Z0-9]{15})",
+      "type": "regex",
+      "group": 1,
+      "description": "GSTIN"
+    },
+    "legal_name": {
+      "pattern": "2\\(a\\)Legal name of the registered person([A-Za-z\\s]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Legal name of the registered person"
+    },
+    "trade_name": {
+      "pattern": "\\(b\\)Trade name if any([A-Za-z\\s]*)",
+      "type": "regex",
+      "group": 1,
+      "description": "Trade name if any"
+    },
+    "arn": {
+      "pattern": "\\(c\\)ARN([A-Z0-9]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Application Reference Number"
+    },
+    "arn_date": {
+      "pattern": "\\(d\\)ARN date(\\d{2}/\\d{2}/\\d{4})",
+      "type": "regex",
+      "group": 1,
+      "description": "ARN date"
+    },
+    "b2b_regular_records": {
+      "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 4A - B2B Regular - Number of records"
+    },
+    "b2b_regular_value": {
+      "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4A - B2B Regular - Value"
+    },
+    "b2b_regular_integrated_tax": {
+      "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4A - B2B Regular - Integrated Tax"
+    },
+    "b2b_regular_central_tax": {
+      "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4A - B2B Regular - Central Tax"
+    },
+    "b2b_regular_state_tax": {
+      "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4A - B2B Regular - State/UT Tax"
+    },
+    "b2b_regular_cess": {
+      "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4A - B2B Regular - Cess"
+    },
+    "b2b_reverse_charge_records": {
+      "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 4B - B2B Reverse charge - Number of records"
+    },
+    "b2b_reverse_charge_value": {
+      "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4B - B2B Reverse charge - Value"
+    },
+    "b2b_reverse_charge_integrated_tax": {
+      "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4B - B2B Reverse charge - Integrated Tax"
+    },
+    "b2b_reverse_charge_central_tax": {
+      "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4B - B2B Reverse charge - Central Tax"
+    },
+    "b2b_reverse_charge_state_tax": {
+      "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4B - B2B Reverse charge - State/UT Tax"
+    },
+    "b2b_reverse_charge_cess": {
+      "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 4B - B2B Reverse charge - Cess"
+    },
+    "b2cl_records": {
+      "pattern": "5 - Taxable outward inter-state supplies made to unregistered persons[\\s\\S]{1,300}Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 5 - B2CL Large - Number of records"
+    },
+    "b2cl_value": {
+      "pattern": "5 - Taxable outward inter-state supplies made to unregistered persons[\\s\\S]{1,300}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5 - B2CL Large - Value"
+    },
+    "b2cl_integrated_tax": {
+      "pattern": "5 - Taxable outward inter-state supplies made to unregistered persons[\\s\\S]{1,300}Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5 - B2CL Large - Integrated Tax"
+    },
+    "b2cl_cess": {
+      "pattern": "5 - Taxable outward inter-state supplies made to unregistered persons[\\s\\S]{1,300}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 5 - B2CL Large - Cess"
+    },
+    "exports_total_records": {
+      "pattern": "6A – Exports \\(with/without payment\\)[\\s\\S]{1,100}Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6A - Exports - Total records"
+    },
+    "exports_total_value": {
+      "pattern": "6A – Exports \\(with/without payment\\)[\\s\\S]{1,100}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6A - Exports - Total value"
+    },
+    "exports_total_integrated_tax": {
+      "pattern": "6A – Exports \\(with/without payment\\)[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6A - Exports - Total integrated tax"
+    },
+    "exports_total_cess": {
+      "pattern": "6A – Exports \\(with/without payment\\)[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6A - Exports - Total cess"
+    },
+    "sez_total_records": {
+      "pattern": "6B - Supplies made to SEZ unit or SEZ developer[\\s\\S]{1,100}Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6B - SEZ - Total records"
+    },
+    "sez_total_value": {
+      "pattern": "6B - Supplies made to SEZ unit or SEZ developer[\\s\\S]{1,100}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6B - SEZ - Total value"
+    },
+    "sez_total_integrated_tax": {
+      "pattern": "6B - Supplies made to SEZ unit or SEZ developer[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6B - SEZ - Total integrated tax"
+    },
+    "sez_total_cess": {
+      "pattern": "6B - Supplies made to SEZ unit or SEZ developer[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6B - SEZ - Total cess"
+    },
+    "deemed_exports_records": {
+      "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6C - Deemed Exports - Number of records"
+    },
+    "deemed_exports_value": {
+      "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6C - Deemed Exports - Value"
+    },
+    "deemed_exports_integrated_tax": {
+      "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6C - Deemed Exports - Integrated Tax"
+    },
+    "deemed_exports_central_tax": {
+      "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6C - Deemed Exports - Central Tax"
+    },
+    "deemed_exports_state_tax": {
+      "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6C - Deemed Exports - State/UT Tax"
+    },
+    "deemed_exports_cess": {
+      "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6C - Deemed Exports - Cess"
+    },
+    "b2cs_records": {
+      "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 7 - B2CS Others - Number of records"
+    },
+    "b2cs_value": {
+      "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 7 - B2CS Others - Value"
+    },
+    "b2cs_integrated_tax": {
+      "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 7 - B2CS Others - Integrated Tax"
+    },
+    "b2cs_central_tax": {
+      "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 7 - B2CS Others - Central Tax"
+    },
+    "b2cs_state_tax": {
+      "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 7 - B2CS Others - State/UT Tax"
+    },
+    "b2cs_cess": {
+      "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 7 - B2CS Others - Cess"
+    },
+    "nil_rated_total": {
+      "pattern": "8 - Nil rated, exempted and non GST outward supplies[\\s\\S]{1,100}Total([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 8 - Nil rated, exempted and non-GST - Total"
+    },
+    "nil_rated_nil": {
+      "pattern": "8 - Nil rated, exempted and non GST outward supplies[\\s\\S]{1,150}-  Nil([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 8 - Nil rated"
+    },
+    "nil_rated_exempted": {
+      "pattern": "8 - Nil rated, exempted and non GST outward supplies[\\s\\S]{1,200}-  Exempted([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 8 - Exempted"
+    },
+    "nil_rated_non_gst": {
+      "pattern": "8 - Nil rated, exempted and non GST outward supplies[\\s\\S]{1,250}-  Non-GST([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 8 - Non-GST"
+    },
+    "amendment_b2b_regular_amended_value": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Amended value"
+    },
+    "amendment_b2b_regular_differential_value": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Net differential value"
+    },
+    "amendment_b2b_reverse_amended_value": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Amended value"
+    },
+    "amendment_b2b_reverse_differential_value": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Net differential value"
+    },
+    "amendment_b2cl_amended_value": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2CL - Amended value"
+    },
+    "amendment_b2cl_differential_value": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2CL - Net differential value"
+    },
+    "amendment_exports_amended_value": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports - Amended value"
+    },
+    "amendment_exports_differential_value": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\) - Total([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports - Net differential value"
+    },
+    "amendment_sez_amended_value": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,300}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ - Amended value"
+    },
+    "amendment_sez_differential_value": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\) - Total([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ - Net differential value"
+    },
+    "amendment_deemed_exports_amended_value": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Amended value"
+    },
+    "amendment_deemed_exports_differential_value": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Net differential value"
+    },
+    "cdnra_amended_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Amended value"
+    },
+    "cdnra_differential_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,600}Total[\\s\\S]{1,100}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,200}Amended Credit / Debit notes issued to registered person",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Net differential value"
+    },
+    "cdnura_amended_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,200}Amended amount - Total\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - Amended value"
+    },
+    "cdnura_differential_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}Total[\\s\\S]{1,100}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,100}Unregistered Type",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - Net differential value"
+    },
+    "hsn_summary_records": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total(\\d+)NA",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 12 - HSN Summary - Number of records"
+    },
+    "hsn_summary_total_value": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total\\d+NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - Total value"
+    },
+    "hsn_summary_total_integrated_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total\\d+NA[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - Total integrated tax"
+    },
+    "hsn_summary_total_central_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - Total central tax"
+    },
+    "hsn_summary_total_state_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - Total state/UT tax"
+    },
+    "hsn_summary_total_cess": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - Total cess"
+    },
+    "hsn_summary_b2b_value": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total\\d+NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2B Total value"
+    },
+    "hsn_summary_b2b_integrated_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total\\d+NA[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2B Total integrated tax"
+    },
+    "hsn_summary_b2b_central_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2B Total central tax"
+    },
+    "hsn_summary_b2b_state_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2B Total state/UT tax"
+    },
+    "hsn_summary_b2b_cess": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2B Total cess"
+    },
+    "hsn_summary_b2c_value": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total\\d+NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2C Total value"
+    },
+    "hsn_summary_b2c_integrated_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total\\d+NA[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2C Total integrated tax"
+    },
+    "hsn_summary_b2c_central_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2C Total central tax"
+    },
+    "hsn_summary_b2c_state_tax": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2C Total state/UT tax"
+    },
+    "hsn_summary_b2c_cess": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total\\d+NA[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 12 - HSN Summary - B2C Total cess"
+    },
+    "cdnr_total_records": {
+      "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - Total records"
+    },
+    "cdnr_total_value": {
+      "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - Total value"
+    },
+    "cdnr_total_integrated_tax": {
+      "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - Total integrated tax"
+    },
+    "cdnr_total_central_tax": {
+      "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - Total central tax"
+    },
+    "cdnr_total_state_tax": {
+      "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - Total state/UT tax"
+    },
+    "cdnr_total_cess": {
+      "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - Total cess"
+    },
+    "cdnur_total_records": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\) – CDNUR[\\s\\S]{1,200}Total - Net off debit/credit notes[\\s\\S]{1,50}(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - Total records"
+    },
+    "cdnur_total_value": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\) – CDNUR[\\s\\S]{1,200}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - Total value"
+    },
+    "cdnur_total_integrated_tax": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\) – CDNUR[\\s\\S]{1,200}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - Total integrated tax"
+    },
+    "cdnur_total_cess": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\) – CDNUR[\\s\\S]{1,200}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - Total cess"
+    },
+    "amendment_b2c_amended_records": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 10 - Amendment to B2C - Amended records"
+    },
+    "amendment_b2c_amended_value": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Amended value"
+    },
+    "amendment_b2c_amended_integrated_tax": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Amended integrated tax"
+    },
+    "amendment_b2c_amended_central_tax": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Amended central tax"
+    },
+    "amendment_b2c_amended_state_tax": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Amended state/UT tax"
+    },
+    "amendment_b2c_amended_cess": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Amended cess"
+    },
+    "amendment_b2c_differential_value": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Net differential value"
+    },
+    "amendment_b2c_differential_integrated_tax": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Net differential integrated tax"
+    },
+    "amendment_b2c_differential_central_tax": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Net differential central tax"
+    },
+    "amendment_b2c_differential_state_tax": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Net differential state/UT tax"
+    },
+    "amendment_b2c_differential_cess": {
+      "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 10 - Amendment to B2C - Net differential cess"
+    },
+    "advances_received_records": {
+      "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11A - Advances received - Number of records"
+    },
+    "advances_received_value": {
+      "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Advances received - Value"
+    },
+    "advances_received_integrated_tax": {
+      "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Advances received - Integrated tax"
+    },
+    "advances_received_central_tax": {
+      "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Advances received - Central tax"
+    },
+    "advances_received_state_tax": {
+      "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Advances received - State/UT tax"
+    },
+    "advances_received_cess": {
+      "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Advances received - Cess"
+    },
+    "advances_adjusted_records": {
+      "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11B - Advances adjusted - Number of records"
+    },
+    "advances_adjusted_value": {
+      "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Advances adjusted - Value"
+    },
+    "advances_adjusted_integrated_tax": {
+      "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Advances adjusted - Integrated tax"
+    },
+    "advances_adjusted_central_tax": {
+      "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Advances adjusted - Central tax"
+    },
+    "advances_adjusted_state_tax": {
+      "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Advances adjusted - State/UT tax"
+    },
+    "advances_adjusted_cess": {
+      "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Advances adjusted - Cess"
+    },
+    "ecommerce_total_records": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14 - E-Commerce - Total records"
+    },
+    "ecommerce_total_value": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Total value"
+    },
+    "ecommerce_total_integrated_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Total integrated tax"
+    },
+    "ecommerce_total_central_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Total central tax"
+    },
+    "ecommerce_total_state_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Total state/UT tax"
+    },
+    "ecommerce_total_cess": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Total cess"
+    },
+    "documents_issued": {
+      "pattern": "13 - Documents issued[\\s\\S]{1,100}Net issued documents(\\d+)All Documents",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 13 - Net issued documents"
+    },
+    "total_liability_value": {
+      "pattern": "Total Liability \\(Outward supplies other than Reverse charge\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total Liability - Value"
+    },
+    "total_liability_integrated_tax": {
+      "pattern": "Total Liability \\(Outward supplies other than Reverse charge\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total Liability - Integrated Tax"
+    },
+    "total_liability_central_tax": {
+      "pattern": "Total Liability \\(Outward supplies other than Reverse charge\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total Liability - Central Tax"
+    },
+    "total_liability_state_tax": {
+      "pattern": "Total Liability \\(Outward supplies other than Reverse charge\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total Liability - State/UT Tax"
+    },
+    "total_liability_cess": {
+      "pattern": "Total Liability \\(Outward supplies other than Reverse charge\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Total Liability - Cess"
+    },
+    "verification_date": {
+      "pattern": "Date: (\\d{2}/\\d{2}/\\d{4})",
+      "type": "regex",
+      "group": 1,
+      "description": "Verification date"
+    },
+    "authorized_signatory_name": {
+      "pattern": "Name of Authorized Signatory\\s*([A-Za-z\\s]+)\\s*Designation/Status",
+      "type": "regex",
+      "group": 1,
+      "description": "Name of authorized signatory"
+    },
+    "authorized_signatory_designation": {
+      "pattern": "Designation/Status: ([A-Za-z\\s]+)",
+      "type": "regex",
+      "group": 1,
+      "description": "Designation/Status of signatory"
+    }
+  },
+  "output_format": {
+    "sections": [
+      {
+        "name": "Basic Details",
+        "fields": [
+          "financial_year",
+          "tax_period",
+          "gstin",
+          "legal_name",
+          "trade_name",
+          "arn",
+          "arn_date"
+        ]
+      },
+      {
+        "name": "Section 4A - B2B Regular",
+        "fields": [
+          "b2b_regular_records",
+          "b2b_regular_value",
+          "b2b_regular_integrated_tax",
+          "b2b_regular_central_tax",
+          "b2b_regular_state_tax",
+          "b2b_regular_cess"
+        ]
+      },
+      {
+        "name": "Section 4B - B2B Reverse Charge",
+        "fields": [
+          "b2b_reverse_charge_records",
+          "b2b_reverse_charge_value",
+          "b2b_reverse_charge_integrated_tax",
+          "b2b_reverse_charge_central_tax",
+          "b2b_reverse_charge_state_tax",
+          "b2b_reverse_charge_cess"
+        ]
+      },
+      {
+        "name": "Section 5 - B2CL (Large)",
+        "fields": [
+          "b2cl_records",
+          "b2cl_value",
+          "b2cl_integrated_tax",
+          "b2cl_cess"
+        ]
+      },
+      {
+        "name": "Section 6A - Exports",
+        "fields": [
+          "exports_total_records",
+          "exports_total_value",
+          "exports_total_integrated_tax",
+          "exports_total_cess"
+        ]
+      },
+      {
+        "name": "Section 6B - SEZ",
+        "fields": [
+          "sez_total_records",
+          "sez_total_value",
+          "sez_total_integrated_tax",
+          "sez_total_cess"
+        ]
+      },
+      {
+        "name": "Section 6C - Deemed Exports",
+        "fields": [
+          "deemed_exports_records",
+          "deemed_exports_value",
+          "deemed_exports_integrated_tax",
+          "deemed_exports_central_tax",
+          "deemed_exports_state_tax",
+          "deemed_exports_cess"
+        ]
+      },
+      {
+        "name": "Section 7 - B2CS (Others)",
+        "fields": [
+          "b2cs_records",
+          "b2cs_value",
+          "b2cs_integrated_tax",
+          "b2cs_central_tax",
+          "b2cs_state_tax",
+          "b2cs_cess"
+        ]
+      },
+      {
+        "name": "Section 8 - Nil Rated/Exempted/Non-GST",
+        "fields": [
+          "nil_rated_total",
+          "nil_rated_nil",
+          "nil_rated_exempted",
+          "nil_rated_non_gst"
+        ]
+      },
+      {
+        "name": "Section 9A - Amendments",
+        "fields": [
+          "amendment_b2b_regular_amended_value",
+          "amendment_b2b_regular_differential_value",
+          "amendment_b2b_reverse_amended_value",
+          "amendment_b2b_reverse_differential_value",
+          "amendment_b2cl_amended_value",
+          "amendment_b2cl_differential_value",
+          "amendment_exports_amended_value",
+          "amendment_exports_differential_value",
+          "amendment_sez_amended_value",
+          "amendment_sez_differential_value",
+          "amendment_deemed_exports_amended_value",
+          "amendment_deemed_exports_differential_value"
+        ]
+      },
+      {
+        "name": "Section 9C - Amended Credit/Debit Notes",
+        "fields": [
+          "cdnra_amended_value",
+          "cdnra_differential_value",
+          "cdnura_amended_value",
+          "cdnura_differential_value"
+        ]
+      },
+      {
+        "name": "Section 12 - HSN Summary (Total)",
+        "fields": [
+          "hsn_summary_records",
+          "hsn_summary_total_value",
+          "hsn_summary_total_integrated_tax",
+          "hsn_summary_total_central_tax",
+          "hsn_summary_total_state_tax",
+          "hsn_summary_total_cess"
+        ]
+      },
+      {
+        "name": "Section 12 - HSN Summary (B2B)",
+        "fields": [
+          "hsn_summary_b2b_value",
+          "hsn_summary_b2b_integrated_tax",
+          "hsn_summary_b2b_central_tax",
+          "hsn_summary_b2b_state_tax",
+          "hsn_summary_b2b_cess"
+        ]
+      },
+      {
+        "name": "Section 12 - HSN Summary (B2C)",
+        "fields": [
+          "hsn_summary_b2c_value",
+          "hsn_summary_b2c_integrated_tax",
+          "hsn_summary_b2c_central_tax",
+          "hsn_summary_b2c_state_tax",
+          "hsn_summary_b2c_cess"
+        ]
+      },
+      {
+        "name": "Section 9B - Credit/Debit Notes (Registered)",
+        "fields": [
+          "cdnr_total_records",
+          "cdnr_total_value",
+          "cdnr_total_integrated_tax",
+          "cdnr_total_central_tax",
+          "cdnr_total_state_tax",
+          "cdnr_total_cess"
+        ]
+      },
+      {
+        "name": "Section 9B - Credit/Debit Notes (Unregistered)",
+        "fields": [
+          "cdnur_total_records",
+          "cdnur_total_value",
+          "cdnur_total_integrated_tax",
+          "cdnur_total_cess"
+        ]
+      },
+      {
+        "name": "Section 10 - Amendment to B2C (Others)",
+        "fields": [
+          "amendment_b2c_amended_records",
+          "amendment_b2c_amended_value",
+          "amendment_b2c_amended_integrated_tax",
+          "amendment_b2c_amended_central_tax",
+          "amendment_b2c_amended_state_tax",
+          "amendment_b2c_amended_cess",
+          "amendment_b2c_differential_value",
+          "amendment_b2c_differential_integrated_tax",
+          "amendment_b2c_differential_central_tax",
+          "amendment_b2c_differential_state_tax",
+          "amendment_b2c_differential_cess"
+        ]
+      },
+      {
+        "name": "Section 11A - Advances Received",
+        "fields": [
+          "advances_received_records",
+          "advances_received_value",
+          "advances_received_integrated_tax",
+          "advances_received_central_tax",
+          "advances_received_state_tax",
+          "advances_received_cess"
+        ]
+      },
+      {
+        "name": "Section 11B - Advances Adjusted",
+        "fields": [
+          "advances_adjusted_records",
+          "advances_adjusted_value",
+          "advances_adjusted_integrated_tax",
+          "advances_adjusted_central_tax",
+          "advances_adjusted_state_tax",
+          "advances_adjusted_cess"
+        ]
+      },
+      {
+        "name": "Section 14 - E-Commerce",
+        "fields": [
+          "ecommerce_total_records",
+          "ecommerce_total_value",
+          "ecommerce_total_integrated_tax",
+          "ecommerce_total_central_tax",
+          "ecommerce_total_state_tax",
+          "ecommerce_total_cess"
+        ]
+      },
+      {
+        "name": "Section 13 - Documents Issued",
+        "fields": [
+          "documents_issued"
+        ]
+      },
+      {
+        "name": "Total Liability",
+        "fields": [
+          "total_liability_value",
+          "total_liability_integrated_tax",
+          "total_liability_central_tax",
+          "total_liability_state_tax",
+          "total_liability_cess"
+        ]
+      },
+      {
+        "name": "Verification",
+        "fields": [
+          "verification_date",
+          "authorized_signatory_name",
+          "authorized_signatory_designation"
+        ]
+      }
+    ]
+  }
+}
