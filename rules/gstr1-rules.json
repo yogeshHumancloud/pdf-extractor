@@ -25,13 +25,13 @@
       "description": "GSTIN"
     },
     "legal_name": {
-      "pattern": "2\\(a\\)Legal name of the registered person([A-Za-z\\s]+)",
+      "pattern": "Legal name of the registered person([A-Za-z\\s]+?)\\(b\\)",
       "type": "regex",
       "group": 1,
       "description": "Legal name of the registered person"
     },
     "trade_name": {
-      "pattern": "\\(b\\)Trade name if any([A-Za-z\\s]*)",
+      "pattern": "\\(b\\)Trade name if any\\s*([A-Za-z\\s]*?)\\(c\\)",
       "type": "regex",
       "group": 1,
       "description": "Trade name if any"
@@ -53,6 +53,12 @@
       "type": "regex",
       "group": 1,
       "description": "Section 4A - B2B Regular - Number of records"
+    },
+    "b2b_regular_document_type": {
+      "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 4A - B2B Regular - Document Type"
     },
     "b2b_regular_value": {
       "pattern": "4A - Taxable outward supplies made to registered persons[\\s\\S]{1,200}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -95,6 +101,12 @@
       "group": 1,
       "description": "Section 4B - B2B Reverse charge - Number of records"
     },
+    "b2b_reverse_charge_document_type": {
+      "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 4B - B2B Reverse charge - Document Type"
+    },
     "b2b_reverse_charge_value": {
       "pattern": "4B - Taxable outward supplies made to registered persons attracting tax on reverse charge[\\s\\S]{1,200}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -136,6 +148,12 @@
       "group": 1,
       "description": "Section 5 - B2CL Large - Number of records"
     },
+    "b2cl_document_type": {
+      "pattern": "5 - Taxable outward inter-state supplies made to unregistered persons[\\s\\S]{1,300}Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 5 - B2CL Large - Document Type"
+    },
     "b2cl_value": {
       "pattern": "5 - Taxable outward inter-state supplies made to unregistered persons[\\s\\S]{1,300}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -163,6 +181,12 @@
       "group": 1,
       "description": "Section 6A - Exports - Total records"
     },
+    "exports_document_type": {
+      "pattern": "6A – Exports \\(with/without payment\\)[\\s\\S]{1,100}Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6A - Exports - Document Type"
+    },
     "exports_total_value": {
       "pattern": "6A – Exports \\(with/without payment\\)[\\s\\S]{1,100}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -184,11 +208,69 @@
       "transform": "number",
       "description": "Section 6A - Exports - Total cess"
     },
+    "exports_expwp_records": {
+      "pattern": "-  EXPWP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6A - EXPWP - Number of records"
+    },
+    "exports_expwp_document_type": {
+      "pattern": "-  EXPWP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6A - EXPWP - Document Type"
+    },
+    "exports_expwp_value": {
+      "pattern": "-  EXPWP\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6A - EXPWP - Value"
+    },
+    "exports_expwp_integrated_tax": {
+      "pattern": "-  EXPWP\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6A - EXPWP - Integrated Tax"
+    },
+    "exports_expwp_cess": {
+      "pattern": "-  EXPWP\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6A - EXPWP - Cess"
+    },
+    "exports_expwop_records": {
+      "pattern": "-  EXPWOP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6A - EXPWOP - Number of records"
+    },
+    "exports_expwop_document_type": {
+      "pattern": "-  EXPWOP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6A - EXPWOP - Document Type"
+    },
+    "exports_expwop_value": {
+      "pattern": "-  EXPWOP\\d+Invoice([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6A - EXPWOP - Value"
+    },
     "sez_total_records": {
       "pattern": "6B - Supplies made to SEZ unit or SEZ developer[\\s\\S]{1,100}Total(\\d+)Invoice",
       "type": "regex",
       "group": 1,
       "description": "Section 6B - SEZ - Total records"
+    },
+    "sez_document_type": {
+      "pattern": "6B - Supplies made to SEZ unit or SEZ developer[\\s\\S]{1,100}Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6B - SEZ - Document Type"
     },
     "sez_total_value": {
       "pattern": "6B - Supplies made to SEZ unit or SEZ developer[\\s\\S]{1,100}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -211,11 +293,69 @@
       "transform": "number",
       "description": "Section 6B - SEZ - Total cess"
     },
+    "sez_sezwp_records": {
+      "pattern": "-  SEZWP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6B - SEZWP - Number of records"
+    },
+    "sez_sezwp_document_type": {
+      "pattern": "-  SEZWP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6B - SEZWP - Document Type"
+    },
+    "sez_sezwp_value": {
+      "pattern": "-  SEZWP\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6B - SEZWP - Value"
+    },
+    "sez_sezwp_integrated_tax": {
+      "pattern": "-  SEZWP\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6B - SEZWP - Integrated Tax"
+    },
+    "sez_sezwp_cess": {
+      "pattern": "-  SEZWP\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6B - SEZWP - Cess"
+    },
+    "sez_sezwop_records": {
+      "pattern": "-  SEZWOP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6B - SEZWOP - Number of records"
+    },
+    "sez_sezwop_document_type": {
+      "pattern": "-  SEZWOP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6B - SEZWOP - Document Type"
+    },
+    "sez_sezwop_value": {
+      "pattern": "-  SEZWOP\\d+Invoice([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 6B - SEZWOP - Value"
+    },
     "deemed_exports_records": {
       "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total(\\d+)Invoice",
       "type": "regex",
       "group": 1,
       "description": "Section 6C - Deemed Exports - Number of records"
+    },
+    "deemed_exports_document_type": {
+      "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 6C - Deemed Exports - Document Type"
     },
     "deemed_exports_value": {
       "pattern": "6C - Deemed Exports[\\s\\S]{1,100}Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -257,6 +397,12 @@
       "type": "regex",
       "group": 1,
       "description": "Section 7 - B2CS Others - Number of records"
+    },
+    "b2cs_document_type": {
+      "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 7 - B2CS Others - Document Type"
     },
     "b2cs_value": {
       "pattern": "7- Taxable supplies \\(Net of debit and credit notes\\) to unregistered persons[\\s\\S]{1,400}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -321,12 +467,52 @@
       "transform": "number",
       "description": "Section 8 - Non-GST"
     },
+    "amendment_b2b_regular_amended_records": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment B2B Regular - Amended records"
+    },
+    "amendment_b2b_regular_amended_document_type": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment B2B Regular - Amended document type"
+    },
     "amendment_b2b_regular_amended_value": {
       "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9A - Amendment B2B Regular - Amended value"
+    },
+    "amendment_b2b_regular_amended_integrated_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Amended integrated tax"
+    },
+    "amendment_b2b_regular_amended_central_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Amended central tax"
+    },
+    "amendment_b2b_regular_amended_state_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Amended state/UT tax"
+    },
+    "amendment_b2b_regular_amended_cess": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Amended cess"
     },
     "amendment_b2b_regular_differential_value": {
       "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -335,12 +521,80 @@
       "transform": "number",
       "description": "Section 9A - Amendment B2B Regular - Net differential value"
     },
+    "amendment_b2b_regular_differential_integrated_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Net differential integrated tax"
+    },
+    "amendment_b2b_regular_differential_central_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Net differential central tax"
+    },
+    "amendment_b2b_regular_differential_state_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Net differential state/UT tax"
+    },
+    "amendment_b2b_regular_differential_cess": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Regular[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Regular - Net differential cess"
+    },
+    "amendment_b2b_reverse_amended_records": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment B2B Reverse - Amended records"
+    },
+    "amendment_b2b_reverse_amended_document_type": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment B2B Reverse - Amended document type"
+    },
     "amendment_b2b_reverse_amended_value": {
       "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9A - Amendment B2B Reverse - Amended value"
+    },
+    "amendment_b2b_reverse_amended_integrated_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Amended integrated tax"
+    },
+    "amendment_b2b_reverse_amended_central_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Amended central tax"
+    },
+    "amendment_b2b_reverse_amended_state_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Amended state/UT tax"
+    },
+    "amendment_b2b_reverse_amended_cess": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Amended cess"
     },
     "amendment_b2b_reverse_differential_value": {
       "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -349,12 +603,66 @@
       "transform": "number",
       "description": "Section 9A - Amendment B2B Reverse - Net differential value"
     },
+    "amendment_b2b_reverse_differential_integrated_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Net differential integrated tax"
+    },
+    "amendment_b2b_reverse_differential_central_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Net differential central tax"
+    },
+    "amendment_b2b_reverse_differential_state_tax": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Net differential state/UT tax"
+    },
+    "amendment_b2b_reverse_differential_cess": {
+      "pattern": "9A - Amendment to taxable outward supplies made to registered person in returns of earlier tax periods in table 4 - B2B Reverse charge[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2B Reverse - Net differential cess"
+    },
+    "amendment_b2cl_amended_records": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment B2CL - Amended records"
+    },
+    "amendment_b2cl_amended_document_type": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment B2CL - Amended document type"
+    },
     "amendment_b2cl_amended_value": {
       "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9A - Amendment B2CL - Amended value"
+    },
+    "amendment_b2cl_amended_integrated_tax": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2CL - Amended integrated tax"
+    },
+    "amendment_b2cl_amended_cess": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2CL - Amended cess"
     },
     "amendment_b2cl_differential_value": {
       "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -363,12 +671,52 @@
       "transform": "number",
       "description": "Section 9A - Amendment B2CL - Net differential value"
     },
+    "amendment_b2cl_differential_integrated_tax": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2CL - Net differential integrated tax"
+    },
+    "amendment_b2cl_differential_cess": {
+      "pattern": "9A - Amendment to Inter-State supplies made to unregistered person[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment B2CL - Net differential cess"
+    },
+    "amendment_exports_amended_records": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,200}Amended amount - Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Exports - Amended records"
+    },
+    "amendment_exports_amended_document_type": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,200}Amended amount - Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Exports - Amended document type"
+    },
     "amendment_exports_amended_value": {
       "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9A - Amendment Exports - Amended value"
+    },
+    "amendment_exports_amended_integrated_tax": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports - Amended integrated tax"
+    },
+    "amendment_exports_amended_cess": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports - Amended cess"
     },
     "amendment_exports_differential_value": {
       "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\) - Total([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -377,12 +725,104 @@
       "transform": "number",
       "description": "Section 9A - Amendment Exports - Net differential value"
     },
+    "amendment_exports_differential_integrated_tax": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\) - Total[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports - Net differential integrated tax"
+    },
+    "amendment_exports_differential_cess": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\) - Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports - Net differential cess"
+    },
+    "amendment_exports_expwp_records": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,350}-  EXPWP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Exports EXPWP - Number of records"
+    },
+    "amendment_exports_expwp_document_type": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,350}-  EXPWP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Exports EXPWP - Document Type"
+    },
+    "amendment_exports_expwp_value": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,350}-  EXPWP\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports EXPWP - Value"
+    },
+    "amendment_exports_expwp_integrated_tax": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,350}-  EXPWP\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports EXPWP - Integrated Tax"
+    },
+    "amendment_exports_expwp_cess": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,350}-  EXPWP\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports EXPWP - Cess"
+    },
+    "amendment_exports_expwop_records": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,400}-  EXPWOP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Exports EXPWOP - Number of records"
+    },
+    "amendment_exports_expwop_document_type": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,400}-  EXPWOP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Exports EXPWOP - Document Type"
+    },
+    "amendment_exports_expwop_value": {
+      "pattern": "9A - Amendment to Export supplies in returns of earlier tax periods in table 6A[\\s\\S]{1,400}-  EXPWOP\\d+Invoice([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Exports EXPWOP - Value"
+    },
+    "amendment_sez_amended_records": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,300}Amended amount - Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment SEZ - Amended records"
+    },
+    "amendment_sez_amended_document_type": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,300}Amended amount - Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment SEZ - Amended document type"
+    },
     "amendment_sez_amended_value": {
       "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,300}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9A - Amendment SEZ - Amended value"
+    },
+    "amendment_sez_amended_integrated_tax": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,300}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ - Amended integrated tax"
+    },
+    "amendment_sez_amended_cess": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,300}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ - Amended cess"
     },
     "amendment_sez_differential_value": {
       "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\) - Total([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -391,12 +831,118 @@
       "transform": "number",
       "description": "Section 9A - Amendment SEZ - Net differential value"
     },
+    "amendment_sez_differential_integrated_tax": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\) - Total[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ - Net differential integrated tax"
+    },
+    "amendment_sez_differential_cess": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,400}Net differential amount \\(Amended - Original\\) - Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ - Net differential cess"
+    },
+    "amendment_sez_sezwp_records": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,450}-  SEZWP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment SEZ SEZWP - Number of records"
+    },
+    "amendment_sez_sezwp_document_type": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,450}-  SEZWP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment SEZ SEZWP - Document Type"
+    },
+    "amendment_sez_sezwp_value": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,450}-  SEZWP\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ SEZWP - Value"
+    },
+    "amendment_sez_sezwp_integrated_tax": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,450}-  SEZWP\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ SEZWP - Integrated Tax"
+    },
+    "amendment_sez_sezwp_cess": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,450}-  SEZWP\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ SEZWP - Cess"
+    },
+    "amendment_sez_sezwop_records": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,500}-  SEZWOP(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment SEZ SEZWOP - Number of records"
+    },
+    "amendment_sez_sezwop_document_type": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,500}-  SEZWOP\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment SEZ SEZWOP - Document Type"
+    },
+    "amendment_sez_sezwop_value": {
+      "pattern": "9A - Amendment to supplies made to SEZ units or SEZ developers[\\s\\S]{1,500}-  SEZWOP\\d+Invoice([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment SEZ SEZWOP - Value"
+    },
+    "amendment_deemed_exports_amended_records": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total(\\d+)Invoice",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Deemed Exports - Amended records"
+    },
+    "amendment_deemed_exports_amended_document_type": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total\\d+(Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9A - Amendment Deemed Exports - Amended document type"
+    },
     "amendment_deemed_exports_amended_value": {
       "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total\\d+Invoice([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9A - Amendment Deemed Exports - Amended value"
+    },
+    "amendment_deemed_exports_amended_integrated_tax": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Amended integrated tax"
+    },
+    "amendment_deemed_exports_amended_central_tax": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Amended central tax"
+    },
+    "amendment_deemed_exports_amended_state_tax": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Amended state/UT tax"
+    },
+    "amendment_deemed_exports_amended_cess": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,200}Amended amount - Total\\d+Invoice[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Amended cess"
     },
     "amendment_deemed_exports_differential_value": {
       "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -405,12 +951,80 @@
       "transform": "number",
       "description": "Section 9A - Amendment Deemed Exports - Net differential value"
     },
+    "amendment_deemed_exports_differential_integrated_tax": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Net differential integrated tax"
+    },
+    "amendment_deemed_exports_differential_central_tax": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Net differential central tax"
+    },
+    "amendment_deemed_exports_differential_state_tax": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Net differential state/UT tax"
+    },
+    "amendment_deemed_exports_differential_cess": {
+      "pattern": "9A - Amendment to Deemed Exports in returns of earlier tax periods in table 6C[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9A - Amendment Deemed Exports - Net differential cess"
+    },
+    "cdnra_amended_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - Amended amount - Number of records"
+    },
+    "cdnra_amended_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - Amended amount - Document Type"
+    },
     "cdnra_amended_value": {
       "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9C - CDNRA - Amended value"
+    },
+    "cdnra_amended_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Amended integrated tax"
+    },
+    "cdnra_amended_central_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Amended central tax"
+    },
+    "cdnra_amended_state_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Amended state/UT tax"
+    },
+    "cdnra_amended_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,300}Amended amount - Total\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Amended cess"
     },
     "cdnra_differential_value": {
       "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,600}Total[\\s\\S]{1,100}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,200}Amended Credit / Debit notes issued to registered person",
@@ -419,12 +1033,240 @@
       "transform": "number",
       "description": "Section 9C - CDNRA - Net differential value"
     },
+    "cdnra_differential_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,600}Total[\\s\\S]{1,100}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,200}Amended Credit / Debit notes issued to registered person",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Net differential integrated tax"
+    },
+    "cdnra_differential_central_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,600}Total[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,200}Amended Credit / Debit notes issued to registered person",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Net differential central tax"
+    },
+    "cdnra_differential_state_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,600}Total[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\s\\S]{1,200}Amended Credit / Debit notes issued to registered person",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Net differential state/UT tax"
+    },
+    "cdnra_differential_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,600}Total[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\s\\S]{1,200}Amended Credit / Debit notes issued to registered person",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - Net differential cess"
+    },
+    "cdnra_b2b_regular_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,800}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Regular[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - B2B Regular - Number of records"
+    },
+    "cdnra_b2b_regular_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,800}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Regular[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - B2B Regular - Document Type"
+    },
+    "cdnra_b2b_regular_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,800}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Regular[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Regular - Value"
+    },
+    "cdnra_b2b_regular_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,800}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Regular[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Regular - Integrated Tax"
+    },
+    "cdnra_b2b_regular_central_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,800}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Regular[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Regular - Central Tax"
+    },
+    "cdnra_b2b_regular_state_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,800}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Regular[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Regular - State/UT Tax"
+    },
+    "cdnra_b2b_regular_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,800}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Regular[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Regular - Cess"
+    },
+    "cdnra_b2b_reverse_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1200}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Reverse charge[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - B2B Reverse charge - Number of records"
+    },
+    "cdnra_b2b_reverse_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1200}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Reverse charge[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - B2B Reverse charge - Document Type"
+    },
+    "cdnra_b2b_reverse_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1200}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Reverse charge[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Reverse charge - Value"
+    },
+    "cdnra_b2b_reverse_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1200}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Reverse charge[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Reverse charge - Integrated Tax"
+    },
+    "cdnra_b2b_reverse_central_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1200}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Reverse charge[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Reverse charge - Central Tax"
+    },
+    "cdnra_b2b_reverse_state_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1200}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Reverse charge[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Reverse charge - State/UT Tax"
+    },
+    "cdnra_b2b_reverse_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1200}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 4 other than table 6 - B2B Reverse charge[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - B2B Reverse charge - Cess"
+    },
+    "cdnra_sezwp_sezwop_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1500}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6B - SEZWP/SEZWOP[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - SEZWP/SEZWOP - Number of records"
+    },
+    "cdnra_sezwp_sezwop_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1500}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6B - SEZWP/SEZWOP[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - SEZWP/SEZWOP - Document Type"
+    },
+    "cdnra_sezwp_sezwop_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1500}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6B - SEZWP/SEZWOP[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - SEZWP/SEZWOP - Value"
+    },
+    "cdnra_sezwp_sezwop_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1500}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6B - SEZWP/SEZWOP[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - SEZWP/SEZWOP - Integrated Tax"
+    },
+    "cdnra_sezwp_sezwop_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1500}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6B - SEZWP/SEZWOP[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - SEZWP/SEZWOP - Cess"
+    },
+    "cdnra_de_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1700}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6C – DE[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - DE - Number of records"
+    },
+    "cdnra_de_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1700}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6C – DE[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNRA - DE - Document Type"
+    },
+    "cdnra_de_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1700}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6C – DE[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - DE - Value"
+    },
+    "cdnra_de_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1700}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6C – DE[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - DE - Integrated Tax"
+    },
+    "cdnra_de_central_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1700}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6C – DE[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - DE - Central Tax"
+    },
+    "cdnra_de_state_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1700}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6C – DE[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})[\\d,]+\\.[\\d,]{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - DE - State/UT Tax"
+    },
+    "cdnra_de_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Registered\\) - CDNRA[\\s\\S]{1,1700}Amended Credit / Debit notes issued to registered person for taxable outward supplies in table 6C – DE[\\s\\S]{1,200}Net total[\\s\\S]{1,100}?Credit notes[\\s\\S]{1,10}?\\d+Note[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}[\\d,]+\\.[\\d,]{2}([\\d,]+\\.[\\d,]{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNRA - DE - Cess"
+    },
+    "cdnura_amended_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,200}Amended amount - Total(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - Amended amount - Number of records"
+    },
+    "cdnura_amended_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,200}Amended amount - Total\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - Amended amount - Document Type"
+    },
     "cdnura_amended_value": {
       "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,200}Amended amount - Total\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Section 9C - CDNURA - Amended value"
+    },
+    "cdnura_amended_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,200}Amended amount - Total\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - Amended integrated tax"
+    },
+    "cdnura_amended_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,200}Amended amount - Total\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - Amended cess"
     },
     "cdnura_differential_value": {
       "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}Total[\\s\\S]{1,100}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,100}Unregistered Type",
@@ -433,11 +1275,116 @@
       "transform": "number",
       "description": "Section 9C - CDNURA - Net differential value"
     },
+    "cdnura_differential_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}Total[\\s\\S]{1,100}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\s\\S]{1,100}Unregistered Type",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - Net differential integrated tax"
+    },
+    "cdnura_differential_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}Total[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\s\\S]{1,100}Unregistered Type",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - Net differential cess"
+    },
+    "cdnura_b2cl_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  B2CL(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - B2CL - Number of records"
+    },
+    "cdnura_b2cl_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  B2CL\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - B2CL - Document Type"
+    },
+    "cdnura_b2cl_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  B2CL\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - B2CL - Value"
+    },
+    "cdnura_b2cl_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  B2CL\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - B2CL - Integrated Tax"
+    },
+    "cdnura_b2cl_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  B2CL\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - B2CL - Cess"
+    },
+    "cdnura_expwp_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWP(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - EXPWP - Number of records"
+    },
+    "cdnura_expwp_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWP\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - EXPWP - Document Type"
+    },
+    "cdnura_expwp_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWP\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - EXPWP - Value"
+    },
+    "cdnura_expwp_integrated_tax": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWP\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - EXPWP - Integrated Tax"
+    },
+    "cdnura_expwp_cess": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWP\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - EXPWP - Cess"
+    },
+    "cdnura_expwop_records": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWOP(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - EXPWOP - Number of records"
+    },
+    "cdnura_expwop_document_type": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWOP\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9C - CDNURA - EXPWOP - Document Type"
+    },
+    "cdnura_expwop_value": {
+      "pattern": "9C - Amended Credit/Debit Notes \\(Unregistered\\) - CDNURA[\\s\\S]{1,500}-  EXPWOP\\d+Note([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9C - CDNURA - EXPWOP - Value"
+    },
     "hsn_summary_records": {
       "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total(\\d+)NA",
       "type": "regex",
       "group": 1,
       "description": "Section 12 - HSN Summary - Number of records"
+    },
+    "hsn_summary_document_type": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total\\d+(NA|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 12 - HSN Summary - Document Type"
     },
     "hsn_summary_total_value": {
       "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,100}Total\\d+NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -474,6 +1421,18 @@
       "transform": "number",
       "description": "Section 12 - HSN Summary - Total cess"
     },
+    "hsn_summary_b2b_records": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total(\\d+)NA",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 12 - HSN Summary - B2B Total - Number of records"
+    },
+    "hsn_summary_b2b_document_type": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total\\d+(NA|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 12 - HSN Summary - B2B Total - Document Type"
+    },
     "hsn_summary_b2b_value": {
       "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,200}B2B Total\\d+NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -508,6 +1467,18 @@
       "group": 1,
       "transform": "number",
       "description": "Section 12 - HSN Summary - B2B Total cess"
+    },
+    "hsn_summary_b2c_records": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total(\\d+)NA",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 12 - HSN Summary - B2C Total - Number of records"
+    },
+    "hsn_summary_b2c_document_type": {
+      "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total\\d+(NA|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 12 - HSN Summary - B2C Total - Document Type"
     },
     "hsn_summary_b2c_value": {
       "pattern": "12 - HSN-wise summary of outward supplies[\\s\\S]{1,300}B2C Total\\d+NA([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -550,6 +1521,12 @@
       "group": 1,
       "description": "Section 9B - CDNR - Total records"
     },
+    "cdnr_document_type": {
+      "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - Document Type"
+    },
     "cdnr_total_value": {
       "pattern": "9B - Credit/Debit Notes \\(Registered\\) – CDNR[\\s\\S]{1,400}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -591,6 +1568,12 @@
       "group": 1,
       "description": "Section 9B - CDNUR - Total records"
     },
+    "cdnur_document_type": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\) – CDNUR[\\s\\S]{1,200}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - Document Type"
+    },
     "cdnur_total_value": {
       "pattern": "9B - Credit/Debit Notes \\(Unregistered\\) – CDNUR[\\s\\S]{1,200}Total - Net off debit/credit notes[\\s\\S]{1,50}\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -611,6 +1594,272 @@
       "group": 1,
       "transform": "number",
       "description": "Section 9B - CDNUR - Total cess"
+    },
+    "cdnr_b2b_regular_records": {
+      "pattern": "B2B Regular[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - B2B Regular - Number of records"
+    },
+    "cdnr_b2b_regular_document_type": {
+      "pattern": "B2B Regular[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - B2B Regular - Document Type"
+    },
+    "cdnr_b2b_regular_value": {
+      "pattern": "B2B Regular[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Regular - Value"
+    },
+    "cdnr_b2b_regular_integrated_tax": {
+      "pattern": "B2B Regular[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Regular - Integrated Tax"
+    },
+    "cdnr_b2b_regular_central_tax": {
+      "pattern": "B2B Regular[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Regular - Central Tax"
+    },
+    "cdnr_b2b_regular_state_tax": {
+      "pattern": "B2B Regular[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Regular - State/UT Tax"
+    },
+    "cdnr_b2b_regular_cess": {
+      "pattern": "B2B Regular[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Regular - Cess"
+    },
+    "cdnr_b2b_reverse_records": {
+      "pattern": "B2B Reverse charge[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - B2B Reverse charge - Number of records"
+    },
+    "cdnr_b2b_reverse_document_type": {
+      "pattern": "B2B Reverse charge[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - B2B Reverse charge - Document Type"
+    },
+    "cdnr_b2b_reverse_value": {
+      "pattern": "B2B Reverse charge[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Reverse charge - Value"
+    },
+    "cdnr_b2b_reverse_integrated_tax": {
+      "pattern": "B2B Reverse charge[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Reverse charge - Integrated Tax"
+    },
+    "cdnr_b2b_reverse_central_tax": {
+      "pattern": "B2B Reverse charge[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Reverse charge - Central Tax"
+    },
+    "cdnr_b2b_reverse_state_tax": {
+      "pattern": "B2B Reverse charge[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Reverse charge - State/UT Tax"
+    },
+    "cdnr_b2b_reverse_cess": {
+      "pattern": "B2B Reverse charge[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - B2B Reverse charge - Cess"
+    },
+    "cdnr_sezwp_sezwop_records": {
+      "pattern": "6B - SEZWP/SEZWOP[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - SEZWP/SEZWOP - Number of records"
+    },
+    "cdnr_sezwp_sezwop_document_type": {
+      "pattern": "6B - SEZWP/SEZWOP[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - SEZWP/SEZWOP - Document Type"
+    },
+    "cdnr_sezwp_sezwop_value": {
+      "pattern": "6B - SEZWP/SEZWOP[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - SEZWP/SEZWOP - Value"
+    },
+    "cdnr_sezwp_sezwop_integrated_tax": {
+      "pattern": "6B - SEZWP/SEZWOP[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - SEZWP/SEZWOP - Integrated Tax"
+    },
+    "cdnr_sezwp_sezwop_cess": {
+      "pattern": "6B - SEZWP/SEZWOP[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - SEZWP/SEZWOP - Cess"
+    },
+    "cdnr_de_records": {
+      "pattern": "6C – DE[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - 6C-DE - Number of records"
+    },
+    "cdnr_de_document_type": {
+      "pattern": "6C – DE[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNR - 6C-DE - Document Type"
+    },
+    "cdnr_de_value": {
+      "pattern": "6C – DE[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - 6C-DE - Value"
+    },
+    "cdnr_de_integrated_tax": {
+      "pattern": "6C – DE[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - 6C-DE - Integrated Tax"
+    },
+    "cdnr_de_central_tax": {
+      "pattern": "6C – DE[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - 6C-DE - Central Tax"
+    },
+    "cdnr_de_state_tax": {
+      "pattern": "6C – DE[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - 6C-DE - State/UT Tax"
+    },
+    "cdnr_de_cess": {
+      "pattern": "6C – DE[\\s\\S]{1,100}Net Total \\(Debit notes – Credit notes\\)\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNR - 6C-DE - Cess"
+    },
+    "cdnur_b2cl_records": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  B2CL(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - B2CL - Number of records"
+    },
+    "cdnur_b2cl_document_type": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  B2CL\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - B2CL - Document Type"
+    },
+    "cdnur_b2cl_value": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  B2CL\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - B2CL - Value"
+    },
+    "cdnur_b2cl_integrated_tax": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  B2CL\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - B2CL - Integrated Tax"
+    },
+    "cdnur_b2cl_cess": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  B2CL\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - B2CL - Cess"
+    },
+    "cdnur_expwp_records": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWP(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - EXPWP - Number of records"
+    },
+    "cdnur_expwp_document_type": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWP\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - EXPWP - Document Type"
+    },
+    "cdnur_expwp_value": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWP\\d+Note([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - EXPWP - Value"
+    },
+    "cdnur_expwp_integrated_tax": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWP\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - EXPWP - Integrated Tax"
+    },
+    "cdnur_expwp_cess": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWP\\d+Note[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - EXPWP - Cess"
+    },
+    "cdnur_expwop_records": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWOP(\\d+)Note",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - EXPWOP - Number of records"
+    },
+    "cdnur_expwop_document_type": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWOP\\d+(Note|Invoice|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 9B - CDNUR - EXPWOP - Document Type"
+    },
+    "cdnur_expwop_value": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWOP\\d+Note([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - EXPWOP - Value"
+    },
+    "cdnur_expwop_cess": {
+      "pattern": "9B - Credit/Debit Notes \\(Unregistered\\)[\\s\\S]{1,300}-  EXPWOP\\d+Note[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 9B - CDNUR - EXPWOP - Cess"
     },
     "amendment_b2c_amended_records": {
       "pattern": "10 - Amendment to taxable outward supplies made to unregistered person[\\s\\S]{1,300}Amended amount - Total(\\d+)Net Value",
@@ -694,6 +1943,12 @@
       "group": 1,
       "description": "Section 11A - Advances received - Number of records"
     },
+    "advances_received_document_type": {
+      "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11A - Advances received - Document Type"
+    },
     "advances_received_value": {
       "pattern": "11A\\(1\\), 11A\\(2\\) - Advances received[\\s\\S]{1,200}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -735,6 +1990,12 @@
       "group": 1,
       "description": "Section 11B - Advances adjusted - Number of records"
     },
+    "advances_adjusted_document_type": {
+      "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11B - Advances adjusted - Document Type"
+    },
     "advances_adjusted_value": {
       "pattern": "11B\\(1\\), 11B\\(2\\) - Advance amount received in earlier tax period[\\s\\S]{1,300}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
       "type": "regex",
@@ -770,11 +2031,181 @@
       "transform": "number",
       "description": "Section 11B - Advances adjusted - Cess"
     },
+    "amendment_advances_received_amended_records": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,200}Amended amount - Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11A - Amendment to advances received - Amended records"
+    },
+    "amendment_advances_received_amended_document_type": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11A - Amendment to advances received - Amended document type"
+    },
+    "amendment_advances_received_amended_value": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Amended value"
+    },
+    "amendment_advances_received_amended_integrated_tax": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Amended integrated tax"
+    },
+    "amendment_advances_received_amended_central_tax": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Amended central tax"
+    },
+    "amendment_advances_received_amended_state_tax": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Amended state/UT tax"
+    },
+    "amendment_advances_received_amended_cess": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Amended cess"
+    },
+    "amendment_advances_received_total_value": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,300}Total([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Total value"
+    },
+    "amendment_advances_received_total_integrated_tax": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Total integrated tax"
+    },
+    "amendment_advances_received_total_central_tax": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Total central tax"
+    },
+    "amendment_advances_received_total_state_tax": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Total state/UT tax"
+    },
+    "amendment_advances_received_total_cess": {
+      "pattern": "11A - Amendment to advances received in returns for earlier tax periods in table 11A\\(1\\), 11A\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11A - Amendment to advances received - Total cess"
+    },
+    "amendment_advances_adjusted_amended_records": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,200}Amended amount - Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11B - Amendment to advances adjusted - Amended records"
+    },
+    "amendment_advances_adjusted_amended_document_type": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 11B - Amendment to advances adjusted - Amended document type"
+    },
+    "amendment_advances_adjusted_amended_value": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Amended value"
+    },
+    "amendment_advances_adjusted_amended_integrated_tax": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Amended integrated tax"
+    },
+    "amendment_advances_adjusted_amended_central_tax": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Amended central tax"
+    },
+    "amendment_advances_adjusted_amended_state_tax": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Amended state/UT tax"
+    },
+    "amendment_advances_adjusted_amended_cess": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,200}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Amended cess"
+    },
+    "amendment_advances_adjusted_total_value": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,300}Total([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Total value"
+    },
+    "amendment_advances_adjusted_total_integrated_tax": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Total integrated tax"
+    },
+    "amendment_advances_adjusted_total_central_tax": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Total central tax"
+    },
+    "amendment_advances_adjusted_total_state_tax": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Total state/UT tax"
+    },
+    "amendment_advances_adjusted_total_cess": {
+      "pattern": "11B - Amendment to advances adjusted in returns for earlier tax periods in table 11B\\(1\\), 11B\\(2\\)[\\s\\S]{1,300}Total[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 11B - Amendment to advances adjusted - Total cess"
+    },
     "ecommerce_total_records": {
       "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total(\\d+)Net Value",
       "type": "regex",
       "group": 1,
       "description": "Section 14 - E-Commerce - Total records"
+    },
+    "ecommerce_document_type": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14 - E-Commerce - Document Type"
     },
     "ecommerce_total_value": {
       "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,200}Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -811,11 +2242,1098 @@
       "transform": "number",
       "description": "Section 14 - E-Commerce - Total cess"
     },
+    "ecommerce_liable_collect_records": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,300}\\(a\\) Liable to collect tax u/s 52(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14 - E-Commerce - Liable to collect tax u/s 52 - Number of records"
+    },
+    "ecommerce_liable_collect_document_type": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,300}\\(a\\) Liable to collect tax u/s 52\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14 - E-Commerce - Liable to collect tax u/s 52 - Document Type"
+    },
+    "ecommerce_liable_collect_value": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,300}\\(a\\) Liable to collect tax u/s 52\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to collect tax u/s 52 - Value"
+    },
+    "ecommerce_liable_collect_integrated_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,300}\\(a\\) Liable to collect tax u/s 52\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to collect tax u/s 52 - Integrated Tax"
+    },
+    "ecommerce_liable_collect_central_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,300}\\(a\\) Liable to collect tax u/s 52\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to collect tax u/s 52 - Central Tax"
+    },
+    "ecommerce_liable_collect_state_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,300}\\(a\\) Liable to collect tax u/s 52\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to collect tax u/s 52 - State Tax"
+    },
+    "ecommerce_liable_collect_cess": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,300}\\(a\\) Liable to collect tax u/s 52\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to collect tax u/s 52 - Cess"
+    },
+    "ecommerce_liable_pay_records": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(b\\) Liable to pay tax u/s 9\\(5\\)(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5) - Number of records"
+    },
+    "ecommerce_liable_pay_document_type": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(b\\) Liable to pay tax u/s 9\\(5\\)\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5) - Document Type"
+    },
+    "ecommerce_liable_pay_value": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(b\\) Liable to pay tax u/s 9\\(5\\)\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5) - Value"
+    },
+    "ecommerce_liable_pay_integrated_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(b\\) Liable to pay tax u/s 9\\(5\\)\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5) - Integrated Tax"
+    },
+    "ecommerce_liable_pay_central_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(b\\) Liable to pay tax u/s 9\\(5\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5) - Central Tax"
+    },
+    "ecommerce_liable_pay_state_tax": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(b\\) Liable to pay tax u/s 9\\(5\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5) - State Tax"
+    },
+    "ecommerce_liable_pay_cess": {
+      "pattern": "14 - Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(b\\) Liable to pay tax u/s 9\\(5\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5) - Cess"
+    },
+    "amendment_ecommerce_amended_total_records": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,200}Amended amount – Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Amended amount - Total records"
+    },
+    "amendment_ecommerce_amended_total_document_type": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,200}Amended amount – Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Amended amount - Document Type"
+    },
+    "amendment_ecommerce_amended_total_value": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,200}Amended amount – Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Amended amount - Value"
+    },
+    "amendment_ecommerce_amended_total_integrated_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,200}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Amended amount - Integrated Tax"
+    },
+    "amendment_ecommerce_amended_total_central_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,200}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Amended amount - Central Tax"
+    },
+    "amendment_ecommerce_amended_total_state_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,200}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Amended amount - State Tax"
+    },
+    "amendment_ecommerce_amended_total_cess": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,200}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Amended amount - Cess"
+    },
+    "amendment_ecommerce_differential_total_records": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Net differential - Total records"
+    },
+    "amendment_ecommerce_differential_total_document_type": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Net differential - Document Type"
+    },
+    "amendment_ecommerce_differential_total_value": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Net differential - Value"
+    },
+    "amendment_ecommerce_differential_total_integrated_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Net differential - Integrated Tax"
+    },
+    "amendment_ecommerce_differential_total_central_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Net differential - Central Tax"
+    },
+    "amendment_ecommerce_differential_total_state_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Net differential - State Tax"
+    },
+    "amendment_ecommerce_differential_total_cess": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,300}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Net differential - Cess"
+    },
+    "amendment_ecommerce_amended_liable_collect_records": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,100}Amended amount – Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended amount - Records"
+    },
+    "amendment_ecommerce_amended_liable_collect_document_type": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,100}Amended amount – Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended amount - Document Type"
+    },
+    "amendment_ecommerce_amended_liable_collect_value": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,100}Amended amount – Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended amount - Value"
+    },
+    "amendment_ecommerce_amended_liable_collect_integrated_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended amount - Integrated Tax"
+    },
+    "amendment_ecommerce_amended_liable_collect_central_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended amount - Central Tax"
+    },
+    "amendment_ecommerce_amended_liable_collect_state_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended amount - State Tax"
+    },
+    "amendment_ecommerce_amended_liable_collect_cess": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended amount - Cess"
+    },
+    "amendment_ecommerce_differential_liable_collect_records": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Net differential - Records"
+    },
+    "amendment_ecommerce_differential_liable_collect_document_type": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Net differential - Document Type"
+    },
+    "amendment_ecommerce_differential_liable_collect_value": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Net differential - Value"
+    },
+    "amendment_ecommerce_differential_liable_collect_integrated_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Net differential - Integrated Tax"
+    },
+    "amendment_ecommerce_differential_liable_collect_central_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Net differential - Central Tax"
+    },
+    "amendment_ecommerce_differential_liable_collect_state_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Net differential - State Tax"
+    },
+    "amendment_ecommerce_differential_liable_collect_cess": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,400}\\(a\\) Liable to collect tax u/s 52[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Net differential - Cess"
+    },
+    "amendment_ecommerce_amended_liable_pay_records": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,100}Amended amount – Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended amount - Records"
+    },
+    "amendment_ecommerce_amended_liable_pay_document_type": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,100}Amended amount – Total\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended amount - Document Type"
+    },
+    "amendment_ecommerce_amended_liable_pay_value": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,100}Amended amount – Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended amount - Value"
+    },
+    "amendment_ecommerce_amended_liable_pay_integrated_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended amount - Integrated Tax"
+    },
+    "amendment_ecommerce_amended_liable_pay_central_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended amount - Central Tax"
+    },
+    "amendment_ecommerce_amended_liable_pay_state_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended amount - State Tax"
+    },
+    "amendment_ecommerce_amended_liable_pay_cess": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,100}Amended amount – Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended amount - Cess"
+    },
+    "amendment_ecommerce_differential_liable_pay_records": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Net differential - Records"
+    },
+    "amendment_ecommerce_differential_liable_pay_document_type": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+(Net Value|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Net differential - Document Type"
+    },
+    "amendment_ecommerce_differential_liable_pay_value": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Net differential - Value"
+    },
+    "amendment_ecommerce_differential_liable_pay_integrated_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Net differential - Integrated Tax"
+    },
+    "amendment_ecommerce_differential_liable_pay_central_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Net differential - Central Tax"
+    },
+    "amendment_ecommerce_differential_liable_pay_state_tax": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Net differential - State Tax"
+    },
+    "amendment_ecommerce_differential_liable_pay_cess": {
+      "pattern": "14A - Amended Supplies made through E-Commerce Operators[\\s\\S]{1,700}\\(b\\) Liable to pay tax u/s 9\\(5\\)[\\s\\S]{1,200}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Net differential - Cess"
+    },
+    "supplies_section15_total_records": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,50}Total(\\d+)Document/Net",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - Total - Number of records"
+    },
+    "supplies_section15_total_document_type": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,50}Total\\d+(Document/Net[\\s\\S]{1,20}Value)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - Total - Document Type"
+    },
+    "supplies_section15_total_value": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,50}Total\\d+Document/Net[\\s\\S]{1,50}Value[\\s\\S]{0,30}([\\d,]+\\.\\d{2})[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Total - Taxable Value"
+    },
+    "supplies_section15_total_integrated_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,50}Total\\d+Document/Net[\\s\\S]{1,50}Value[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}([\\d,]+\\.\\d{2})[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Total - Integrated Tax"
+    },
+    "supplies_section15_total_central_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,50}Total\\d+Document/Net[\\s\\S]{1,50}Value[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}([\\d,]+\\.\\d{2})[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Total - Central Tax"
+    },
+    "supplies_section15_total_state_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,50}Total\\d+Document/Net[\\s\\S]{1,50}Value[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}([\\d,]+\\.\\d{2})[\\s\\S]{0,30}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Total - State/UT Tax"
+    },
+    "supplies_section15_total_cess": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,50}Total\\d+Document/Net[\\s\\S]{1,50}Value[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}[\\d,]+\\.\\d{2}[\\s\\S]{0,30}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Total - Cess"
+    },
+    "supplies_section15_registered_records": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,100}-  For Registered Recipients(\\d+)Document",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - For Registered Recipients - Number of records"
+    },
+    "supplies_section15_registered_document_type": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,100}-  For Registered Recipients\\d+(Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - For Registered Recipients - Document Type"
+    },
+    "supplies_section15_registered_value": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,100}-  For Registered Recipients\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Registered Recipients - Taxable Value"
+    },
+    "supplies_section15_registered_integrated_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,100}-  For Registered Recipients\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Registered Recipients - Integrated Tax"
+    },
+    "supplies_section15_registered_central_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,100}-  For Registered Recipients\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Registered Recipients - Central Tax"
+    },
+    "supplies_section15_registered_state_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,100}-  For Registered Recipients\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Registered Recipients - State/UT Tax"
+    },
+    "supplies_section15_registered_cess": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,100}-  For Registered Recipients\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Registered Recipients - Cess"
+    },
+    "supplies_section15_regular_records": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,200}Regular(\\d+)Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - Regular - Number of records"
+    },
+    "supplies_section15_regular_document_type": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,200}Regular\\d+(Document)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - Regular - Document Type"
+    },
+    "supplies_section15_regular_value": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,200}Regular\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Regular - Taxable Value"
+    },
+    "supplies_section15_regular_integrated_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,200}Regular\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Regular - Integrated Tax"
+    },
+    "supplies_section15_regular_central_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,200}Regular\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Regular - Central Tax"
+    },
+    "supplies_section15_regular_state_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,200}Regular\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Regular - State/UT Tax"
+    },
+    "supplies_section15_regular_cess": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,200}Regular\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - Regular - Cess"
+    },
+    "supplies_section15_de_records": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,250}DE(\\d+)Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - DE - Number of records"
+    },
+    "supplies_section15_de_document_type": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,250}DE\\d+(Document)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - DE - Document Type"
+    },
+    "supplies_section15_de_value": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,250}DE\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - DE - Taxable Value"
+    },
+    "supplies_section15_de_integrated_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,250}DE\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - DE - Integrated Tax"
+    },
+    "supplies_section15_de_central_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,250}DE\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - DE - Central Tax"
+    },
+    "supplies_section15_de_state_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,250}DE\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - DE - State/UT Tax"
+    },
+    "supplies_section15_de_cess": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,250}DE\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - DE - Cess"
+    },
+    "supplies_section15_sezwp_records": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,300}SEZWP(\\d+)Document",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWP - Number of records"
+    },
+    "supplies_section15_sezwp_document_type": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,300}SEZWP\\d+(Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWP - Document Type"
+    },
+    "supplies_section15_sezwp_value": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,300}SEZWP\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWP - Taxable Value"
+    },
+    "supplies_section15_sezwp_integrated_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,300}SEZWP\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWP - Integrated Tax"
+    },
+    "supplies_section15_sezwp_central_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,300}SEZWP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWP - Central Tax (Not applicable for SEZWP)"
+    },
+    "supplies_section15_sezwp_state_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,300}SEZWP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWP - State/UT Tax (Not applicable for SEZWP)"
+    },
+    "supplies_section15_sezwp_cess": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,300}SEZWP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWP - Cess"
+    },
+    "supplies_section15_sezwop_records": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,350}SEZWOP(\\d+)Document",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWOP - Number of records"
+    },
+    "supplies_section15_sezwop_document_type": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,350}SEZWOP\\d+(Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWOP - Document Type"
+    },
+    "supplies_section15_sezwop_value": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,350}SEZWOP\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWOP - Taxable Value"
+    },
+    "supplies_section15_sezwop_integrated_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,350}SEZWOP\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWOP - Integrated Tax"
+    },
+    "supplies_section15_sezwop_central_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,350}SEZWOP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWOP - Central Tax (Not applicable for SEZWOP)"
+    },
+    "supplies_section15_sezwop_state_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,350}SEZWOP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWOP - State/UT Tax (Not applicable for SEZWOP)"
+    },
+    "supplies_section15_sezwop_cess": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,350}SEZWOP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - SEZWOP - Cess (Not applicable for SEZWOP)"
+    },
+    "supplies_section15_unregistered_records": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,400}-  For Unregistered Recipient(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient - Number of records"
+    },
+    "supplies_section15_unregistered_document_type": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,400}-  For Unregistered Recipient\\d+(Net Value)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient - Document Type"
+    },
+    "supplies_section15_unregistered_value": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,400}-  For Unregistered Recipient\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient - Taxable Value"
+    },
+    "supplies_section15_unregistered_integrated_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,400}-  For Unregistered Recipient\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient - Integrated Tax"
+    },
+    "supplies_section15_unregistered_central_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,400}-  For Unregistered Recipient\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient - Central Tax"
+    },
+    "supplies_section15_unregistered_state_tax": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,400}-  For Unregistered Recipient\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient - State/UT Tax"
+    },
+    "supplies_section15_unregistered_cess": {
+      "pattern": "15 - Supplies U/s 9\\(5\\)[\\s\\S]{1,400}-  For Unregistered Recipient\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient - Cess"
+    },
+    "amendment_supplies_section15_registered_amended_total_records": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,50}Amended amount - Total(\\d+)Document",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Amended Total - Number of records"
+    },
+    "amendment_supplies_section15_registered_amended_total_document_type": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+(Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Amended Total - Document Type"
+    },
+    "amendment_supplies_section15_registered_amended_total_value": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Amended Total - Taxable Value"
+    },
+    "amendment_supplies_section15_registered_amended_total_integrated_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Amended Total - Integrated Tax"
+    },
+    "amendment_supplies_section15_registered_amended_total_central_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Amended Total - Central Tax"
+    },
+    "amendment_supplies_section15_registered_amended_total_state_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Amended Total - State/UT Tax"
+    },
+    "amendment_supplies_section15_registered_amended_total_cess": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Amended Total - Cess"
+    },
+    "amendment_supplies_section15_registered_differential_records": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)(\\d+)Document",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Net Differential - Number of records"
+    },
+    "amendment_supplies_section15_registered_differential_document_type": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+(Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Net Differential - Document Type"
+    },
+    "amendment_supplies_section15_registered_differential_value": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Net Differential - Taxable Value"
+    },
+    "amendment_supplies_section15_registered_differential_integrated_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Net Differential - Integrated Tax"
+    },
+    "amendment_supplies_section15_registered_differential_central_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Net Differential - Central Tax"
+    },
+    "amendment_supplies_section15_registered_differential_state_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Net Differential - State/UT Tax"
+    },
+    "amendment_supplies_section15_registered_differential_cess": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Net Differential - Cess"
+    },
+    "amendment_supplies_section15_registered_regular_records": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,250}Regular(\\d+)Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Regular - Number of records"
+    },
+    "amendment_supplies_section15_registered_regular_document_type": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,250}Regular\\d+(Document)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Regular - Document Type"
+    },
+    "amendment_supplies_section15_registered_regular_value": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,250}Regular\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Regular - Taxable Value"
+    },
+    "amendment_supplies_section15_registered_regular_integrated_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,250}Regular\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Regular - Integrated Tax"
+    },
+    "amendment_supplies_section15_registered_regular_central_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,250}Regular\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Regular - Central Tax"
+    },
+    "amendment_supplies_section15_registered_regular_state_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,250}Regular\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Regular - State/UT Tax"
+    },
+    "amendment_supplies_section15_registered_regular_cess": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,250}Regular\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - Regular - Cess"
+    },
+    "amendment_supplies_section15_registered_de_records": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,300}DE(\\d+)Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - DE - Number of records"
+    },
+    "amendment_supplies_section15_registered_de_document_type": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,300}DE\\d+(Document)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - DE - Document Type"
+    },
+    "amendment_supplies_section15_registered_de_value": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,300}DE\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - DE - Taxable Value"
+    },
+    "amendment_supplies_section15_registered_de_integrated_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,300}DE\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - DE - Integrated Tax"
+    },
+    "amendment_supplies_section15_registered_de_central_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,300}DE\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - DE - Central Tax"
+    },
+    "amendment_supplies_section15_registered_de_state_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,300}DE\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - DE - State/UT Tax"
+    },
+    "amendment_supplies_section15_registered_de_cess": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,300}DE\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - DE - Cess"
+    },
+    "amendment_supplies_section15_registered_sezwp_records": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,350}SEZWP(\\d+)Document",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWP - Number of records"
+    },
+    "amendment_supplies_section15_registered_sezwp_document_type": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,350}SEZWP\\d+(Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWP - Document Type"
+    },
+    "amendment_supplies_section15_registered_sezwp_value": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,350}SEZWP\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWP - Taxable Value"
+    },
+    "amendment_supplies_section15_registered_sezwp_integrated_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,350}SEZWP\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWP - Integrated Tax"
+    },
+    "amendment_supplies_section15_registered_sezwp_central_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,350}SEZWP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWP - Central Tax (Not applicable)"
+    },
+    "amendment_supplies_section15_registered_sezwp_state_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,350}SEZWP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWP - State/UT Tax (Not applicable)"
+    },
+    "amendment_supplies_section15_registered_sezwp_cess": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,350}SEZWP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWP - Cess"
+    },
+    "amendment_supplies_section15_registered_sezwop_records": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,400}SEZWOP(\\d+)Document",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWOP - Number of records"
+    },
+    "amendment_supplies_section15_registered_sezwop_document_type": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,400}SEZWOP\\d+(Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWOP - Document Type"
+    },
+    "amendment_supplies_section15_registered_sezwop_value": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,400}SEZWOP\\d+Document([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWOP - Taxable Value"
+    },
+    "amendment_supplies_section15_registered_sezwop_integrated_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,400}SEZWOP\\d+Document[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWOP - Integrated Tax"
+    },
+    "amendment_supplies_section15_registered_sezwop_central_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,400}SEZWOP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWOP - Central Tax (Not applicable)"
+    },
+    "amendment_supplies_section15_registered_sezwop_state_tax": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,400}SEZWOP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWOP - State/UT Tax (Not applicable)"
+    },
+    "amendment_supplies_section15_registered_sezwop_cess": {
+      "pattern": "15A \\(I\\) - Amended Supplies U/s 9\\(5\\) – For Registered Recipients[\\s\\S]{1,400}SEZWOP\\d+Document[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(I) - Amended Supplies U/s 9(5) - For Registered Recipients - SEZWOP - Cess (Not applicable)"
+    },
+    "amendment_supplies_section15_unregistered_amended_records": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,50}Amended amount - Total(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Amended Total - Number of records"
+    },
+    "amendment_supplies_section15_unregistered_amended_document_type": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+(Net Value)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Amended Total - Document Type"
+    },
+    "amendment_supplies_section15_unregistered_amended_value": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Amended Total - Taxable Value"
+    },
+    "amendment_supplies_section15_unregistered_amended_integrated_tax": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Amended Total - Integrated Tax"
+    },
+    "amendment_supplies_section15_unregistered_amended_central_tax": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Amended Total - Central Tax"
+    },
+    "amendment_supplies_section15_unregistered_amended_state_tax": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Amended Total - State/UT Tax"
+    },
+    "amendment_supplies_section15_unregistered_amended_cess": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,50}Amended amount - Total\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Amended Total - Cess"
+    },
+    "amendment_supplies_section15_unregistered_differential_records": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)(\\d+)Net Value",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Net Differential - Number of records"
+    },
+    "amendment_supplies_section15_unregistered_differential_document_type": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+(Net Value)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Net Differential - Document Type"
+    },
+    "amendment_supplies_section15_unregistered_differential_value": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Net Value([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Net Differential - Taxable Value"
+    },
+    "amendment_supplies_section15_unregistered_differential_integrated_tax": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Net Differential - Integrated Tax"
+    },
+    "amendment_supplies_section15_unregistered_differential_central_tax": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Net Differential - Central Tax"
+    },
+    "amendment_supplies_section15_unregistered_differential_state_tax": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Net Differential - State/UT Tax"
+    },
+    "amendment_supplies_section15_unregistered_differential_cess": {
+      "pattern": "15A \\(II\\) - Amended Supplies U/s 9\\(5\\) – For Unregistered Recipients[\\s\\S]{1,150}Net differential amount \\(Amended - Original\\)\\d+Net Value[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Section 15A(II) - Amended Supplies U/s 9(5) - For Unregistered Recipients - Net Differential - Cess"
+    },
     "documents_issued": {
       "pattern": "13 - Documents issued[\\s\\S]{1,100}Net issued documents(\\d+)All Documents",
       "type": "regex",
       "group": 1,
       "description": "Section 13 - Net issued documents"
+    },
+    "documents_issued_document_type": {
+      "pattern": "13 - Documents issued[\\s\\S]{1,100}Net issued documents\\d+(All Documents|Invoice|Note|Document)",
+      "type": "regex",
+      "group": 1,
+      "description": "Section 13 - Document Type"
     },
     "total_liability_value": {
       "pattern": "Total Liability \\(Outward supplies other than Reverse charge\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -889,6 +3407,7 @@
         "name": "Section 4A - B2B Regular",
         "fields": [
           "b2b_regular_records",
+          "b2b_regular_document_type",
           "b2b_regular_value",
           "b2b_regular_integrated_tax",
           "b2b_regular_central_tax",
@@ -900,6 +3419,7 @@
         "name": "Section 4B - B2B Reverse Charge",
         "fields": [
           "b2b_reverse_charge_records",
+          "b2b_reverse_charge_document_type",
           "b2b_reverse_charge_value",
           "b2b_reverse_charge_integrated_tax",
           "b2b_reverse_charge_central_tax",
@@ -911,6 +3431,7 @@
         "name": "Section 5 - B2CL (Large)",
         "fields": [
           "b2cl_records",
+          "b2cl_document_type",
           "b2cl_value",
           "b2cl_integrated_tax",
           "b2cl_cess"
@@ -920,24 +3441,43 @@
         "name": "Section 6A - Exports",
         "fields": [
           "exports_total_records",
+          "exports_document_type",
           "exports_total_value",
           "exports_total_integrated_tax",
-          "exports_total_cess"
+          "exports_total_cess",
+          "exports_expwp_records",
+          "exports_expwp_document_type",
+          "exports_expwp_value",
+          "exports_expwp_integrated_tax",
+          "exports_expwp_cess",
+          "exports_expwop_records",
+          "exports_expwop_document_type",
+          "exports_expwop_value"
         ]
       },
       {
         "name": "Section 6B - SEZ",
         "fields": [
           "sez_total_records",
+          "sez_document_type",
           "sez_total_value",
           "sez_total_integrated_tax",
-          "sez_total_cess"
+          "sez_total_cess",
+          "sez_sezwp_records",
+          "sez_sezwp_document_type",
+          "sez_sezwp_value",
+          "sez_sezwp_integrated_tax",
+          "sez_sezwp_cess",
+          "sez_sezwop_records",
+          "sez_sezwop_document_type",
+          "sez_sezwop_value"
         ]
       },
       {
         "name": "Section 6C - Deemed Exports",
         "fields": [
           "deemed_exports_records",
+          "deemed_exports_document_type",
           "deemed_exports_value",
           "deemed_exports_integrated_tax",
           "deemed_exports_central_tax",
@@ -949,6 +3489,7 @@
         "name": "Section 7 - B2CS (Others)",
         "fields": [
           "b2cs_records",
+          "b2cs_document_type",
           "b2cs_value",
           "b2cs_integrated_tax",
           "b2cs_central_tax",
@@ -968,78 +3509,213 @@
       {
         "name": "Section 9A - Amendments",
         "fields": [
+          "amendment_b2b_regular_amended_records",
+          "amendment_b2b_regular_amended_document_type",
           "amendment_b2b_regular_amended_value",
+          "amendment_b2b_regular_amended_integrated_tax",
+          "amendment_b2b_regular_amended_central_tax",
+          "amendment_b2b_regular_amended_state_tax",
+          "amendment_b2b_regular_amended_cess",
           "amendment_b2b_regular_differential_value",
+          "amendment_b2b_regular_differential_integrated_tax",
+          "amendment_b2b_regular_differential_central_tax",
+          "amendment_b2b_regular_differential_state_tax",
+          "amendment_b2b_regular_differential_cess",
+          "amendment_b2b_reverse_amended_records",
+          "amendment_b2b_reverse_amended_document_type",
           "amendment_b2b_reverse_amended_value",
+          "amendment_b2b_reverse_amended_integrated_tax",
+          "amendment_b2b_reverse_amended_central_tax",
+          "amendment_b2b_reverse_amended_state_tax",
+          "amendment_b2b_reverse_amended_cess",
           "amendment_b2b_reverse_differential_value",
+          "amendment_b2b_reverse_differential_integrated_tax",
+          "amendment_b2b_reverse_differential_central_tax",
+          "amendment_b2b_reverse_differential_state_tax",
+          "amendment_b2b_reverse_differential_cess",
+          "amendment_b2cl_amended_records",
+          "amendment_b2cl_amended_document_type",
           "amendment_b2cl_amended_value",
+          "amendment_b2cl_amended_integrated_tax",
+          "amendment_b2cl_amended_cess",
           "amendment_b2cl_differential_value",
+          "amendment_b2cl_differential_integrated_tax",
+          "amendment_b2cl_differential_cess",
+          "amendment_exports_amended_records",
+          "amendment_exports_amended_document_type",
           "amendment_exports_amended_value",
+          "amendment_exports_amended_integrated_tax",
+          "amendment_exports_amended_cess",
           "amendment_exports_differential_value",
+          "amendment_exports_differential_integrated_tax",
+          "amendment_exports_differential_cess",
+          "amendment_exports_expwp_records",
+          "amendment_exports_expwp_document_type",
+          "amendment_exports_expwp_value",
+          "amendment_exports_expwp_integrated_tax",
+          "amendment_exports_expwp_cess",
+          "amendment_exports_expwop_records",
+          "amendment_exports_expwop_document_type",
+          "amendment_exports_expwop_value",
+          "amendment_sez_amended_records",
+          "amendment_sez_amended_document_type",
           "amendment_sez_amended_value",
+          "amendment_sez_amended_integrated_tax",
+          "amendment_sez_amended_cess",
           "amendment_sez_differential_value",
+          "amendment_sez_differential_integrated_tax",
+          "amendment_sez_differential_cess",
+          "amendment_sez_sezwp_records",
+          "amendment_sez_sezwp_document_type",
+          "amendment_sez_sezwp_value",
+          "amendment_sez_sezwp_integrated_tax",
+          "amendment_sez_sezwp_cess",
+          "amendment_sez_sezwop_records",
+          "amendment_sez_sezwop_document_type",
+          "amendment_sez_sezwop_value",
+          "amendment_deemed_exports_amended_records",
+          "amendment_deemed_exports_amended_document_type",
           "amendment_deemed_exports_amended_value",
-          "amendment_deemed_exports_differential_value"
-        ]
-      },
-      {
-        "name": "Section 9C - Amended Credit/Debit Notes",
-        "fields": [
-          "cdnra_amended_value",
-          "cdnra_differential_value",
-          "cdnura_amended_value",
-          "cdnura_differential_value"
-        ]
-      },
-      {
-        "name": "Section 12 - HSN Summary (Total)",
-        "fields": [
-          "hsn_summary_records",
-          "hsn_summary_total_value",
-          "hsn_summary_total_integrated_tax",
-          "hsn_summary_total_central_tax",
-          "hsn_summary_total_state_tax",
-          "hsn_summary_total_cess"
-        ]
-      },
-      {
-        "name": "Section 12 - HSN Summary (B2B)",
-        "fields": [
-          "hsn_summary_b2b_value",
-          "hsn_summary_b2b_integrated_tax",
-          "hsn_summary_b2b_central_tax",
-          "hsn_summary_b2b_state_tax",
-          "hsn_summary_b2b_cess"
-        ]
-      },
-      {
-        "name": "Section 12 - HSN Summary (B2C)",
-        "fields": [
-          "hsn_summary_b2c_value",
-          "hsn_summary_b2c_integrated_tax",
-          "hsn_summary_b2c_central_tax",
-          "hsn_summary_b2c_state_tax",
-          "hsn_summary_b2c_cess"
+          "amendment_deemed_exports_amended_integrated_tax",
+          "amendment_deemed_exports_amended_central_tax",
+          "amendment_deemed_exports_amended_state_tax",
+          "amendment_deemed_exports_amended_cess",
+          "amendment_deemed_exports_differential_value",
+          "amendment_deemed_exports_differential_integrated_tax",
+          "amendment_deemed_exports_differential_central_tax",
+          "amendment_deemed_exports_differential_state_tax",
+          "amendment_deemed_exports_differential_cess"
         ]
       },
       {
         "name": "Section 9B - Credit/Debit Notes (Registered)",
         "fields": [
           "cdnr_total_records",
+          "cdnr_document_type",
           "cdnr_total_value",
           "cdnr_total_integrated_tax",
           "cdnr_total_central_tax",
           "cdnr_total_state_tax",
-          "cdnr_total_cess"
+          "cdnr_total_cess",
+          "cdnr_b2b_regular_records",
+          "cdnr_b2b_regular_document_type",
+          "cdnr_b2b_regular_value",
+          "cdnr_b2b_regular_integrated_tax",
+          "cdnr_b2b_regular_central_tax",
+          "cdnr_b2b_regular_state_tax",
+          "cdnr_b2b_regular_cess",
+          "cdnr_b2b_reverse_records",
+          "cdnr_b2b_reverse_document_type",
+          "cdnr_b2b_reverse_value",
+          "cdnr_b2b_reverse_integrated_tax",
+          "cdnr_b2b_reverse_central_tax",
+          "cdnr_b2b_reverse_state_tax",
+          "cdnr_b2b_reverse_cess",
+          "cdnr_sezwp_sezwop_records",
+          "cdnr_sezwp_sezwop_document_type",
+          "cdnr_sezwp_sezwop_value",
+          "cdnr_sezwp_sezwop_integrated_tax",
+          "cdnr_sezwp_sezwop_cess",
+          "cdnr_de_records",
+          "cdnr_de_document_type",
+          "cdnr_de_value",
+          "cdnr_de_integrated_tax",
+          "cdnr_de_central_tax",
+          "cdnr_de_state_tax",
+          "cdnr_de_cess"
         ]
       },
       {
         "name": "Section 9B - Credit/Debit Notes (Unregistered)",
         "fields": [
           "cdnur_total_records",
+          "cdnur_document_type",
           "cdnur_total_value",
           "cdnur_total_integrated_tax",
-          "cdnur_total_cess"
+          "cdnur_total_cess",
+          "cdnur_b2cl_records",
+          "cdnur_b2cl_document_type",
+          "cdnur_b2cl_value",
+          "cdnur_b2cl_integrated_tax",
+          "cdnur_b2cl_cess",
+          "cdnur_expwp_records",
+          "cdnur_expwp_document_type",
+          "cdnur_expwp_value",
+          "cdnur_expwp_integrated_tax",
+          "cdnur_expwp_cess",
+          "cdnur_expwop_records",
+          "cdnur_expwop_document_type",
+          "cdnur_expwop_value",
+          "cdnur_expwop_cess"
+        ]
+      },
+      {
+        "name": "Section 9C - Amended Credit/Debit Notes (Registered)",
+        "fields": [
+          "cdnra_amended_records",
+          "cdnra_amended_document_type",
+          "cdnra_amended_value",
+          "cdnra_amended_integrated_tax",
+          "cdnra_amended_central_tax",
+          "cdnra_amended_state_tax",
+          "cdnra_amended_cess",
+          "cdnra_differential_value",
+          "cdnra_differential_integrated_tax",
+          "cdnra_differential_central_tax",
+          "cdnra_differential_state_tax",
+          "cdnra_differential_cess",
+          "cdnra_b2b_regular_records",
+          "cdnra_b2b_regular_document_type",
+          "cdnra_b2b_regular_value",
+          "cdnra_b2b_regular_integrated_tax",
+          "cdnra_b2b_regular_central_tax",
+          "cdnra_b2b_regular_state_tax",
+          "cdnra_b2b_regular_cess",
+          "cdnra_b2b_reverse_records",
+          "cdnra_b2b_reverse_document_type",
+          "cdnra_b2b_reverse_value",
+          "cdnra_b2b_reverse_integrated_tax",
+          "cdnra_b2b_reverse_central_tax",
+          "cdnra_b2b_reverse_state_tax",
+          "cdnra_b2b_reverse_cess",
+          "cdnra_sezwp_sezwop_records",
+          "cdnra_sezwp_sezwop_document_type",
+          "cdnra_sezwp_sezwop_value",
+          "cdnra_sezwp_sezwop_integrated_tax",
+          "cdnra_sezwp_sezwop_cess",
+          "cdnra_de_records",
+          "cdnra_de_document_type",
+          "cdnra_de_value",
+          "cdnra_de_integrated_tax",
+          "cdnra_de_central_tax",
+          "cdnra_de_state_tax",
+          "cdnra_de_cess"
+        ]
+      },
+      {
+        "name": "Section 9C - Amended Credit/Debit Notes (Unregistered)",
+        "fields": [
+          "cdnura_amended_records",
+          "cdnura_amended_document_type",
+          "cdnura_amended_value",
+          "cdnura_amended_integrated_tax",
+          "cdnura_amended_cess",
+          "cdnura_differential_value",
+          "cdnura_differential_integrated_tax",
+          "cdnura_differential_cess",
+          "cdnura_b2cl_records",
+          "cdnura_b2cl_document_type",
+          "cdnura_b2cl_value",
+          "cdnura_b2cl_integrated_tax",
+          "cdnura_b2cl_cess",
+          "cdnura_expwp_records",
+          "cdnura_expwp_document_type",
+          "cdnura_expwp_value",
+          "cdnura_expwp_integrated_tax",
+          "cdnura_expwp_cess",
+          "cdnura_expwop_records",
+          "cdnura_expwop_document_type",
+          "cdnura_expwop_value"
         ]
       },
       {
@@ -1062,6 +3738,7 @@
         "name": "Section 11A - Advances Received",
         "fields": [
           "advances_received_records",
+          "advances_received_document_type",
           "advances_received_value",
           "advances_received_integrated_tax",
           "advances_received_central_tax",
@@ -1073,6 +3750,7 @@
         "name": "Section 11B - Advances Adjusted",
         "fields": [
           "advances_adjusted_records",
+          "advances_adjusted_document_type",
           "advances_adjusted_value",
           "advances_adjusted_integrated_tax",
           "advances_adjusted_central_tax",
@@ -1081,9 +3759,87 @@
         ]
       },
       {
-        "name": "Section 14 - E-Commerce",
+        "name": "Section 11A - Amendment to Advances Received",
+        "fields": [
+          "amendment_advances_received_amended_records",
+          "amendment_advances_received_amended_document_type",
+          "amendment_advances_received_amended_value",
+          "amendment_advances_received_amended_integrated_tax",
+          "amendment_advances_received_amended_central_tax",
+          "amendment_advances_received_amended_state_tax",
+          "amendment_advances_received_amended_cess",
+          "amendment_advances_received_total_value",
+          "amendment_advances_received_total_integrated_tax",
+          "amendment_advances_received_total_central_tax",
+          "amendment_advances_received_total_state_tax",
+          "amendment_advances_received_total_cess"
+        ]
+      },
+      {
+        "name": "Section 11B - Amendment to Advances Adjusted",
+        "fields": [
+          "amendment_advances_adjusted_amended_records",
+          "amendment_advances_adjusted_amended_document_type",
+          "amendment_advances_adjusted_amended_value",
+          "amendment_advances_adjusted_amended_integrated_tax",
+          "amendment_advances_adjusted_amended_central_tax",
+          "amendment_advances_adjusted_amended_state_tax",
+          "amendment_advances_adjusted_amended_cess",
+          "amendment_advances_adjusted_total_value",
+          "amendment_advances_adjusted_total_integrated_tax",
+          "amendment_advances_adjusted_total_central_tax",
+          "amendment_advances_adjusted_total_state_tax",
+          "amendment_advances_adjusted_total_cess"
+        ]
+      },
+      {
+        "name": "Section 12 - HSN Summary (Total)",
+        "fields": [
+          "hsn_summary_records",
+          "hsn_summary_document_type",
+          "hsn_summary_total_value",
+          "hsn_summary_total_integrated_tax",
+          "hsn_summary_total_central_tax",
+          "hsn_summary_total_state_tax",
+          "hsn_summary_total_cess"
+        ]
+      },
+      {
+        "name": "Section 12 - HSN Summary (B2B)",
+        "fields": [
+          "hsn_summary_b2b_records",
+          "hsn_summary_b2b_document_type",
+          "hsn_summary_b2b_value",
+          "hsn_summary_b2b_integrated_tax",
+          "hsn_summary_b2b_central_tax",
+          "hsn_summary_b2b_state_tax",
+          "hsn_summary_b2b_cess"
+        ]
+      },
+      {
+        "name": "Section 12 - HSN Summary (B2C)",
+        "fields": [
+          "hsn_summary_b2c_records",
+          "hsn_summary_b2c_document_type",
+          "hsn_summary_b2c_value",
+          "hsn_summary_b2c_integrated_tax",
+          "hsn_summary_b2c_central_tax",
+          "hsn_summary_b2c_state_tax",
+          "hsn_summary_b2c_cess"
+        ]
+      },
+      {
+        "name": "Section 13 - Documents Issued",
+        "fields": [
+          "documents_issued",
+          "documents_issued_document_type"
+        ]
+      },
+      {
+        "name": "Section 14 - E-Commerce (Total)",
         "fields": [
           "ecommerce_total_records",
+          "ecommerce_document_type",
           "ecommerce_total_value",
           "ecommerce_total_integrated_tax",
           "ecommerce_total_central_tax",
@@ -1092,9 +3848,279 @@
         ]
       },
       {
-        "name": "Section 13 - Documents Issued",
+        "name": "Section 14 - E-Commerce - Liable to collect tax u/s 52",
         "fields": [
-          "documents_issued"
+          "ecommerce_liable_collect_records",
+          "ecommerce_liable_collect_document_type",
+          "ecommerce_liable_collect_value",
+          "ecommerce_liable_collect_integrated_tax",
+          "ecommerce_liable_collect_central_tax",
+          "ecommerce_liable_collect_state_tax",
+          "ecommerce_liable_collect_cess"
+        ]
+      },
+      {
+        "name": "Section 14 - E-Commerce - Liable to pay tax u/s 9(5)",
+        "fields": [
+          "ecommerce_liable_pay_records",
+          "ecommerce_liable_pay_document_type",
+          "ecommerce_liable_pay_value",
+          "ecommerce_liable_pay_integrated_tax",
+          "ecommerce_liable_pay_central_tax",
+          "ecommerce_liable_pay_state_tax",
+          "ecommerce_liable_pay_cess"
+        ]
+      },
+      {
+        "name": "Section 14A - Amended E-Commerce - Amended Total",
+        "fields": [
+          "amendment_ecommerce_amended_total_records",
+          "amendment_ecommerce_amended_total_document_type",
+          "amendment_ecommerce_amended_total_value",
+          "amendment_ecommerce_amended_total_integrated_tax",
+          "amendment_ecommerce_amended_total_central_tax",
+          "amendment_ecommerce_amended_total_state_tax",
+          "amendment_ecommerce_amended_total_cess"
+        ]
+      },
+      {
+        "name": "Section 14A - Amended E-Commerce - Net Differential Total",
+        "fields": [
+          "amendment_ecommerce_differential_total_records",
+          "amendment_ecommerce_differential_total_document_type",
+          "amendment_ecommerce_differential_total_value",
+          "amendment_ecommerce_differential_total_integrated_tax",
+          "amendment_ecommerce_differential_total_central_tax",
+          "amendment_ecommerce_differential_total_state_tax",
+          "amendment_ecommerce_differential_total_cess"
+        ]
+      },
+      {
+        "name": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Amended",
+        "fields": [
+          "amendment_ecommerce_amended_liable_collect_records",
+          "amendment_ecommerce_amended_liable_collect_document_type",
+          "amendment_ecommerce_amended_liable_collect_value",
+          "amendment_ecommerce_amended_liable_collect_integrated_tax",
+          "amendment_ecommerce_amended_liable_collect_central_tax",
+          "amendment_ecommerce_amended_liable_collect_state_tax",
+          "amendment_ecommerce_amended_liable_collect_cess"
+        ]
+      },
+      {
+        "name": "Section 14A - Amended E-Commerce - Liable to collect u/s 52 - Differential",
+        "fields": [
+          "amendment_ecommerce_differential_liable_collect_records",
+          "amendment_ecommerce_differential_liable_collect_document_type",
+          "amendment_ecommerce_differential_liable_collect_value",
+          "amendment_ecommerce_differential_liable_collect_integrated_tax",
+          "amendment_ecommerce_differential_liable_collect_central_tax",
+          "amendment_ecommerce_differential_liable_collect_state_tax",
+          "amendment_ecommerce_differential_liable_collect_cess"
+        ]
+      },
+      {
+        "name": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Amended",
+        "fields": [
+          "amendment_ecommerce_amended_liable_pay_records",
+          "amendment_ecommerce_amended_liable_pay_document_type",
+          "amendment_ecommerce_amended_liable_pay_value",
+          "amendment_ecommerce_amended_liable_pay_integrated_tax",
+          "amendment_ecommerce_amended_liable_pay_central_tax",
+          "amendment_ecommerce_amended_liable_pay_state_tax",
+          "amendment_ecommerce_amended_liable_pay_cess"
+        ]
+      },
+      {
+        "name": "Section 14A - Amended E-Commerce - Liable to pay u/s 9(5) - Differential",
+        "fields": [
+          "amendment_ecommerce_differential_liable_pay_records",
+          "amendment_ecommerce_differential_liable_pay_document_type",
+          "amendment_ecommerce_differential_liable_pay_value",
+          "amendment_ecommerce_differential_liable_pay_integrated_tax",
+          "amendment_ecommerce_differential_liable_pay_central_tax",
+          "amendment_ecommerce_differential_liable_pay_state_tax",
+          "amendment_ecommerce_differential_liable_pay_cess"
+        ]
+      },
+      {
+        "name": "Section 15 - Supplies U/s 9(5) - Total",
+        "fields": [
+          "supplies_section15_total_records",
+          "supplies_section15_total_document_type",
+          "supplies_section15_total_value",
+          "supplies_section15_total_integrated_tax",
+          "supplies_section15_total_central_tax",
+          "supplies_section15_total_state_tax",
+          "supplies_section15_total_cess"
+        ]
+      },
+      {
+        "name": "Section 15 - Supplies U/s 9(5) - For Registered Recipients",
+        "fields": [
+          "supplies_section15_registered_records",
+          "supplies_section15_registered_document_type",
+          "supplies_section15_registered_value",
+          "supplies_section15_registered_integrated_tax",
+          "supplies_section15_registered_central_tax",
+          "supplies_section15_registered_state_tax",
+          "supplies_section15_registered_cess"
+        ]
+      },
+      {
+        "name": "Section 15 - Supplies U/s 9(5) - Regular",
+        "fields": [
+          "supplies_section15_regular_records",
+          "supplies_section15_regular_document_type",
+          "supplies_section15_regular_value",
+          "supplies_section15_regular_integrated_tax",
+          "supplies_section15_regular_central_tax",
+          "supplies_section15_regular_state_tax",
+          "supplies_section15_regular_cess"
+        ]
+      },
+      {
+        "name": "Section 15 - Supplies U/s 9(5) - DE",
+        "fields": [
+          "supplies_section15_de_records",
+          "supplies_section15_de_document_type",
+          "supplies_section15_de_value",
+          "supplies_section15_de_integrated_tax",
+          "supplies_section15_de_central_tax",
+          "supplies_section15_de_state_tax",
+          "supplies_section15_de_cess"
+        ]
+      },
+      {
+        "name": "Section 15 - Supplies U/s 9(5) - SEZWP",
+        "fields": [
+          "supplies_section15_sezwp_records",
+          "supplies_section15_sezwp_document_type",
+          "supplies_section15_sezwp_value",
+          "supplies_section15_sezwp_integrated_tax",
+          "supplies_section15_sezwp_central_tax",
+          "supplies_section15_sezwp_state_tax",
+          "supplies_section15_sezwp_cess"
+        ]
+      },
+      {
+        "name": "Section 15 - Supplies U/s 9(5) - SEZWOP",
+        "fields": [
+          "supplies_section15_sezwop_records",
+          "supplies_section15_sezwop_document_type",
+          "supplies_section15_sezwop_value",
+          "supplies_section15_sezwop_integrated_tax",
+          "supplies_section15_sezwop_central_tax",
+          "supplies_section15_sezwop_state_tax",
+          "supplies_section15_sezwop_cess"
+        ]
+      },
+      {
+        "name": "Section 15 - Supplies U/s 9(5) - For Unregistered Recipient",
+        "fields": [
+          "supplies_section15_unregistered_records",
+          "supplies_section15_unregistered_document_type",
+          "supplies_section15_unregistered_value",
+          "supplies_section15_unregistered_integrated_tax",
+          "supplies_section15_unregistered_central_tax",
+          "supplies_section15_unregistered_state_tax",
+          "supplies_section15_unregistered_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(I) - Amended Supplies U/s 9(5) - Registered - Amended Total",
+        "fields": [
+          "amendment_supplies_section15_registered_amended_total_records",
+          "amendment_supplies_section15_registered_amended_total_document_type",
+          "amendment_supplies_section15_registered_amended_total_value",
+          "amendment_supplies_section15_registered_amended_total_integrated_tax",
+          "amendment_supplies_section15_registered_amended_total_central_tax",
+          "amendment_supplies_section15_registered_amended_total_state_tax",
+          "amendment_supplies_section15_registered_amended_total_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(I) - Amended Supplies U/s 9(5) - Registered - Net Differential",
+        "fields": [
+          "amendment_supplies_section15_registered_differential_records",
+          "amendment_supplies_section15_registered_differential_document_type",
+          "amendment_supplies_section15_registered_differential_value",
+          "amendment_supplies_section15_registered_differential_integrated_tax",
+          "amendment_supplies_section15_registered_differential_central_tax",
+          "amendment_supplies_section15_registered_differential_state_tax",
+          "amendment_supplies_section15_registered_differential_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(I) - Amended Supplies U/s 9(5) - Registered - Regular",
+        "fields": [
+          "amendment_supplies_section15_registered_regular_records",
+          "amendment_supplies_section15_registered_regular_document_type",
+          "amendment_supplies_section15_registered_regular_value",
+          "amendment_supplies_section15_registered_regular_integrated_tax",
+          "amendment_supplies_section15_registered_regular_central_tax",
+          "amendment_supplies_section15_registered_regular_state_tax",
+          "amendment_supplies_section15_registered_regular_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(I) - Amended Supplies U/s 9(5) - Registered - DE",
+        "fields": [
+          "amendment_supplies_section15_registered_de_records",
+          "amendment_supplies_section15_registered_de_document_type",
+          "amendment_supplies_section15_registered_de_value",
+          "amendment_supplies_section15_registered_de_integrated_tax",
+          "amendment_supplies_section15_registered_de_central_tax",
+          "amendment_supplies_section15_registered_de_state_tax",
+          "amendment_supplies_section15_registered_de_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(I) - Amended Supplies U/s 9(5) - Registered - SEZWP",
+        "fields": [
+          "amendment_supplies_section15_registered_sezwp_records",
+          "amendment_supplies_section15_registered_sezwp_document_type",
+          "amendment_supplies_section15_registered_sezwp_value",
+          "amendment_supplies_section15_registered_sezwp_integrated_tax",
+          "amendment_supplies_section15_registered_sezwp_central_tax",
+          "amendment_supplies_section15_registered_sezwp_state_tax",
+          "amendment_supplies_section15_registered_sezwp_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(I) - Amended Supplies U/s 9(5) - Registered - SEZWOP",
+        "fields": [
+          "amendment_supplies_section15_registered_sezwop_records",
+          "amendment_supplies_section15_registered_sezwop_document_type",
+          "amendment_supplies_section15_registered_sezwop_value",
+          "amendment_supplies_section15_registered_sezwop_integrated_tax",
+          "amendment_supplies_section15_registered_sezwop_central_tax",
+          "amendment_supplies_section15_registered_sezwop_state_tax",
+          "amendment_supplies_section15_registered_sezwop_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(II) - Amended Supplies U/s 9(5) - Unregistered - Amended Total",
+        "fields": [
+          "amendment_supplies_section15_unregistered_amended_records",
+          "amendment_supplies_section15_unregistered_amended_document_type",
+          "amendment_supplies_section15_unregistered_amended_value",
+          "amendment_supplies_section15_unregistered_amended_integrated_tax",
+          "amendment_supplies_section15_unregistered_amended_central_tax",
+          "amendment_supplies_section15_unregistered_amended_state_tax",
+          "amendment_supplies_section15_unregistered_amended_cess"
+        ]
+      },
+      {
+        "name": "Section 15A(II) - Amended Supplies U/s 9(5) - Unregistered - Net Differential",
+        "fields": [
+          "amendment_supplies_section15_unregistered_differential_records",
+          "amendment_supplies_section15_unregistered_differential_document_type",
+          "amendment_supplies_section15_unregistered_differential_value",
+          "amendment_supplies_section15_unregistered_differential_integrated_tax",
+          "amendment_supplies_section15_unregistered_differential_central_tax",
+          "amendment_supplies_section15_unregistered_differential_state_tax",
+          "amendment_supplies_section15_unregistered_differential_cess"
         ]
       },
       {
