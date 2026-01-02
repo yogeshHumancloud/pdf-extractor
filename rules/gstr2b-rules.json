@@ -1,6 +1,6 @@
 {
   "name": "GST GSTR-2B Auto-drafted ITC Statement Extractor",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Rules to extract data from GSTR-2B Auto-drafted ITC Statement forms",
   "rules": {
     "financial_year": {
@@ -38,6 +38,1378 @@
       "type": "regex",
       "group": 1,
       "description": "Date when the statement was generated"
+    },
+    "eco_documents_integrated_tax": {
+      "pattern": "ECO - Documents \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents (IMS) - Integrated Tax"
+    },
+    "eco_documents_central_tax": {
+      "pattern": "ECO - Documents \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents (IMS) - Central Tax"
+    },
+    "eco_documents_state_tax": {
+      "pattern": "ECO - Documents \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents (IMS) - State/UT Tax"
+    },
+    "eco_documents_cess": {
+      "pattern": "ECO - Documents \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents (IMS) - Cess"
+    },
+    "b2b_invoices_amendment_integrated_tax": {
+      "pattern": "B2B - Invoices \\(Amendment\\) \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices Amendment (IMS) - Integrated Tax"
+    },
+    "b2b_invoices_amendment_central_tax": {
+      "pattern": "B2B - Invoices \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices Amendment (IMS) - Central Tax"
+    },
+    "b2b_invoices_amendment_state_tax": {
+      "pattern": "B2B - Invoices \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices Amendment (IMS) - State/UT Tax"
+    },
+    "b2b_invoices_amendment_cess": {
+      "pattern": "B2B - Invoices \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Invoices Amendment (IMS) - Cess"
+    },
+    "b2b_debit_notes_amendment_integrated_tax": {
+      "pattern": "B2B - Debit Notes \\(Amendment\\) \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes Amendment (IMS) - Integrated Tax"
+    },
+    "b2b_debit_notes_amendment_central_tax": {
+      "pattern": "B2B - Debit Notes \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes Amendment (IMS) - Central Tax"
+    },
+    "b2b_debit_notes_amendment_state_tax": {
+      "pattern": "B2B - Debit Notes \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes Amendment (IMS) - State/UT Tax"
+    },
+    "b2b_debit_notes_amendment_cess": {
+      "pattern": "B2B - Debit Notes \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Debit Notes Amendment (IMS) - Cess"
+    },
+    "eco_documents_amendment_integrated_tax": {
+      "pattern": "ECO - Documents \\(Amendments\\)\\s+\\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents Amendments (IMS) - Integrated Tax"
+    },
+    "eco_documents_amendment_central_tax": {
+      "pattern": "ECO - Documents \\(Amendments\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents Amendments (IMS) - Central Tax"
+    },
+    "eco_documents_amendment_state_tax": {
+      "pattern": "ECO - Documents \\(Amendments\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents Amendments (IMS) - State/UT Tax"
+    },
+    "eco_documents_amendment_cess": {
+      "pattern": "ECO - Documents \\(Amendments\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ECO Documents Amendments (IMS) - Cess"
+    },
+    "isd_invoices_integrated_tax": {
+      "pattern": "DetailsISD - Invoices([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices - Integrated Tax"
+    },
+    "isd_invoices_central_tax": {
+      "pattern": "DetailsISD - Invoices[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices - Central Tax"
+    },
+    "isd_invoices_state_tax": {
+      "pattern": "DetailsISD - Invoices[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices - State/UT Tax"
+    },
+    "isd_invoices_cess": {
+      "pattern": "DetailsISD - Invoices[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices - Cess"
+    },
+    "isd_invoices_amendment_integrated_tax": {
+      "pattern": "ISD - Invoices \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices Amendment - Integrated Tax"
+    },
+    "isd_invoices_amendment_central_tax": {
+      "pattern": "ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices Amendment - Central Tax"
+    },
+    "isd_invoices_amendment_state_tax": {
+      "pattern": "ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices Amendment - State/UT Tax"
+    },
+    "isd_invoices_amendment_cess": {
+      "pattern": "ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Invoices Amendment - Cess"
+    },
+    "reverse_charge_b2b_invoices_integrated_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?DetailsB2B - Invoices([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices - Integrated Tax"
+    },
+    "reverse_charge_b2b_invoices_central_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?DetailsB2B - Invoices[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices - Central Tax"
+    },
+    "reverse_charge_b2b_invoices_state_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?DetailsB2B - Invoices[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices - State/UT Tax"
+    },
+    "reverse_charge_b2b_invoices_cess": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?DetailsB2B - Invoices[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices - Cess"
+    },
+    "reverse_charge_b2b_debit_notes_integrated_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes - Integrated Tax"
+    },
+    "reverse_charge_b2b_debit_notes_central_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes - Central Tax"
+    },
+    "reverse_charge_b2b_debit_notes_state_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes - State/UT Tax"
+    },
+    "reverse_charge_b2b_debit_notes_cess": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes - Cess"
+    },
+    "reverse_charge_b2b_invoices_amendment_integrated_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Invoices \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices Amendment - Integrated Tax"
+    },
+    "reverse_charge_b2b_invoices_amendment_central_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices Amendment - Central Tax"
+    },
+    "reverse_charge_b2b_invoices_amendment_state_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices Amendment - State/UT Tax"
+    },
+    "reverse_charge_b2b_invoices_amendment_cess": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Invoices Amendment - Cess"
+    },
+    "reverse_charge_b2b_debit_notes_amendment_integrated_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes Amendment - Integrated Tax"
+    },
+    "reverse_charge_b2b_debit_notes_amendment_central_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes Amendment - Central Tax"
+    },
+    "reverse_charge_b2b_debit_notes_amendment_state_tax": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes Amendment - State/UT Tax"
+    },
+    "reverse_charge_b2b_debit_notes_amendment_cess": {
+      "pattern": "3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse Charge B2B Debit Notes Amendment - Cess"
+    },
+    "impg_overseas_integrated_tax": {
+      "pattern": "DetailsIMPG - Import of goods from overseas([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from Overseas - Integrated Tax"
+    },
+    "impg_overseas_central_tax": {
+      "pattern": "DetailsIMPG - Import of goods from overseas[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from Overseas - Central Tax"
+    },
+    "impg_overseas_state_tax": {
+      "pattern": "DetailsIMPG - Import of goods from overseas[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from Overseas - State/UT Tax"
+    },
+    "impg_overseas_cess": {
+      "pattern": "DetailsIMPG - Import of goods from overseas[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from Overseas - Cess"
+    },
+    "impg_amendment_integrated_tax": {
+      "pattern": "IMPG \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods Amendment - Integrated Tax"
+    },
+    "impg_amendment_central_tax": {
+      "pattern": "IMPG \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods Amendment - Central Tax"
+    },
+    "impg_amendment_state_tax": {
+      "pattern": "IMPG \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods Amendment - State/UT Tax"
+    },
+    "impg_amendment_cess": {
+      "pattern": "IMPG \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods Amendment - Cess"
+    },
+    "impgsez_integrated_tax": {
+      "pattern": "IMPGSEZ - Import of goods from SEZ([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ - Integrated Tax"
+    },
+    "impgsez_central_tax": {
+      "pattern": "IMPGSEZ - Import of goods from SEZ[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ - Central Tax"
+    },
+    "impgsez_state_tax": {
+      "pattern": "IMPGSEZ - Import of goods from SEZ[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ - State/UT Tax"
+    },
+    "impgsez_cess": {
+      "pattern": "IMPGSEZ - Import of goods from SEZ[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ - Cess"
+    },
+    "impgsez_amendment_integrated_tax": {
+      "pattern": "IMPGSEZ \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ Amendment - Integrated Tax"
+    },
+    "impgsez_amendment_central_tax": {
+      "pattern": "IMPGSEZ \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ Amendment - Central Tax"
+    },
+    "impgsez_amendment_state_tax": {
+      "pattern": "IMPGSEZ \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ Amendment - State/UT Tax"
+    },
+    "impgsez_amendment_cess": {
+      "pattern": "IMPGSEZ \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Import of Goods from SEZ Amendment - Cess"
+    },
+    "b2b_credit_notes_amendment_integrated_tax": {
+      "pattern": "B2B - Credit Notes \\(Amendment\\) \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Amendment (IMS) - Integrated Tax"
+    },
+    "b2b_credit_notes_amendment_central_tax": {
+      "pattern": "B2B - Credit Notes \\(Amendment\\) \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Amendment (IMS) - Central Tax"
+    },
+    "b2b_credit_notes_amendment_state_tax": {
+      "pattern": "B2B - Credit Notes \\(Amendment\\) \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Amendment (IMS) - State/UT Tax"
+    },
+    "b2b_credit_notes_amendment_cess": {
+      "pattern": "B2B - Credit Notes \\(Amendment\\) \\(IMS\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Amendment (IMS) - Cess"
+    },
+    "b2b_credit_notes_reverse_charge_integrated_tax": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge - Integrated Tax"
+    },
+    "b2b_credit_notes_reverse_charge_central_tax": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge - Central Tax"
+    },
+    "b2b_credit_notes_reverse_charge_state_tax": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge - State/UT Tax"
+    },
+    "b2b_credit_notes_reverse_charge_cess": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge - Cess"
+    },
+    "b2b_credit_notes_reverse_charge_amendment_integrated_tax": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge Amendment - Integrated Tax"
+    },
+    "b2b_credit_notes_reverse_charge_amendment_central_tax": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge Amendment - Central Tax"
+    },
+    "b2b_credit_notes_reverse_charge_amendment_state_tax": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge Amendment - State/UT Tax"
+    },
+    "b2b_credit_notes_reverse_charge_amendment_cess": {
+      "pattern": "B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?3\\.1\\(d\\)\\s+4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "B2B Credit Notes Reverse Charge Amendment - Cess"
+    },
+    "isd_credit_notes_integrated_tax": {
+      "pattern": "ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes - Integrated Tax"
+    },
+    "isd_credit_notes_central_tax": {
+      "pattern": "ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes - Central Tax"
+    },
+    "isd_credit_notes_state_tax": {
+      "pattern": "ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes - State/UT Tax"
+    },
+    "isd_credit_notes_cess": {
+      "pattern": "ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes - Cess"
+    },
+    "isd_credit_notes_amendment_integrated_tax": {
+      "pattern": "ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes Amendment - Integrated Tax"
+    },
+    "isd_credit_notes_amendment_central_tax": {
+      "pattern": "ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes Amendment - Central Tax"
+    },
+    "isd_credit_notes_amendment_state_tax": {
+      "pattern": "ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes Amendment - State/UT Tax"
+    },
+    "isd_credit_notes_amendment_cess": {
+      "pattern": "ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ISD Credit Notes Amendment - Cess"
+    },
+    "itc_not_avail_b2b_invoices_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices - Integrated Tax"
+    },
+    "itc_not_avail_b2b_invoices_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices - Central Tax"
+    },
+    "itc_not_avail_b2b_invoices_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices - State/UT Tax"
+    },
+    "itc_not_avail_b2b_invoices_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices - Cess"
+    },
+    "itc_not_avail_b2b_debit_notes_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?Details[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes - Integrated Tax"
+    },
+    "itc_not_avail_b2b_debit_notes_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?Details[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes - Central Tax"
+    },
+    "itc_not_avail_b2b_debit_notes_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?Details[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes - State/UT Tax"
+    },
+    "itc_not_avail_b2b_debit_notes_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?Details[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes - Cess"
+    },
+    "itc_not_avail_eco_documents_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents - Integrated Tax"
+    },
+    "itc_not_avail_eco_documents_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents - Central Tax"
+    },
+    "itc_not_avail_eco_documents_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents - State/UT Tax"
+    },
+    "itc_not_avail_eco_documents_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents - Cess"
+    },
+    "itc_not_avail_b2b_invoices_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices Amendment - Integrated Tax"
+    },
+    "itc_not_avail_b2b_invoices_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices Amendment - Central Tax"
+    },
+    "itc_not_avail_b2b_invoices_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices Amendment - State/UT Tax"
+    },
+    "itc_not_avail_b2b_invoices_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Invoices Amendment - Cess"
+    },
+    "itc_not_avail_b2b_debit_notes_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes Amendment - Integrated Tax"
+    },
+    "itc_not_avail_b2b_debit_notes_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes Amendment - Central Tax"
+    },
+    "itc_not_avail_b2b_debit_notes_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes Amendment - State/UT Tax"
+    },
+    "itc_not_avail_b2b_debit_notes_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Debit Notes Amendment - Cess"
+    },
+    "itc_not_avail_eco_documents_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents Amendment - Integrated Tax"
+    },
+    "itc_not_avail_eco_documents_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents Amendment - Central Tax"
+    },
+    "itc_not_avail_eco_documents_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents Amendment - State/UT Tax"
+    },
+    "itc_not_avail_eco_documents_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ECO Documents Amendment - Cess"
+    },
+    "itc_not_avail_isd_invoices_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices - Integrated Tax"
+    },
+    "itc_not_avail_isd_invoices_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices - Central Tax"
+    },
+    "itc_not_avail_isd_invoices_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices - State/UT Tax"
+    },
+    "itc_not_avail_isd_invoices_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices - Cess"
+    },
+    "itc_not_avail_isd_invoices_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices Amendment - Integrated Tax"
+    },
+    "itc_not_avail_isd_invoices_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices Amendment - Central Tax"
+    },
+    "itc_not_avail_isd_invoices_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices Amendment - State/UT Tax"
+    },
+    "itc_not_avail_isd_invoices_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Invoices Amendment - Cess"
+    },
+    "itc_not_avail_rc_b2b_invoices_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)[\\s\\S]*?DetailsB2B - Invoices(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices - Integrated Tax"
+    },
+    "itc_not_avail_rc_b2b_invoices_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)[\\s\\S]*?DetailsB2B - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices - Central Tax"
+    },
+    "itc_not_avail_rc_b2b_invoices_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)[\\s\\S]*?DetailsB2B - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices - State/UT Tax"
+    },
+    "itc_not_avail_rc_b2b_invoices_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?charge[\\s\\S]*?3\\.1\\(d\\)[\\s\\S]*?4\\(D\\)\\(2\\)[\\s\\S]*?DetailsB2B - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices - Cess"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes - Integrated Tax"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes - Central Tax"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes - State/UT Tax"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes - Cess"
+    },
+    "itc_not_avail_rc_b2b_invoices_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Invoices \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices Amendment - Integrated Tax"
+    },
+    "itc_not_avail_rc_b2b_invoices_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices Amendment - Central Tax"
+    },
+    "itc_not_avail_rc_b2b_invoices_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices Amendment - State/UT Tax"
+    },
+    "itc_not_avail_rc_b2b_invoices_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Invoices Amendment - Cess"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes Amendment - Integrated Tax"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes Amendment - Central Tax"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes Amendment - State/UT Tax"
+    },
+    "itc_not_avail_rc_b2b_debit_notes_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?IIIInward Supplies liable for reverse[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - Reverse Charge B2B Debit Notes Amendment - Cess"
+    },
+    "itc_not_avail_b2b_credit_notes_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes[\\s\\S]*?4\\(A\\)\\(5\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes - Integrated Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes - Central Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes - State/UT Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes - Cess"
+    },
+    "itc_not_avail_b2b_credit_notes_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(5\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Amendment - Integrated Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Amendment - Central Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Amendment - State/UT Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(5\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Amendment - Cess"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?4\\(A\\)\\(3\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge - Integrated Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge - Central Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge - State/UT Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge - Cess"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(3\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - Integrated Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - Central Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - State/UT Tax"
+    },
+    "itc_not_avail_b2b_credit_notes_rc_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit notes \\(Reverse charge\\)\\s+\\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(3\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - Cess"
+    },
+    "itc_not_avail_isd_credit_notes_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes - Integrated Tax"
+    },
+    "itc_not_avail_isd_credit_notes_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes - Central Tax"
+    },
+    "itc_not_avail_isd_credit_notes_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes - State/UT Tax"
+    },
+    "itc_not_avail_isd_credit_notes_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes - Cess"
+    },
+    "itc_not_avail_isd_credit_notes_amendment_integrated_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes Amendment - Integrated Tax"
+    },
+    "itc_not_avail_isd_credit_notes_amendment_central_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes Amendment - Central Tax"
+    },
+    "itc_not_avail_isd_credit_notes_amendment_state_tax": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes Amendment - State/UT Tax"
+    },
+    "itc_not_avail_isd_credit_notes_amendment_cess": {
+      "pattern": "4\\. ITC Not Available Summary[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)[\\s\\S]*?4\\(A\\)\\(4\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Not Available - ISD Credit Notes Amendment - Cess"
+    },
+    "itc_rejected_b2b_invoices_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices (IMS) - Integrated Tax"
+    },
+    "itc_rejected_b2b_invoices_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices (IMS) - Central Tax"
+    },
+    "itc_rejected_b2b_invoices_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices (IMS) - State/UT Tax"
+    },
+    "itc_rejected_b2b_invoices_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?DetailsB2B - Invoices \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices (IMS) - Cess"
+    },
+    "itc_rejected_b2b_debit_notes_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes (IMS) - Integrated Tax"
+    },
+    "itc_rejected_b2b_debit_notes_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes (IMS) - Central Tax"
+    },
+    "itc_rejected_b2b_debit_notes_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes (IMS) - State/UT Tax"
+    },
+    "itc_rejected_b2b_debit_notes_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes (IMS) - Cess"
+    },
+    "itc_rejected_eco_documents_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(IMS\\)(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents (IMS) - Integrated Tax"
+    },
+    "itc_rejected_eco_documents_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(IMS\\)(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents (IMS) - Central Tax"
+    },
+    "itc_rejected_eco_documents_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(IMS\\)(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents (IMS) - State/UT Tax"
+    },
+    "itc_rejected_eco_documents_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(IMS\\)(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents (IMS) - Cess"
+    },
+    "itc_rejected_b2b_invoices_amendment_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\) \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices Amendment (IMS) - Integrated Tax"
+    },
+    "itc_rejected_b2b_invoices_amendment_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices Amendment (IMS) - Central Tax"
+    },
+    "itc_rejected_b2b_invoices_amendment_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices Amendment (IMS) - State/UT Tax"
+    },
+    "itc_rejected_b2b_invoices_amendment_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Invoices \\(Amendment\\) \\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Invoices Amendment (IMS) - Cess"
+    },
+    "itc_rejected_b2b_debit_notes_amendment_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)\\s+\\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes Amendment (IMS) - Integrated Tax"
+    },
+    "itc_rejected_b2b_debit_notes_amendment_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes Amendment (IMS) - Central Tax"
+    },
+    "itc_rejected_b2b_debit_notes_amendment_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes Amendment (IMS) - State/UT Tax"
+    },
+    "itc_rejected_b2b_debit_notes_amendment_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?B2B - Debit Notes \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Debit Notes Amendment (IMS) - Cess"
+    },
+    "itc_rejected_eco_documents_amendment_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)\\s+\\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents Amendment (IMS) - Integrated Tax"
+    },
+    "itc_rejected_eco_documents_amendment_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents Amendment (IMS) - Central Tax"
+    },
+    "itc_rejected_eco_documents_amendment_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents Amendment (IMS) - State/UT Tax"
+    },
+    "itc_rejected_eco_documents_amendment_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?All other ITC[\\s\\S]*?ECO - Documents \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ECO Documents Amendment (IMS) - Cess"
+    },
+    "itc_rejected_isd_invoices_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices - Integrated Tax"
+    },
+    "itc_rejected_isd_invoices_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices - Central Tax"
+    },
+    "itc_rejected_isd_invoices_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices - State/UT Tax"
+    },
+    "itc_rejected_isd_invoices_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?DetailsISD - Invoices(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices - Cess"
+    },
+    "itc_rejected_isd_invoices_amendment_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices Amendment - Integrated Tax"
+    },
+    "itc_rejected_isd_invoices_amendment_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices Amendment - Central Tax"
+    },
+    "itc_rejected_isd_invoices_amendment_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices Amendment - State/UT Tax"
+    },
+    "itc_rejected_isd_invoices_amendment_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?IIInward Supplies from ISD[\\s\\S]*?ISD - Invoices \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Invoices Amendment - Cess"
+    },
+    "itc_rejected_b2b_credit_notes_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes \\(IMS\\)(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes (IMS) - Integrated Tax"
+    },
+    "itc_rejected_b2b_credit_notes_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes \\(IMS\\)(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes (IMS) - Central Tax"
+    },
+    "itc_rejected_b2b_credit_notes_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes \\(IMS\\)(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes (IMS) - State/UT Tax"
+    },
+    "itc_rejected_b2b_credit_notes_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?IOthers[\\s\\S]*?DetailsB2B - Credit Notes \\(IMS\\)(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes (IMS) - Cess"
+    },
+    "itc_rejected_b2b_credit_notes_amendment_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)\\s+\\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes Amendment (IMS) - Integrated Tax"
+    },
+    "itc_rejected_b2b_credit_notes_amendment_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes Amendment (IMS) - Central Tax"
+    },
+    "itc_rejected_b2b_credit_notes_amendment_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes Amendment (IMS) - State/UT Tax"
+    },
+    "itc_rejected_b2b_credit_notes_amendment_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?B2B - Credit Notes \\(Amendment\\)\\s+\\(IMS\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - B2B Credit Notes Amendment (IMS) - Cess"
+    },
+    "itc_rejected_isd_credit_notes_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes(?![\\s\\S]*?Amendment)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes - Integrated Tax"
+    },
+    "itc_rejected_isd_credit_notes_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes - Central Tax"
+    },
+    "itc_rejected_isd_credit_notes_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes - State/UT Tax"
+    },
+    "itc_rejected_isd_credit_notes_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit notes(?![\\s\\S]*?Amendment)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes - Cess"
+    },
+    "itc_rejected_isd_credit_notes_amendment_integrated_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes Amendment - Integrated Tax"
+    },
+    "itc_rejected_isd_credit_notes_amendment_central_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes Amendment - Central Tax"
+    },
+    "itc_rejected_isd_credit_notes_amendment_state_tax": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes Amendment - State/UT Tax"
+    },
+    "itc_rejected_isd_credit_notes_amendment_cess": {
+      "pattern": "6\\.ITC Rejected[\\s\\S]*?Part B[\\s\\S]*?ISD - Credit Notes \\(Amendment\\)[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC Rejected - ISD Credit Notes Amendment - Cess"
     },
     "b2b_invoices_integrated_tax": {
       "pattern": "B2B - Invoices \\(IMS\\)([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
@@ -483,7 +1855,7 @@
         ]
       },
       {
-        "name": "B2B Invoices (IMS)",
+        "name": "ITC Available - Detail: B2B Invoices (IMS)",
         "fields": [
           "b2b_invoices_integrated_tax",
           "b2b_invoices_central_tax",
@@ -492,7 +1864,7 @@
         ]
       },
       {
-        "name": "B2B Debit Notes (IMS)",
+        "name": "ITC Available - Detail: B2B Debit Notes (IMS)",
         "fields": [
           "b2b_debit_notes_integrated_tax",
           "b2b_debit_notes_central_tax",
@@ -501,12 +1873,39 @@
         ]
       },
       {
-        "name": "B2B Credit Notes (IMS)",
+        "name": "ITC Available - Detail: ECO Documents (IMS)",
         "fields": [
-          "b2b_credit_notes_integrated_tax",
-          "b2b_credit_notes_central_tax",
-          "b2b_credit_notes_state_tax",
-          "b2b_credit_notes_cess"
+          "eco_documents_integrated_tax",
+          "eco_documents_central_tax",
+          "eco_documents_state_tax",
+          "eco_documents_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: B2B Invoices Amendment (IMS)",
+        "fields": [
+          "b2b_invoices_amendment_integrated_tax",
+          "b2b_invoices_amendment_central_tax",
+          "b2b_invoices_amendment_state_tax",
+          "b2b_invoices_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: B2B Debit Notes Amendment (IMS)",
+        "fields": [
+          "b2b_debit_notes_amendment_integrated_tax",
+          "b2b_debit_notes_amendment_central_tax",
+          "b2b_debit_notes_amendment_state_tax",
+          "b2b_debit_notes_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: ECO Documents Amendment (IMS)",
+        "fields": [
+          "eco_documents_amendment_integrated_tax",
+          "eco_documents_amendment_central_tax",
+          "eco_documents_amendment_state_tax",
+          "eco_documents_amendment_cess"
         ]
       },
       {
@@ -519,12 +1918,66 @@
         ]
       },
       {
+        "name": "ITC Available - Detail: ISD Invoices",
+        "fields": [
+          "isd_invoices_integrated_tax",
+          "isd_invoices_central_tax",
+          "isd_invoices_state_tax",
+          "isd_invoices_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: ISD Invoices Amendment",
+        "fields": [
+          "isd_invoices_amendment_integrated_tax",
+          "isd_invoices_amendment_central_tax",
+          "isd_invoices_amendment_state_tax",
+          "isd_invoices_amendment_cess"
+        ]
+      },
+      {
         "name": "Reverse Charge Supplies",
         "fields": [
           "reverse_charge_integrated_tax",
           "reverse_charge_central_tax",
           "reverse_charge_state_tax",
           "reverse_charge_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: Reverse Charge B2B Invoices",
+        "fields": [
+          "reverse_charge_b2b_invoices_integrated_tax",
+          "reverse_charge_b2b_invoices_central_tax",
+          "reverse_charge_b2b_invoices_state_tax",
+          "reverse_charge_b2b_invoices_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: Reverse Charge B2B Debit Notes",
+        "fields": [
+          "reverse_charge_b2b_debit_notes_integrated_tax",
+          "reverse_charge_b2b_debit_notes_central_tax",
+          "reverse_charge_b2b_debit_notes_state_tax",
+          "reverse_charge_b2b_debit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: Reverse Charge B2B Invoices Amendment",
+        "fields": [
+          "reverse_charge_b2b_invoices_amendment_integrated_tax",
+          "reverse_charge_b2b_invoices_amendment_central_tax",
+          "reverse_charge_b2b_invoices_amendment_state_tax",
+          "reverse_charge_b2b_invoices_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: Reverse Charge B2B Debit Notes Amendment",
+        "fields": [
+          "reverse_charge_b2b_debit_notes_amendment_integrated_tax",
+          "reverse_charge_b2b_debit_notes_amendment_central_tax",
+          "reverse_charge_b2b_debit_notes_amendment_state_tax",
+          "reverse_charge_b2b_debit_notes_amendment_cess"
         ]
       },
       {
@@ -537,12 +1990,156 @@
         ]
       },
       {
+        "name": "ITC Available - Detail: Import from Overseas",
+        "fields": [
+          "impg_overseas_integrated_tax",
+          "impg_overseas_central_tax",
+          "impg_overseas_state_tax",
+          "impg_overseas_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: Import Amendment",
+        "fields": [
+          "impg_amendment_integrated_tax",
+          "impg_amendment_central_tax",
+          "impg_amendment_state_tax",
+          "impg_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: Import from SEZ",
+        "fields": [
+          "impgsez_integrated_tax",
+          "impgsez_central_tax",
+          "impgsez_state_tax",
+          "impgsez_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: Import from SEZ Amendment",
+        "fields": [
+          "impgsez_amendment_integrated_tax",
+          "impgsez_amendment_central_tax",
+          "impgsez_amendment_state_tax",
+          "impgsez_amendment_cess"
+        ]
+      },
+      {
+        "name": "B2B Credit Notes (IMS)",
+        "fields": [
+          "b2b_credit_notes_integrated_tax",
+          "b2b_credit_notes_central_tax",
+          "b2b_credit_notes_state_tax",
+          "b2b_credit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: B2B Credit Notes Amendment (IMS)",
+        "fields": [
+          "b2b_credit_notes_amendment_integrated_tax",
+          "b2b_credit_notes_amendment_central_tax",
+          "b2b_credit_notes_amendment_state_tax",
+          "b2b_credit_notes_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: B2B Credit Notes Reverse Charge",
+        "fields": [
+          "b2b_credit_notes_reverse_charge_integrated_tax",
+          "b2b_credit_notes_reverse_charge_central_tax",
+          "b2b_credit_notes_reverse_charge_state_tax",
+          "b2b_credit_notes_reverse_charge_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: B2B Credit Notes Reverse Charge Amendment",
+        "fields": [
+          "b2b_credit_notes_reverse_charge_amendment_integrated_tax",
+          "b2b_credit_notes_reverse_charge_amendment_central_tax",
+          "b2b_credit_notes_reverse_charge_amendment_state_tax",
+          "b2b_credit_notes_reverse_charge_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: ISD Credit Notes",
+        "fields": [
+          "isd_credit_notes_integrated_tax",
+          "isd_credit_notes_central_tax",
+          "isd_credit_notes_state_tax",
+          "isd_credit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Available - Detail: ISD Credit Notes Amendment",
+        "fields": [
+          "isd_credit_notes_amendment_integrated_tax",
+          "isd_credit_notes_amendment_central_tax",
+          "isd_credit_notes_amendment_state_tax",
+          "isd_credit_notes_amendment_cess"
+        ]
+      },
+      {
         "name": "ITC Not Available - All Other ITC",
         "fields": [
           "itc_not_available_all_other_integrated_tax",
           "itc_not_available_all_other_central_tax",
           "itc_not_available_all_other_state_tax",
           "itc_not_available_all_other_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Invoices",
+        "fields": [
+          "itc_not_avail_b2b_invoices_integrated_tax",
+          "itc_not_avail_b2b_invoices_central_tax",
+          "itc_not_avail_b2b_invoices_state_tax",
+          "itc_not_avail_b2b_invoices_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Debit Notes",
+        "fields": [
+          "itc_not_avail_b2b_debit_notes_integrated_tax",
+          "itc_not_avail_b2b_debit_notes_central_tax",
+          "itc_not_avail_b2b_debit_notes_state_tax",
+          "itc_not_avail_b2b_debit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: ECO Documents",
+        "fields": [
+          "itc_not_avail_eco_documents_integrated_tax",
+          "itc_not_avail_eco_documents_central_tax",
+          "itc_not_avail_eco_documents_state_tax",
+          "itc_not_avail_eco_documents_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Invoices Amendment",
+        "fields": [
+          "itc_not_avail_b2b_invoices_amendment_integrated_tax",
+          "itc_not_avail_b2b_invoices_amendment_central_tax",
+          "itc_not_avail_b2b_invoices_amendment_state_tax",
+          "itc_not_avail_b2b_invoices_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Debit Notes Amendment",
+        "fields": [
+          "itc_not_avail_b2b_debit_notes_amendment_integrated_tax",
+          "itc_not_avail_b2b_debit_notes_amendment_central_tax",
+          "itc_not_avail_b2b_debit_notes_amendment_state_tax",
+          "itc_not_avail_b2b_debit_notes_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: ECO Documents Amendment",
+        "fields": [
+          "itc_not_avail_eco_documents_amendment_integrated_tax",
+          "itc_not_avail_eco_documents_amendment_central_tax",
+          "itc_not_avail_eco_documents_amendment_state_tax",
+          "itc_not_avail_eco_documents_amendment_cess"
         ]
       },
       {
@@ -555,6 +2152,24 @@
         ]
       },
       {
+        "name": "ITC Not Available - Detail: ISD Invoices",
+        "fields": [
+          "itc_not_avail_isd_invoices_integrated_tax",
+          "itc_not_avail_isd_invoices_central_tax",
+          "itc_not_avail_isd_invoices_state_tax",
+          "itc_not_avail_isd_invoices_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: ISD Invoices Amendment",
+        "fields": [
+          "itc_not_avail_isd_invoices_amendment_integrated_tax",
+          "itc_not_avail_isd_invoices_amendment_central_tax",
+          "itc_not_avail_isd_invoices_amendment_state_tax",
+          "itc_not_avail_isd_invoices_amendment_cess"
+        ]
+      },
+      {
         "name": "ITC Not Available - Reverse Charge",
         "fields": [
           "itc_not_available_reverse_charge_integrated_tax",
@@ -564,12 +2179,102 @@
         ]
       },
       {
+        "name": "ITC Not Available - Detail: RC B2B Invoices",
+        "fields": [
+          "itc_not_avail_rc_b2b_invoices_integrated_tax",
+          "itc_not_avail_rc_b2b_invoices_central_tax",
+          "itc_not_avail_rc_b2b_invoices_state_tax",
+          "itc_not_avail_rc_b2b_invoices_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: RC B2B Debit Notes",
+        "fields": [
+          "itc_not_avail_rc_b2b_debit_notes_integrated_tax",
+          "itc_not_avail_rc_b2b_debit_notes_central_tax",
+          "itc_not_avail_rc_b2b_debit_notes_state_tax",
+          "itc_not_avail_rc_b2b_debit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: RC B2B Invoices Amendment",
+        "fields": [
+          "itc_not_avail_rc_b2b_invoices_amendment_integrated_tax",
+          "itc_not_avail_rc_b2b_invoices_amendment_central_tax",
+          "itc_not_avail_rc_b2b_invoices_amendment_state_tax",
+          "itc_not_avail_rc_b2b_invoices_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: RC B2B Debit Notes Amendment",
+        "fields": [
+          "itc_not_avail_rc_b2b_debit_notes_amendment_integrated_tax",
+          "itc_not_avail_rc_b2b_debit_notes_amendment_central_tax",
+          "itc_not_avail_rc_b2b_debit_notes_amendment_state_tax",
+          "itc_not_avail_rc_b2b_debit_notes_amendment_cess"
+        ]
+      },
+      {
         "name": "ITC Not Available - Others (Credit Notes)",
         "fields": [
           "itc_not_available_others_integrated_tax",
           "itc_not_available_others_central_tax",
           "itc_not_available_others_state_tax",
           "itc_not_available_others_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Credit Notes",
+        "fields": [
+          "itc_not_avail_b2b_credit_notes_integrated_tax",
+          "itc_not_avail_b2b_credit_notes_central_tax",
+          "itc_not_avail_b2b_credit_notes_state_tax",
+          "itc_not_avail_b2b_credit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Credit Notes Amendment",
+        "fields": [
+          "itc_not_avail_b2b_credit_notes_amendment_integrated_tax",
+          "itc_not_avail_b2b_credit_notes_amendment_central_tax",
+          "itc_not_avail_b2b_credit_notes_amendment_state_tax",
+          "itc_not_avail_b2b_credit_notes_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Credit Notes RC",
+        "fields": [
+          "itc_not_avail_b2b_credit_notes_rc_integrated_tax",
+          "itc_not_avail_b2b_credit_notes_rc_central_tax",
+          "itc_not_avail_b2b_credit_notes_rc_state_tax",
+          "itc_not_avail_b2b_credit_notes_rc_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: B2B Credit Notes RC Amendment",
+        "fields": [
+          "itc_not_avail_b2b_credit_notes_rc_amendment_integrated_tax",
+          "itc_not_avail_b2b_credit_notes_rc_amendment_central_tax",
+          "itc_not_avail_b2b_credit_notes_rc_amendment_state_tax",
+          "itc_not_avail_b2b_credit_notes_rc_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: ISD Credit Notes",
+        "fields": [
+          "itc_not_avail_isd_credit_notes_integrated_tax",
+          "itc_not_avail_isd_credit_notes_central_tax",
+          "itc_not_avail_isd_credit_notes_state_tax",
+          "itc_not_avail_isd_credit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Not Available - Detail: ISD Credit Notes Amendment",
+        "fields": [
+          "itc_not_avail_isd_credit_notes_amendment_integrated_tax",
+          "itc_not_avail_isd_credit_notes_amendment_central_tax",
+          "itc_not_avail_isd_credit_notes_amendment_state_tax",
+          "itc_not_avail_isd_credit_notes_amendment_cess"
         ]
       },
       {
@@ -591,6 +2296,60 @@
         ]
       },
       {
+        "name": "ITC Rejected - Detail: B2B Invoices (IMS)",
+        "fields": [
+          "itc_rejected_b2b_invoices_integrated_tax",
+          "itc_rejected_b2b_invoices_central_tax",
+          "itc_rejected_b2b_invoices_state_tax",
+          "itc_rejected_b2b_invoices_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: B2B Debit Notes (IMS)",
+        "fields": [
+          "itc_rejected_b2b_debit_notes_integrated_tax",
+          "itc_rejected_b2b_debit_notes_central_tax",
+          "itc_rejected_b2b_debit_notes_state_tax",
+          "itc_rejected_b2b_debit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: ECO Documents (IMS)",
+        "fields": [
+          "itc_rejected_eco_documents_integrated_tax",
+          "itc_rejected_eco_documents_central_tax",
+          "itc_rejected_eco_documents_state_tax",
+          "itc_rejected_eco_documents_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: B2B Invoices Amendment (IMS)",
+        "fields": [
+          "itc_rejected_b2b_invoices_amendment_integrated_tax",
+          "itc_rejected_b2b_invoices_amendment_central_tax",
+          "itc_rejected_b2b_invoices_amendment_state_tax",
+          "itc_rejected_b2b_invoices_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: B2B Debit Notes Amendment (IMS)",
+        "fields": [
+          "itc_rejected_b2b_debit_notes_amendment_integrated_tax",
+          "itc_rejected_b2b_debit_notes_amendment_central_tax",
+          "itc_rejected_b2b_debit_notes_amendment_state_tax",
+          "itc_rejected_b2b_debit_notes_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: ECO Documents Amendment (IMS)",
+        "fields": [
+          "itc_rejected_eco_documents_amendment_integrated_tax",
+          "itc_rejected_eco_documents_amendment_central_tax",
+          "itc_rejected_eco_documents_amendment_state_tax",
+          "itc_rejected_eco_documents_amendment_cess"
+        ]
+      },
+      {
         "name": "ITC Rejected - Inward Supplies from ISD",
         "fields": [
           "itc_rejected_isd_integrated_tax",
@@ -600,12 +2359,66 @@
         ]
       },
       {
+        "name": "ITC Rejected - Detail: ISD Invoices",
+        "fields": [
+          "itc_rejected_isd_invoices_integrated_tax",
+          "itc_rejected_isd_invoices_central_tax",
+          "itc_rejected_isd_invoices_state_tax",
+          "itc_rejected_isd_invoices_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: ISD Invoices Amendment",
+        "fields": [
+          "itc_rejected_isd_invoices_amendment_integrated_tax",
+          "itc_rejected_isd_invoices_amendment_central_tax",
+          "itc_rejected_isd_invoices_amendment_state_tax",
+          "itc_rejected_isd_invoices_amendment_cess"
+        ]
+      },
+      {
         "name": "ITC Rejected - Others (Credit Notes)",
         "fields": [
           "itc_rejected_others_integrated_tax",
           "itc_rejected_others_central_tax",
           "itc_rejected_others_state_tax",
           "itc_rejected_others_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: B2B Credit Notes (IMS)",
+        "fields": [
+          "itc_rejected_b2b_credit_notes_integrated_tax",
+          "itc_rejected_b2b_credit_notes_central_tax",
+          "itc_rejected_b2b_credit_notes_state_tax",
+          "itc_rejected_b2b_credit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: B2B Credit Notes Amendment (IMS)",
+        "fields": [
+          "itc_rejected_b2b_credit_notes_amendment_integrated_tax",
+          "itc_rejected_b2b_credit_notes_amendment_central_tax",
+          "itc_rejected_b2b_credit_notes_amendment_state_tax",
+          "itc_rejected_b2b_credit_notes_amendment_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: ISD Credit Notes",
+        "fields": [
+          "itc_rejected_isd_credit_notes_integrated_tax",
+          "itc_rejected_isd_credit_notes_central_tax",
+          "itc_rejected_isd_credit_notes_state_tax",
+          "itc_rejected_isd_credit_notes_cess"
+        ]
+      },
+      {
+        "name": "ITC Rejected - Detail: ISD Credit Notes Amendment",
+        "fields": [
+          "itc_rejected_isd_credit_notes_amendment_integrated_tax",
+          "itc_rejected_isd_credit_notes_amendment_central_tax",
+          "itc_rejected_isd_credit_notes_amendment_state_tax",
+          "itc_rejected_isd_credit_notes_amendment_cess"
         ]
       }
     ]

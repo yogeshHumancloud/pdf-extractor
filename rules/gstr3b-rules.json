@@ -46,35 +46,35 @@
       "description": "Date of ARN"
     },
     "outward_taxable_supplies_total_value": {
-      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}\\n([\\d,]+\\.\\d{2})",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Outward taxable supplies - Total taxable value"
     },
     "outward_taxable_supplies_integrated_tax": {
-      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}\\n[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Outward taxable supplies - Integrated tax"
     },
     "outward_taxable_supplies_central_tax": {
-      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}\\n[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Outward taxable supplies - Central tax"
     },
     "outward_taxable_supplies_state_tax": {
-      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}\\n[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
       "type": "regex",
       "group": 1,
       "transform": "number",
       "description": "Outward taxable supplies - State/UT tax"
     },
     "outward_taxable_supplies_cess": {
-      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\s\\S]{1,50}\\(b\\) Outward taxable supplies \\(zero rated\\)",
+      "pattern": "\\(a\\) Outward taxable supplies[\\s\\S]{1,100}\\n[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
       "type": "regex",
       "group": 1,
       "transform": "number",
@@ -594,6 +594,328 @@
       "type": "regex",
       "group": 1,
       "description": "Designation/Status of signatory"
+    },
+    "outward_other_nil_exempted_value": {
+      "pattern": "\\(c \\) Other outward supplies \\(nil rated, exempted\\)([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Other outward supplies (nil rated, exempted) - Total value"
+    },
+    "outward_non_gst_value": {
+      "pattern": "\\(e\\) Non-GST outward supplies([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Non-GST outward supplies - Total value"
+    },
+    "ecom_operator_pays_total_value": {
+      "pattern": "\\(i\\) Taxable supplies on which electronic commerce operator pays tax[\\s\\S]{1,200}\\n([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "E-commerce supplies (operator pays tax) - Total value"
+    },
+    "ecom_operator_pays_integrated_tax": {
+      "pattern": "\\(i\\) Taxable supplies on which electronic commerce operator pays tax[\\s\\S]{1,200}\\n[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "E-commerce supplies (operator pays tax) - Integrated tax"
+    },
+    "ecom_operator_pays_central_tax": {
+      "pattern": "\\(i\\) Taxable supplies on which electronic commerce operator pays tax[\\s\\S]{1,200}\\n[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "E-commerce supplies (operator pays tax) - Central tax"
+    },
+    "ecom_operator_pays_state_tax": {
+      "pattern": "\\(i\\) Taxable supplies on which electronic commerce operator pays tax[\\s\\S]{1,200}\\n[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "E-commerce supplies (operator pays tax) - State/UT tax"
+    },
+    "ecom_operator_pays_cess": {
+      "pattern": "\\(i\\) Taxable supplies on which electronic commerce operator pays tax[\\s\\S]{1,200}\\n[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "E-commerce supplies (operator pays tax) - Cess"
+    },
+    "ecom_through_operator_value": {
+      "pattern": "\\(ii\\) Taxable supplies made by registered person through electronic commerce[\\s\\S]{1,250}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "E-commerce supplies made through operator - Total value"
+    },
+    "interstate_unregistered_value": {
+      "pattern": "Supplies made to Unregistered Persons([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inter-state supplies to unregistered persons - Total value"
+    },
+    "interstate_unregistered_tax": {
+      "pattern": "Supplies made to Unregistered Persons[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inter-state supplies to unregistered persons - Integrated tax"
+    },
+    "interstate_composition_value": {
+      "pattern": "Supplies made to Composition Taxable[\\s\\S]{1,50}Persons[\\s\\S]{1,50}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inter-state supplies to composition taxable persons - Total value"
+    },
+    "interstate_composition_tax": {
+      "pattern": "Supplies made to Composition Taxable[\\s\\S]{1,50}Persons[\\s\\S]{1,50}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inter-state supplies to composition taxable persons - Integrated tax"
+    },
+    "interstate_uin_value": {
+      "pattern": "Supplies made to UIN holders([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inter-state supplies to UIN holders - Total value"
+    },
+    "interstate_uin_tax": {
+      "pattern": "Supplies made to UIN holders[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Inter-state supplies to UIN holders - Integrated tax"
+    },
+    "itc_other_itc_reversal_rule37": {
+      "pattern": "\\(1\\) As per rules 37 & 39 of CGST\\(IGST\\) Rules([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rules 37 & 39 - Integrated tax"
+    },
+    "itc_other_itc_reversal_rule37_central": {
+      "pattern": "\\(1\\) As per rules 37 & 39 of CGST\\(IGST\\) Rules[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rules 37 & 39 - Central tax"
+    },
+    "itc_other_itc_reversal_rule37_state": {
+      "pattern": "\\(1\\) As per rules 37 & 39 of CGST\\(IGST\\) Rules[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rules 37 & 39 - State/UT tax"
+    },
+    "itc_other_itc_reversal_rule37_cess": {
+      "pattern": "\\(1\\) As per rules 37 & 39 of CGST\\(IGST\\) Rules[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rules 37 & 39 - Cess"
+    },
+    "itc_other_itc_reversal_rule42": {
+      "pattern": "\\(2\\) As per rule 42 of CGST\\(IGST\\) Rules([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rule 42 - Integrated tax"
+    },
+    "itc_other_itc_reversal_rule42_central": {
+      "pattern": "\\(2\\) As per rule 42 of CGST\\(IGST\\) Rules[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rule 42 - Central tax"
+    },
+    "itc_other_itc_reversal_rule42_state": {
+      "pattern": "\\(2\\) As per rule 42 of CGST\\(IGST\\) Rules[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rule 42 - State/UT tax"
+    },
+    "itc_other_itc_reversal_rule42_cess": {
+      "pattern": "\\(2\\) As per rule 42 of CGST\\(IGST\\) Rules[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per rule 42 - Cess"
+    },
+    "itc_other_itc_reversal_section17": {
+      "pattern": "\\(3\\) As per section 17\\(5\\) of CGST\\(IGST\\) Act([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per section 17(5) - Integrated tax"
+    },
+    "itc_other_itc_reversal_section17_central": {
+      "pattern": "\\(3\\) As per section 17\\(5\\) of CGST\\(IGST\\) Act[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per section 17(5) - Central tax"
+    },
+    "itc_other_itc_reversal_section17_state": {
+      "pattern": "\\(3\\) As per section 17\\(5\\) of CGST\\(IGST\\) Act[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per section 17(5) - State/UT tax"
+    },
+    "itc_other_itc_reversal_section17_cess": {
+      "pattern": "\\(3\\) As per section 17\\(5\\) of CGST\\(IGST\\) Act[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal as per section 17(5) - Cess"
+    },
+    "itc_other_itc_reversal_others": {
+      "pattern": "\\(4\\) Reversal of ITC - Others([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal - Others - Integrated tax"
+    },
+    "itc_other_itc_reversal_others_central": {
+      "pattern": "\\(4\\) Reversal of ITC - Others[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal - Others - Central tax"
+    },
+    "itc_other_itc_reversal_others_state": {
+      "pattern": "\\(4\\) Reversal of ITC - Others[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal - Others - State/UT tax"
+    },
+    "itc_other_itc_reversal_others_cess": {
+      "pattern": "\\(4\\) Reversal of ITC - Others[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reversal - Others - Cess"
+    },
+    "reverse_charge_integrated_tax_payable": {
+      "pattern": "\\(B\\) Reverse charge and supplies made u/s 9\\(5\\)[\\s\\S]{1,100}Integrated[\\s\\S]{1,50}tax[\\s\\S]{1,50}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse charge tax payable - Integrated tax"
+    },
+    "reverse_charge_central_tax_payable": {
+      "pattern": "\\(B\\) Reverse charge and supplies made u/s 9\\(5\\)[\\s\\S]{1,200}Central[\\s\\S]{1,50}tax[\\s\\S]{1,50}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse charge tax payable - Central tax"
+    },
+    "reverse_charge_state_tax_payable": {
+      "pattern": "\\(B\\) Reverse charge and supplies made u/s 9\\(5\\)[\\s\\S]{1,300}State/UT[\\s\\S]{1,50}tax[\\s\\S]{1,50}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse charge tax payable - State/UT tax"
+    },
+    "reverse_charge_cess_payable": {
+      "pattern": "\\(B\\) Reverse charge and supplies made u/s 9\\(5\\)[\\s\\S]{1,400}Cess([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Reverse charge tax payable - Cess"
+    },
+    "itc_other_reclaimed_integrated": {
+      "pattern": "\\(1\\) ITC reclaimed which was reversed under Table 4\\(B\\)\\(2\\)[\\s\\S]{1,200}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reclaimed (reversed under 4B2) - Integrated tax"
+    },
+    "itc_other_reclaimed_central": {
+      "pattern": "\\(1\\) ITC reclaimed which was reversed under Table 4\\(B\\)\\(2\\)[\\s\\S]{1,200}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reclaimed (reversed under 4B2) - Central tax"
+    },
+    "itc_other_reclaimed_state": {
+      "pattern": "\\(1\\) ITC reclaimed which was reversed under Table 4\\(B\\)\\(2\\)[\\s\\S]{1,200}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reclaimed (reversed under 4B2) - State/UT tax"
+    },
+    "itc_other_reclaimed_cess": {
+      "pattern": "\\(1\\) ITC reclaimed which was reversed under Table 4\\(B\\)\\(2\\)[\\s\\S]{1,200}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "ITC reclaimed (reversed under 4B2) - Cess"
+    },
+    "itc_other_ineligible_integrated": {
+      "pattern": "\\(2\\) Ineligible ITC under section 16\\(4\\)[\\s\\S]{1,100}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Ineligible ITC (section 16(4) & PoS) - Integrated tax"
+    },
+    "itc_other_ineligible_central": {
+      "pattern": "\\(2\\) Ineligible ITC under section 16\\(4\\)[\\s\\S]{1,100}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Ineligible ITC (section 16(4) & PoS) - Central tax"
+    },
+    "itc_other_ineligible_state": {
+      "pattern": "\\(2\\) Ineligible ITC under section 16\\(4\\)[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Ineligible ITC (section 16(4) & PoS) - State/UT tax"
+    },
+    "itc_other_ineligible_cess": {
+      "pattern": "\\(2\\) Ineligible ITC under section 16\\(4\\)[\\s\\S]{1,100}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Ineligible ITC (section 16(4) & PoS) - Cess"
+    },
+    "tax_breakup_june_integrated": {
+      "pattern": "Breakup of tax liability[\\s\\S]{1,200}June 2025([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Tax liability breakup June 2025 - Integrated tax"
+    },
+    "tax_breakup_june_central": {
+      "pattern": "Breakup of tax liability[\\s\\S]{1,200}June 2025[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Tax liability breakup June 2025 - Central tax"
+    },
+    "tax_breakup_june_state": {
+      "pattern": "Breakup of tax liability[\\s\\S]{1,200}June 2025[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})[\\d,]+\\.\\d{2}",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Tax liability breakup June 2025 - State/UT tax"
+    },
+    "tax_breakup_june_cess": {
+      "pattern": "Breakup of tax liability[\\s\\S]{1,200}June 2025[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}[\\d,]+\\.\\d{2}([\\d,]+\\.\\d{2})",
+      "type": "regex",
+      "group": 1,
+      "transform": "number",
+      "description": "Tax liability breakup June 2025 - Cess"
     }
   },
   "output_format": {
@@ -773,7 +1095,148 @@
           "authorized_signatory_name",
           "authorized_signatory_designation"
         ]
+      },
+      {
+        "name": "Section 3.1(c) - Other Outward Supplies (Nil Rated, Exempted)",
+        "fields": [
+          "outward_other_nil_exempted_value"
+        ]
+      },
+      {
+        "name": "Section 3.1(e) - Non-GST Outward Supplies",
+        "fields": [
+          "outward_non_gst_value"
+        ]
+      },
+      {
+        "name": "Section 3.1.1(i) - E-commerce operator pays tax",
+        "fields": [
+          "ecom_operator_pays_total_value",
+          "ecom_operator_pays_integrated_tax",
+          "ecom_operator_pays_central_tax",
+          "ecom_operator_pays_state_tax",
+          "ecom_operator_pays_cess"
+        ]
+      },
+      {
+        "name": "Section 3.1.1(ii) - Supplies through e-commerce operator",
+        "fields": [
+          "ecom_through_operator_value"
+        ]
+      },
+      {
+        "name": "Section 3.2 - Interstate to Unregistered Persons",
+        "fields": [
+          "interstate_unregistered_value",
+          "interstate_unregistered_tax"
+        ]
+      },
+      {
+        "name": "Section 3.2 - Interstate to Composition Taxable Persons",
+        "fields": [
+          "interstate_composition_value",
+          "interstate_composition_tax"
+        ]
+      },
+      {
+        "name": "Section 3.2 - Interstate to UIN Holders",
+        "fields": [
+          "interstate_uin_value",
+          "interstate_uin_tax"
+        ]
+      },
+      {
+        "name": "Section 4.D(1) - ITC Reclaimed",
+        "fields": [
+          "itc_other_reclaimed_integrated",
+          "itc_other_reclaimed_central",
+          "itc_other_reclaimed_state",
+          "itc_other_reclaimed_cess"
+        ]
+      },
+      {
+        "name": "Section 4.D(2) - Ineligible ITC",
+        "fields": [
+          "itc_other_ineligible_integrated",
+          "itc_other_ineligible_central",
+          "itc_other_ineligible_state",
+          "itc_other_ineligible_cess"
+        ]
+      },
+      {
+        "name": "Section 6.1(B) - Reverse Charge",
+        "fields": [
+          "reverse_charge_integrated_tax_payable",
+          "reverse_charge_central_tax_payable",
+          "reverse_charge_state_tax_payable",
+          "reverse_charge_cess_payable"
+        ]
+      },
+      {
+        "name": "Section 7 - Tax Liability Breakup (June 2025)",
+        "fields": [
+          "tax_breakup_june_integrated",
+          "tax_breakup_june_central",
+          "tax_breakup_june_state",
+          "tax_breakup_june_cess"
+        ]
       }
-    ]
+    ],
+    "section_3_1_1_ecom": {
+      "name": "Section 3.1.1 - Details of supplies on which tax is to be paid by e-commerce operator",
+      "subsections": {
+        "ecom_operator_pays": {
+          "name": "3.1.1(i) - Supplies on which e-commerce operator pays tax",
+          "fields": [
+            "ecom_operator_pays_total_value",
+            "ecom_operator_pays_integrated_tax",
+            "ecom_operator_pays_central_tax",
+            "ecom_operator_pays_state_tax",
+            "ecom_operator_pays_cess"
+          ]
+        },
+        "ecom_through_operator": {
+          "name": "3.1.1(ii) - Supplies made through e-commerce operator",
+          "fields": [
+            "ecom_through_operator_value"
+          ]
+        }
+      }
+    },
+    "section_3_2_interstate": {
+      "name": "Section 3.2 - Of the supplies shown in 3.1(a) above, details of inter-State supplies made",
+      "subsections": {
+        "interstate_unregistered": {
+          "name": "Supplies to Unregistered Persons",
+          "fields": [
+            "interstate_unregistered_value",
+            "interstate_unregistered_tax"
+          ]
+        },
+        "interstate_composition": {
+          "name": "Supplies to Composition Taxable Persons",
+          "fields": [
+            "interstate_composition_value",
+            "interstate_composition_tax"
+          ]
+        },
+        "interstate_uin": {
+          "name": "Supplies to UIN Holders",
+          "fields": [
+            "interstate_uin_value",
+            "interstate_uin_tax"
+          ]
+        }
+      }
+    },
+    "section_7_tax_breakup": {
+      "name": "Section 7 - Breakup of Tax Liability (for interest computation)",
+      "fields": [
+        "tax_breakup_june_integrated",
+        "tax_breakup_june_central",
+        "tax_breakup_june_state",
+        "tax_breakup_june_cess"
+      ]
+    }
   }
 }
