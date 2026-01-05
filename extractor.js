@@ -1,5 +1,5 @@
 const fs = require('fs');
-const pdf = require('pdf-parse');
+const { extractText, getDocumentProxy } = require('unpdf');
 
 class PDFExtractor {
   constructor(rulesPath) {
@@ -10,9 +10,10 @@ class PDFExtractor {
    * Extract text from PDF file
    */
   async extractTextFromPDF(pdfPath) {
-    const dataBuffer = fs.readFileSync(pdfPath);
-    const data = await pdf(dataBuffer);
-    return data.text;
+    const buffer = fs.readFileSync(pdfPath);
+    const pdf = await getDocumentProxy(new Uint8Array(buffer));
+    const { text } = await extractText(pdf, { mergePages: true });
+    return text;
   }
 
   /**

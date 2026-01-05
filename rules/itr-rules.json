@@ -40,19 +40,19 @@
       "description": "Taxpayer's address"
     },
     "status": {
-      "pattern": "Status(Individual|HUF|Firm|Company)",
+      "pattern": "Status\\s*(Individual|HUF|Firm|Company)",
       "type": "regex",
       "group": 1,
       "description": "Tax filing status"
     },
     "form_number": {
-      "pattern": "Form Number(ITR-\\d+)",
+      "pattern": "Form Number\\s*(ITR-\\d+)",
       "type": "regex",
       "group": 1,
       "description": "ITR form type"
     },
     "efiling_ack_number": {
-      "pattern": "e-Filing Acknowledgement Number(\\d+)",
+      "pattern": "e-Filing Acknowledgement Number\\s*(\\d+)",
       "type": "regex",
       "group": 1,
       "description": "E-filing acknowledgement number"
