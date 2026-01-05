@@ -11,6 +11,7 @@ import './SelectionCanvas.css';
 
 function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5 }) {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const {
     selectionMode,
     getSelectionsForPage,
@@ -35,7 +36,7 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw existing selections
+    // Draw existing selections (in canvas coordinates)
     pageSelections.forEach(selection => {
       const isHovered = hoveredSelection === selection.id;
 
@@ -122,8 +123,12 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // Account for canvas internal coordinates vs display size
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
 
     // Check if clicking on delete button of hovered selection
     if (hoveredSelection) {
@@ -154,13 +159,17 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    // Account for canvas internal coordinates vs display size
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
 
     if (isDragging) {
       setCurrentPoint({ x, y });
     } else if (selectionMode) {
-      // Check if hovering over a selection
+      // Check if hovering over a selection (in canvas coordinates)
       let found = null;
       for (const selection of pageSelections) {
         if (isPointInBox({ x, y }, selection.canvasBox)) {
@@ -179,7 +188,7 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
     const width = currentPoint.x - startPoint.x;
     const height = currentPoint.y - startPoint.y;
 
-    // Normalize rectangle
+    // Normalize rectangle (already in canvas coordinates)
     const canvasRect = normalizeRect({
       x: startPoint.x,
       y: startPoint.y,
@@ -231,20 +240,34 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
   };
 
   return (
-    <canvas
-      ref={canvasRef}
-      className={`selection-canvas ${selectionMode ? 'active' : ''}`}
-      width={pageWidth}
-      height={pageHeight}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
+    <div
+      ref={containerRef}
       style={{
-        cursor: getCursorStyle(),
-        pointerEvents: selectionMode ? 'auto' : 'none'
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none'
       }}
-    />
+    >
+      <canvas
+        ref={canvasRef}
+        className={`selection-canvas ${selectionMode ? 'active' : ''}`}
+        width={pageWidth}
+        height={pageHeight}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          width: '100%',
+          height: '100%',
+          cursor: getCursorStyle(),
+          pointerEvents: selectionMode ? 'auto' : 'none'
+        }}
+      />
+    </div>
   );
 }
 

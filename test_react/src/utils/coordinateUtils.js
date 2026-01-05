@@ -110,20 +110,36 @@ export function getIntersectionArea(box1, box2) {
 
 /**
  * Check if a text item significantly overlaps with a selection box
- * (more than 50% of text item area)
+ * For complex tables, we use a more lenient check
  *
  * @param {Object} textItemBox - Text item bounding box
  * @param {Object} selectionBox - Selection bounding box
  * @returns {boolean} True if significant overlap
  */
 export function hasSignificantOverlap(textItemBox, selectionBox) {
+  // First check if boxes intersect at all
+  if (!isBoxIntersecting(textItemBox, selectionBox)) {
+    return false;
+  }
+
   const intersectionArea = getIntersectionArea(textItemBox, selectionBox);
   const textItemArea = textItemBox.width * textItemBox.height;
 
   if (textItemArea === 0) return false;
 
-  // Consider text item included if >50% overlaps with selection
-  return (intersectionArea / textItemArea) > 0.5;
+  const overlapRatio = intersectionArea / textItemArea;
+
+  // More lenient threshold for complex tables
+  // Include if >25% overlaps OR if text item center is inside selection
+  if (overlapRatio > 0.25) {
+    return true;
+  }
+
+  // Check if center point of text item is inside selection
+  const centerX = textItemBox.x + textItemBox.width / 2;
+  const centerY = textItemBox.y + textItemBox.height / 2;
+
+  return isPointInBox({ x: centerX, y: centerY }, selectionBox);
 }
 
 /**

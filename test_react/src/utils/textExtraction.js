@@ -75,6 +75,31 @@ export function filterTextBySelections(pagesData, selections) {
     const pageData = pagesData.find(p => p.pageNum === parseInt(pageNum));
     if (!pageData) return;
 
+    // Create comprehensive debug data for copy-paste
+    const debugData = {
+      pageNum: parseInt(pageNum),
+      totalTextItems: pageData.textItems.length,
+      viewport: pageData.viewport,
+      selections: pageSelections.map(s => ({
+        pdfCoords: s.boundingBox,
+        canvasCoords: s.canvasBox
+      })),
+      firstFiveTextItems: pageData.textItems.slice(0, 5).map((item, idx) => ({
+        index: idx,
+        text: item.str,
+        transform: item.transform,
+        boundingBox: getTextItemBoundingBox(item)
+      }))
+    };
+
+    console.log('═══════════════════════════════════════════════════════════');
+    console.log('🔍 DEBUG DATA FOR PAGE ' + pageNum + ' (Copy this entire block):');
+    console.log('═══════════════════════════════════════════════════════════');
+    console.log(JSON.stringify(debugData, null, 2));
+    console.log('═══════════════════════════════════════════════════════════');
+
+    let matchCount = 0;
+
     // For each text item on this page
     pageData.textItems.forEach((textItem, itemIndex) => {
       // Create unique key for this item
@@ -87,7 +112,11 @@ export function filterTextBySelections(pagesData, selections) {
 
       // Check if text item intersects with any selection on this page
       const intersectsAnySelection = pageSelections.some(selection => {
-        return hasSignificantOverlap(textBox, selection.boundingBox);
+        const overlaps = hasSignificantOverlap(textBox, selection.boundingBox);
+        if (overlaps) {
+          matchCount++;
+        }
+        return overlaps;
       });
 
       if (intersectsAnySelection) {
@@ -103,6 +132,8 @@ export function filterTextBySelections(pagesData, selections) {
         }
       }
     });
+
+    console.log(`✅ Found ${matchCount} matching text items on page ${pageNum}\n`);
   });
 
   // Sort text segments by page, then by Y position (top to bottom), then by X (left to right)
