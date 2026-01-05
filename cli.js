@@ -41,7 +41,12 @@ program
       console.log(chalk.gray(`Format: ${options.format}`));
       console.log();
 
-      const extractor = new PDFExtractor(options.rules);
+      // Read rules file as JSON object
+      const rulesData = JSON.parse(fs.readFileSync(options.rules, 'utf8'));
+      const extractor = new PDFExtractor(rulesData);
+
+      // Read PDF file as buffer
+      const pdfBuffer = fs.readFileSync(options.pdf);
 
       // Generate output content based on format
       let outputContent;
@@ -49,16 +54,16 @@ program
 
       switch (options.format) {
         case 'csv':
-          outputContent = await extractor.exportToCSV(options.pdf);
+          outputContent = await extractor.exportToCSV(pdfBuffer);
           break;
 
         case 'md':
-          outputContent = await extractor.exportToMarkdown(options.pdf);
+          outputContent = await extractor.exportToMarkdown(pdfBuffer);
           break;
 
         case 'json':
         default:
-          const result = await extractor.extract(options.pdf);
+          const result = await extractor.extract(pdfBuffer);
           // Remove raw text if not requested
           if (!options.raw && result.raw_text) {
             delete result.raw_text;
@@ -70,7 +75,7 @@ program
 
       // Show statistics if requested
       if (options.stats) {
-        const stats = await extractor.getStats(options.pdf);
+        const stats = await extractor.getStats(pdfBuffer);
         console.log(chalk.yellow('📊 Extraction Statistics:'));
         console.log(chalk.white(`  Total Rules: ${stats.total_rules}`));
         console.log(chalk.green(`  ✓ Found: ${stats.found}`));

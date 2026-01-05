@@ -1,27 +1,73 @@
 {
-  "name": "itr-data-extractor",
-  "version": "1.0.0",
-  "description": "CLI tool to extract data from ITR-1 PDFs using rule files",
+  "name": "indian-tax-pdf-extractor",
+  "version": "2.0.0",
+  "description": "Extract structured data from Indian tax PDFs (ITR-1, GSTR-1, GSTR-2B, GSTR-3B) - Works in Node.js and browsers!",
   "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
   "bin": {
     "itr-extract": "cli.js"
   },
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./rules/*": "./rules/*"
+  },
+  "files": [
+    "index.js",
+    "extractor.js",
+    "index.d.ts",
+    "rules/",
+    "README_PACKAGE.md",
+    "USAGE_WEB.md"
+  ],
   "scripts": {
-    "test": "node cli.js"
+    "test": "node test-package.js"
   },
   "keywords": [
     "itr",
+    "itr-1",
+    "gstr",
+    "gstr-1",
+    "gstr-2b",
+    "gstr-3b",
+    "gst",
     "pdf",
     "extract",
-    "cli",
+    "extractor",
+    "parser",
     "rules",
-    "tax"
+    "tax",
+    "india",
+    "indian-tax",
+    "browser",
+    "nextjs",
+    "next.js",
+    "react",
+    "unpdf",
+    "web",
+    "client-side"
   ],
-  "author": "",
+  "author": "Your Name",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/indian-tax-pdf-extractor.git"
+  },
   "license": "MIT",
   "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^11.1.0",
     "unpdf": "^1.4.0"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0"
+  },
+  "peerDependencies": {
+    "unpdf": "^1.4.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

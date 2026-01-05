@@ -1,0 +1,39 @@
+# Development files
+cli.js
+test_extraction.py
+fix_gstr2b_patterns.py
+*.backup
+
+# Test files
+test*.js
+diagnose*.js
+fix-*.js
+output.json
+
+# PDFs (examples)
+*.pdf
+pdf/
+
+# Output directories
+output/
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
+node_modules/

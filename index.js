@@ -1,3 +1,8 @@
+/**
+ * PDF Data Extractor for Indian Tax Documents
+ * Supports ITR-1, GSTR-1, GSTR-2B, and GSTR-3B
+ */
+
 const { extractText, getDocumentProxy } = require('unpdf');
 
 class PDFExtractor {
@@ -280,4 +285,30 @@ class PDFExtractor {
   }
 }
 
-module.exports = PDFExtractor;
+// Load rules helper
+function loadRules(ruleType) {
+  try {
+    const rules = require(`./rules/${ruleType}-rules.json`);
+    return rules;
+  } catch (error) {
+    throw new Error(`Failed to load rules for type: ${ruleType}. Available types: itr, gstr1, gstr2b, gstr3b`);
+  }
+}
+
+// Create extractor with built-in rules
+function createExtractor(ruleType) {
+  const rules = loadRules(ruleType);
+  return new PDFExtractor(rules);
+}
+
+// Exports
+module.exports = {
+  PDFExtractor,
+  loadRules,
+  createExtractor
+};
+
+// ESM support
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports.default = PDFExtractor;
+}
