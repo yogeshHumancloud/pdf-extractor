@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as unpdfModule from 'unpdf';
+import { useSelection } from './contexts/SelectionContext';
+import SelectionCanvas from './components/SelectionCanvas';
 import './PDFViewer.css';
 
 function PDFViewer({ file }) {
@@ -7,6 +9,15 @@ function PDFViewer({ file }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Selection context
+  const {
+    selectionMode,
+    setSelectionMode,
+    clearSelections,
+    getSelectionCount,
+    getPageCount
+  } = useSelection();
 
   useEffect(() => {
     if (!file) return;
@@ -64,7 +75,12 @@ function PDFViewer({ file }) {
         pageNum,
         dataUrl: canvas.toDataURL(),
         width: viewport.width,
-        height: viewport.height
+        height: viewport.height,
+        viewport: {
+          width: viewport.width,
+          height: viewport.height,
+          scale: viewport.scale
+        }
       };
     } catch (err) {
       console.error(`Error rendering page ${pageNum}:`, err);
@@ -95,6 +111,31 @@ function PDFViewer({ file }) {
 
   return (
     <div className="pdf-viewer">
+      {/* Selection Toolbar */}
+      <div className="selection-toolbar">
+        <button
+          onClick={() => setSelectionMode(!selectionMode)}
+          className={`toolbar-button ${selectionMode ? 'active' : ''}`}
+          title="Toggle selection mode"
+        >
+          🖱️ Selection Mode: {selectionMode ? 'ON' : 'OFF'}
+        </button>
+        {getSelectionCount() > 0 && (
+          <>
+            <button
+              onClick={clearSelections}
+              className="toolbar-button"
+              title="Clear all selections"
+            >
+              🗑️ Clear All
+            </button>
+            <span className="selection-info">
+              {getSelectionCount()} selection{getSelectionCount() !== 1 ? 's' : ''} across {getPageCount()} page{getPageCount() !== 1 ? 's' : ''}
+            </span>
+          </>
+        )}
+      </div>
+
       {/* Page Navigation */}
       {pages.length > 1 && (
         <div className="pdf-navigation">
@@ -131,11 +172,22 @@ function PDFViewer({ file }) {
                 Error loading page {page.pageNum}: {page.error}
               </div>
             ) : (
-              <img
-                src={page.dataUrl}
-                alt={`Page ${page.pageNum}`}
-                className="pdf-page-image"
-              />
+              <div className="page-container" style={{ position: 'relative', display: 'inline-block' }}>
+                <img
+                  src={page.dataUrl}
+                  alt={`Page ${page.pageNum}`}
+                  className="pdf-page-image"
+                />
+                {page.viewport && (
+                  <SelectionCanvas
+                    pageNum={page.pageNum}
+                    pageWidth={page.width}
+                    pageHeight={page.height}
+                    viewport={page.viewport}
+                    scale={1.5}
+                  />
+                )}
+              </div>
             )}
           </div>
         ))}

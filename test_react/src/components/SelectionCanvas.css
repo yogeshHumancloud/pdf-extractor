@@ -1,0 +1,17 @@
+.selection-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.selection-canvas.active {
+  pointer-events: auto;
+}
+
+/* Ensure the canvas container is positioned relative */
+.page-container {
+  position: relative;
+  display: inline-block;
+}
