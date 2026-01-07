@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { useSelection } from '../contexts/SelectionContext';
 import {
   canvasToPDF,
+  // pdfToCanvas,
   normalizeRect,
   generateSelectionId,
   isPointInBox,
@@ -9,7 +10,7 @@ import {
 } from '../utils/coordinateUtils';
 import './SelectionCanvas.css';
 
-function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5 }) {
+function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5, fieldLocations = [] }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const {
@@ -35,6 +36,28 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
 
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // // Draw field boundaries (if fieldLocations provided)
+    // fieldLocations.forEach(field => {
+    //   if (field.page !== pageNum || !field.coordinates) return;
+
+    //   // Convert PDF coordinates to canvas coordinates
+    //   const canvasBox = pdfToCanvas(field.coordinates, viewport, scale);
+
+    //   // Draw semi-transparent field boundary
+    //   ctx.strokeStyle = field.hasCoordinates ? 'rgba(76, 175, 80, 0.6)' : 'rgba(158, 158, 158, 0.6)';
+    //   ctx.lineWidth = 1;
+    //   ctx.setLineDash([3, 3]);
+    //   ctx.strokeRect(canvasBox.x, canvasBox.y, canvasBox.width, canvasBox.height);
+
+    //   // Draw field name label (small text)
+    //   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    //   ctx.font = '10px monospace';
+    //   ctx.fillText(field.name, canvasBox.x + 2, canvasBox.y - 2);
+    // });
+
+    // // Reset line dash for selections
+    // ctx.setLineDash([]);
 
     // Draw existing selections (in canvas coordinates)
     pageSelections.forEach(selection => {
@@ -108,7 +131,7 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
       ctx.setLineDash([5, 5]);
       ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
     }
-  }, [pageSelections, isDragging, startPoint, currentPoint, hoveredSelection]);
+  }, [pageSelections, isDragging, startPoint, currentPoint, hoveredSelection, fieldLocations, pageNum, viewport, scale]);
 
   // Redraw canvas when selections or drawing state changes
   useEffect(() => {

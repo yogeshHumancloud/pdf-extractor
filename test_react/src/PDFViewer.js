@@ -4,7 +4,7 @@ import { useSelection } from './contexts/SelectionContext';
 import SelectionCanvas from './components/SelectionCanvas';
 import './PDFViewer.css';
 
-function PDFViewer({ file }) {
+function PDFViewer({ file, rules = null }) {
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,6 +18,14 @@ function PDFViewer({ file }) {
     getSelectionCount,
     getPageCount
   } = useSelection();
+
+  // Convert rules to field locations for visualization
+  const fieldLocations = rules ? Object.entries(rules.rules || {}).map(([name, rule]) => ({
+    name,
+    page: rule.coordinates?.page || 1,
+    coordinates: rule.coordinates,
+    hasCoordinates: !!rule.coordinates
+  })) : [];
 
   useEffect(() => {
     if (!file) return;
@@ -185,6 +193,7 @@ function PDFViewer({ file }) {
                     pageHeight={page.height}
                     viewport={page.viewport}
                     scale={1.5}
+                    fieldLocations={fieldLocations}
                   />
                 )}
               </div>
