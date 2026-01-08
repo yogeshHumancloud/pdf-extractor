@@ -131,7 +131,7 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
       ctx.setLineDash([5, 5]);
       ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
     }
-  }, [pageSelections, isDragging, startPoint, currentPoint, hoveredSelection, fieldLocations, pageNum, viewport, scale]);
+  }, [pageSelections, isDragging, startPoint, currentPoint, hoveredSelection]);
 
   // Redraw canvas when selections or drawing state changes
   useEffect(() => {

@@ -1,6 +1,6 @@
 {
   "name": "indian-tax-pdf-extractor",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Extract structured data from Indian tax PDFs (ITR-1, GSTR-1, GSTR-2B, GSTR-3B) - Works in Node.js and browsers!",
   "main": "index.js",
   "module": "index.js",

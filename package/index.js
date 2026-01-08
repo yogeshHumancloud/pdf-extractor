@@ -3,7 +3,25 @@
  * Supports ITR-1, GSTR-1, GSTR-2B, and GSTR-3B
  */
 
-const { extractText, getDocumentProxy } = require('unpdf');
+// Dynamic import for ESM-only unpdf module
+let unpdf;
+async function loadUnpdf() {
+  if (!unpdf) {
+    unpdf = await import('unpdf');
+  }
+  return unpdf;
+}
+
+const { extractText, getDocumentProxy } = {
+  extractText: async (...args) => {
+    const mod = await loadUnpdf();
+    return mod.extractText(...args);
+  },
+  getDocumentProxy: async (...args) => {
+    const mod = await loadUnpdf();
+    return mod.getDocumentProxy(...args);
+  }
+};
 
 class PDFExtractor {
   /**
@@ -139,6 +157,107 @@ class PDFExtractor {
     // Apply each rule
     for (const [ruleName, rule] of Object.entries(this.rules.rules)) {
       results.data[ruleName] = this.applyRule(text, ruleName, rule);
+    }
+
+    return results;
+  }
+
+  /**
+   * Extract only fields that overlap with user selections
+   * Uses coordinates for filtering, regex on full text for extraction
+   *
+   * @param {Buffer|Uint8Array|ArrayBuffer} pdfBuffer - PDF file as buffer
+   * @param {Array} selections - Array of selection objects with {pageNum, boundingBox: {x, y, width, height}}
+   * @param {number} tolerance - Overlap tolerance in PDF points (default: 20)
+   * @returns {Promise<Object>} Extraction results with only selected fields
+   */
+  async extractWithSelections(pdfBuffer, selections, tolerance = 20) {
+    if (!selections || selections.length === 0) {
+      throw new Error('At least one selection is required');
+    }
+
+    // Extract full text first
+    const text = await this.extractTextFromPDF(pdfBuffer);
+
+    // Find fields that overlap with selections
+    const fieldsInSelection = [];
+
+    for (const [fieldName, rule] of Object.entries(this.rules.rules)) {
+      // Skip fields without coordinates
+      if (!rule.coordinates) {
+        continue;
+      }
+
+      const fieldCoords = rule.coordinates;
+
+      // Check if this field overlaps with ANY user selection
+      const overlapsWithSelection = selections.some(selection => {
+        // Check if selection and field are on same page
+        if (selection.pageNum !== fieldCoords.page) return false;
+
+        // Check bounding box overlap with tolerance
+        const selBox = selection.boundingBox;
+        const fieldBox = fieldCoords;
+
+        // Expand selection box by tolerance
+        const expandedSelBox = {
+          x: selBox.x - tolerance,
+          y: selBox.y - tolerance,
+          width: selBox.width + tolerance * 2,
+          height: selBox.height + tolerance * 2
+        };
+
+        // Check if boxes overlap (not disjoint)
+        const overlaps = !(
+          expandedSelBox.x + expandedSelBox.width < fieldBox.x ||
+          expandedSelBox.x > fieldBox.x + fieldBox.width ||
+          expandedSelBox.y + expandedSelBox.height < fieldBox.y ||
+          expandedSelBox.y > fieldBox.y + fieldBox.height
+        );
+
+        return overlaps;
+      });
+
+      if (overlapsWithSelection) {
+        fieldsInSelection.push(fieldName);
+      }
+    }
+
+    if (fieldsInSelection.length === 0) {
+      return {
+        metadata: {
+          ruleset: this.rules.name,
+          version: this.rules.version,
+          description: this.rules.description,
+          extracted_at: new Date().toISOString(),
+          extraction_mode: 'selection',
+          selected_fields: []
+        },
+        data: {},
+        raw_text: text,
+        error: 'No fields found in selected regions. Make sure your rules have coordinates and overlap with your selections.'
+      };
+    }
+
+    // Extract ONLY the selected fields using regex on full text
+    const results = {
+      metadata: {
+        ruleset: this.rules.name,
+        version: this.rules.version,
+        description: this.rules.description,
+        extracted_at: new Date().toISOString(),
+        extraction_mode: 'selection',
+        selected_fields: fieldsInSelection,
+        total_selections: selections.length
+      },
+      data: {},
+      raw_text: text
+    };
+
+    // Apply regex to full text for each selected field
+    for (const fieldName of fieldsInSelection) {
+      const rule = this.rules.rules[fieldName];
+      results.data[fieldName] = this.applyRule(text, fieldName, rule);
     }
 
     return results;

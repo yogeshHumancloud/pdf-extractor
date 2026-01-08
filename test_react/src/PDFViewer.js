@@ -4,7 +4,7 @@ import { useSelection } from './contexts/SelectionContext';
 import SelectionCanvas from './components/SelectionCanvas';
 import './PDFViewer.css';
 
-function PDFViewer({ file, rules = null }) {
+function PDFViewer({ file, rules = null, onClearAll = null }) {
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -131,9 +131,15 @@ function PDFViewer({ file, rules = null }) {
         {getSelectionCount() > 0 && (
           <>
             <button
-              onClick={clearSelections}
+              onClick={() => {
+                clearSelections();
+                // Trigger full extraction after clearing selections
+                if (onClearAll) {
+                  onClearAll();
+                }
+              }}
               className="toolbar-button"
-              title="Clear all selections"
+              title="Clear all selections and run full extraction"
             >
               🗑️ Clear All
             </button>
