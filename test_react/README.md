@@ -1,70 +1,235 @@
-# Getting Started with Create React App
+# Indian Tax PDF Extractor - React Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interactive React application demonstrating the **indian-tax-pdf-extractor** package with visual PDF viewer and selection-based extraction capabilities.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- 📄 **PDF Upload & Rendering**: Upload and view Indian tax PDFs (ITR-1, GSTR-1, GSTR-2B, GSTR-3B)
+- 🖱️ **Interactive Selection**: Draw selection boxes on PDF to extract specific fields
+- 📍 **Coordinate Visualization**: Real-time coordinate debugging and visualization
+- 🎯 **Dual Extraction Modes**:
+  - Full extraction (all fields)
+  - Selection-based extraction (specific regions)
+- 🐛 **Advanced Debugging**: 3-tab debug console with coordinate analysis
+- 🎨 **Clean UI**: Modern interface with visual feedback
 
-### `npm start`
+## Quick Start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+### Development
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm start
+```
 
-### `npm run build`
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Production Build
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm run build
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Builds the app for production to the `build` folder.
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Upload PDF
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Click "Choose PDF File" button
+- Select an Indian tax PDF (ITR-1, GSTR-2B, GSTR-3B, etc.)
+- PDF will render in the viewer
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 2. Full Extraction
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Click "Extract All Fields" button
+- View extracted data in JSON format
+- Check extraction statistics
+
+### 3. Selection-Based Extraction
+
+- Toggle "Selection Mode" ON
+- Click and drag on PDF to create selection boxes
+- Multiple selections can be created
+- Click "Extract Selected Fields" to extract only fields within selections
+- Use "Clear Selections" to reset
+
+### 4. Debugging Tools
+
+After extraction, the Debug Console automatically appears with 3 tabs:
+
+- **Coordinates Sent**: Raw coordinate data sent to extraction package
+- **Package Output**: Full response from extraction engine
+- **Overlap Analysis**: Detailed analysis of field-selection overlaps
+
+Click the "Debug" button for visual coordinate system explanation.
+
+## Architecture
+
+### Components
+
+```
+src/
+├── PDFExtractorPage.js          # Main extraction UI & state management
+├── PDFViewer.js                 # PDF rendering with react-pdf
+├── components/
+│   ├── SelectionCanvas.js       # Interactive selection overlay
+│   ├── DebugConsole.js          # 3-tab debugging interface
+│   ├── CoordinateDebugger.js    # Coordinate system visualization
+│   ├── DebugLogViewer.js        # Extraction logs viewer
+│   └── DebugConsole.css         # Styling
+├── contexts/
+│   └── SelectionContext.js      # Global selection state (React Context)
+└── utils/
+    └── coordinateUtils.js       # Coordinate transformation utilities
+```
+
+### State Management
+
+Uses **React Context + useReducer** for global selection state:
+
+- `selections` - Array of selection boxes with coordinates
+- `selectionMode` - Boolean toggle for selection mode
+- `textItemsCache` - Cached PDF text items per page
+
+### Coordinate System
+
+**Critical Concept**: PDF and Canvas use different coordinate systems
+
+- **PDF**: Origin at bottom-left, Y increases upward
+- **Canvas**: Origin at top-left, Y increases downward
+
+**Conversion** (in `coordinateUtils.js`):
+```javascript
+pdfY = (viewport.height / scale) - (canvasY / scale) - (height / scale)
+```
+
+All coordinates are converted to PDF format before sending to the extraction package.
+
+## Key Dependencies
+
+- **react-pdf** (^9.1.1): PDF rendering in React
+- **pdfjs-dist** (^4.9.155): PDF.js library
+- **indian-tax-pdf-extractor** (^2.1.0): Core extraction engine
+- **react** (^18.3.1): UI framework
+
+## Production Deployment
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+This creates an optimized production build in the `build/` folder.
+
+### Deployment Options
+
+**Static Hosting** (Recommended):
+- Deploy `build/` folder to Netlify, Vercel, GitHub Pages, or AWS S3
+- Supports client-side routing
+
+**Docker**:
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+RUN npm install -g serve
+CMD ["serve", "-s", "build", "-l", "3000"]
+```
+
+**Traditional Server**:
+```bash
+npm install -g serve
+serve -s build -l 3000
+```
+
+## Environment Configuration
+
+No environment variables required for basic operation. All extraction happens client-side.
+
+## Performance Considerations
+
+- Large PDFs (>100 pages) may take longer to render
+- Selection canvas uses HTML5 Canvas for optimal performance
+- Text extraction happens in browser using unpdf (WASM-based)
+- First page load may be slower due to PDF.js worker initialization
+
+## Troubleshooting
+
+### PDF Not Rendering
+
+- Check browser console for errors
+- Ensure PDF is valid and not corrupted
+- Try a different PDF file
+
+### Selection Not Working
+
+- Ensure Selection Mode is toggled ON
+- Check that you're clicking and dragging (not just clicking)
+- Verify selections appear in the selection list below the PDF
+
+### No Fields Extracted
+
+- Check Debug Console "Overlap Analysis" tab
+- Verify selections overlap with actual field coordinates
+- Try expanding selection boxes to cover more area
+- Use "Extract All Fields" to verify the PDF contains extractable data
+
+### Coordinate Mismatch
+
+- Open CoordinateDebugger (click "Debug" button)
+- Verify coordinate system understanding
+- Check that selections are on the correct page
+- Review COORDINATE_SYSTEM_EXPLAINED.md in project root
+
+## Development
+
+### Running Tests
+
+```bash
+npm test
+```
+
+Launches the test runner in interactive watch mode.
+
+### Code Structure
+
+- Keep components focused and single-purpose
+- Use React Context for global state (selections)
+- Component-level state for UI-specific state (hover, loading, etc.)
+- Utility functions in `utils/` for reusable logic
+
+### Adding New Features
+
+1. Update components in `src/components/`
+2. Add utilities in `src/utils/` if needed
+3. Update context in `src/contexts/` for global state
+4. Test with multiple PDF types
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [React Documentation](https://reactjs.org/)
+- [react-pdf Documentation](https://github.com/wojtekmaj/react-pdf)
+- [PDF.js Documentation](https://mozilla.github.io/pdf.js/)
+- [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
+MIT
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Support
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For issues or questions:
+1. Check the Troubleshooting section above
+2. Review Debug Console output after extraction
+3. Use CoordinateDebugger for coordinate-related issues
+4. Check browser console for JavaScript errors
