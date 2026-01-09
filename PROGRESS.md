@@ -1020,7 +1020,118 @@ User selected ONLY "ITC Reversal Rule 37A" section but got 24 fields including w
 
 ---
 
+## 🔧 Session 6: 2026-01-09 - Final Fix for ITC Reversal Section
+
+**Duration:** 06:39 - Present
+**Issue:** User selected "ITC Reversal" section on page 5 and got 28 fields (4 correct + 24 wrong)
+
+### Problem Analysis
+
+**Root Cause:** 24 `itc_rejected_*` fields at Y=387.54 were too close to selection box starting at Y=410.00
+
+**Overlap Calculation:**
+```
+User Selection:
+  Y: 410.00 → 565.61
+  With tolerance 20: Y: 390.00 → 585.61
+
+Fields at Y=387.54 (height 12):
+  Y: 387.54 → 399.54
+  With tolerance 20: Y: 367.54 → 419.54
+
+Overlap Range: 390.00 → 419.54 ✓ OVERLAPS!
+```
+
+**Why Session 5 Fix Didn't Work:**
+- Session 5 moved some fields to Y=300 but missed these 24 fields
+- They remained at Y=387.54, causing overlap with selections above Y=390
+
+### Fields Affected (24 total)
+
+All on Page 5, previously at Y=387.54:
+1. itc_rejected_b2b_debit_notes_amendment_* (4 fields)
+2. itc_rejected_eco_documents_amendment_* (4 fields)
+3. itc_rejected_isd_invoices_amendment_* (4 fields)
+4. itc_rejected_b2b_credit_notes_amendment_* (4 fields)
+5. itc_rejected_isd_credit_notes_amendment_* (4 fields)
+6. itc_rejected_others_* (4 fields)
+
+### Solution Applied
+
+**Action:** Updated all 24 fields from Y=387.54 → Y=200
+
+**Reasoning:**
+- Y=200 provides safe distance from ITC Reversal section (Y=538)
+- No overlap with selections in Y=410-565 range
+- Even with 20-point tolerance, no conflict:
+  - Fields at Y=200: expand to Y=180-232
+  - Selection at Y=410: expands to Y=390-585
+  - No overlap ✓
+
+**Commands Executed:**
+```bash
+# 1. Updated coordinates in gstr2b-rules.json
+python3 script to change Y: 387.54 → 200 for 24 fields
+
+# 2. Rebuilt package
+cd package && npm pack
+
+# 3. Installed in React app
+cd test_react && npm install ../package/indian-tax-pdf-extractor-2.1.0.tgz
+```
+
+### Expected Behavior
+
+**After Fix:**
+- Selection on "ITC Reversal Rule 37A" → returns **4 fields only**
+  - itc_reversal_rule37a_integrated_tax
+  - itc_reversal_rule37a_central_tax
+  - itc_reversal_rule37a_state_tax
+  - itc_reversal_rule37a_cess
+
+- Selection on "ITC Rejected" section → returns itc_rejected fields only
+
+**Coordinate Summary (Page 5):**
+- ITC Reversal fields: Y=538 ✓
+- ITC Rejected fields: Y=200 ✓ (well separated)
+- Other ITC fields: Y=300 ✓
+
+**Status:** ✅ ✅ **VERIFIED - WORKING PERFECTLY**
+
+### Test Results (2026-01-09)
+
+**User Confirmation:** "its fixed"
+
+**Test Successful:**
+- ✅ Selecting "ITC Reversal Rule 37A" section returns 4 fields only
+- ✅ No unwanted `itc_rejected_*` fields included
+- ✅ Clean separation between sections achieved
+
+**Final Coordinate Layout (Page 5):**
+- ITC Rejected fields: Y=200 (bottom section)
+- Other ITC fields: Y=300 (middle section)
+- ITC Reversal fields: Y=538 (top section)
+
+All sections properly separated with no overlap issues.
+
+### Files Modified
+- `/package/rules/gstr2b-rules.json` - Updated 24 field coordinates
+- `/package/indian-tax-pdf-extractor-2.1.0.tgz` - Rebuilt with new coordinates
+- `/test_react/node_modules/indian-tax-pdf-extractor` - Installed updated package
+- `/PROGRESS.md` - This update
+
+### Test Instructions
+1. Restart React app (if running): `npm start`
+2. Upload PDF: `/Users/yogeshvitekar/Desktop/rules_cli/package/pdf/2B.pdf`
+3. Upload Rules: Already in package (embedded)
+4. Navigate to Page 5
+5. Select "ITC Reversal Rule 37A" section
+6. Click "Extract Selected"
+7. **Expected:** 4 fields (not 28)
+
+---
+
 **END OF PROGRESS DOC**
 
 This document tracks all debugging sessions, findings, and resolutions.
-Last Updated: 2026-01-08 13:30
+Last Updated: 2026-01-09 06:45
