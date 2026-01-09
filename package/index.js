@@ -176,24 +176,77 @@ class PDFExtractor {
       throw new Error('At least one selection is required');
     }
 
+    // ═══════════════════════════════════════════════════════════════
+    // 🔍 DEBUG LOG - Extraction with Selections Started
+    // ═══════════════════════════════════════════════════════════════
+    console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('🚀 EXTRACTION WITH SELECTIONS STARTED');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('📦 Total Selections:', selections.length);
+    selections.forEach((sel, idx) => {
+      console.log(`\n📍 Selection ${idx + 1}:`);
+      console.log('  Page:', sel.pageNum);
+      console.log('  X:', sel.boundingBox.x.toFixed(2), '→', (sel.boundingBox.x + sel.boundingBox.width).toFixed(2));
+      console.log('  Y:', sel.boundingBox.y.toFixed(2), '→', (sel.boundingBox.y + sel.boundingBox.height).toFixed(2));
+      console.log('  Width:', sel.boundingBox.width.toFixed(2));
+      console.log('  Height:', sel.boundingBox.height.toFixed(2));
+    });
+    console.log('\n⚙️ Tolerance:', tolerance, 'points');
+    console.log('📊 Total Rules:', Object.keys(this.rules.rules).length);
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    // ═══════════════════════════════════════════════════════════════
+
     // Extract full text first
     const text = await this.extractTextFromPDF(pdfBuffer);
 
     // Find fields that overlap with selections
     const fieldsInSelection = [];
+    let checkedFields = 0;
+    let skippedNoCoords = 0;
+    let skippedWrongPage = 0;
+    let matchedFields = 0;
+
+    // ═══════════════════════════════════════════════════════════════
+    // 🔍 DEBUG LOG - Field Overlap Detection
+    // ═══════════════════════════════════════════════════════════════
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('🔍 CHECKING FIELD OVERLAPS');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    // ═══════════════════════════════════════════════════════════════
 
     for (const [fieldName, rule] of Object.entries(this.rules.rules)) {
+      checkedFields++;
+
       // Skip fields without coordinates
       if (!rule.coordinates) {
+        skippedNoCoords++;
         continue;
       }
 
       const fieldCoords = rule.coordinates;
 
+      // ═════════════════════════════════════════════════════════════
+      // 🔍 DEBUG LOG - Field Details
+      // ═════════════════════════════════════════════════════════════
+      if (checkedFields <= 10 || (fieldCoords.page === 5 && checkedFields <= 100)) {
+        console.log(`\n📋 Field: ${fieldName}`);
+        console.log(`  Page: ${fieldCoords.page}`);
+        console.log(`  X: ${fieldCoords.x?.toFixed(2) || 'N/A'} → ${((fieldCoords.x || 0) + (fieldCoords.width || 0)).toFixed(2)}`);
+        console.log(`  Y: ${fieldCoords.y?.toFixed(2) || 'N/A'} → ${((fieldCoords.y || 0) + (fieldCoords.height || 0)).toFixed(2)}`);
+        console.log(`  Width: ${fieldCoords.width?.toFixed(2) || 'N/A'}, Height: ${fieldCoords.height?.toFixed(2) || 'N/A'}`);
+      }
+      // ═════════════════════════════════════════════════════════════
+
       // Check if this field overlaps with ANY user selection
-      const overlapsWithSelection = selections.some(selection => {
+      const overlapsWithSelection = selections.some((selection, selIdx) => {
         // Check if selection and field are on same page
-        if (selection.pageNum !== fieldCoords.page) return false;
+        if (selection.pageNum !== fieldCoords.page) {
+          if (checkedFields <= 10 || (fieldCoords.page === 5 && checkedFields <= 100)) {
+            console.log(`  ❌ Selection ${selIdx + 1}: Wrong page (field on ${fieldCoords.page}, selection on ${selection.pageNum})`);
+          }
+          skippedWrongPage++;
+          return false;
+        }
 
         // Check bounding box overlap with tolerance
         const selBox = selection.boundingBox;
@@ -215,13 +268,55 @@ class PDFExtractor {
           expandedSelBox.y > fieldBox.y + fieldBox.height
         );
 
+        // ═══════════════════════════════════════════════════════════
+        // 🔍 DEBUG LOG - Overlap Calculation
+        // ═══════════════════════════════════════════════════════════
+        if (checkedFields <= 10 || (fieldCoords.page === 5 && checkedFields <= 100)) {
+          console.log(`\n  🔍 Selection ${selIdx + 1} (Page ${selection.pageNum}):`);
+          console.log(`    Selection Box: X(${selBox.x.toFixed(2)} → ${(selBox.x + selBox.width).toFixed(2)}), Y(${selBox.y.toFixed(2)} → ${(selBox.y + selBox.height).toFixed(2)})`);
+          console.log(`    Expanded Box:  X(${expandedSelBox.x.toFixed(2)} → ${(expandedSelBox.x + expandedSelBox.width).toFixed(2)}), Y(${expandedSelBox.y.toFixed(2)} → ${(expandedSelBox.y + expandedSelBox.height).toFixed(2)})`);
+          console.log(`    Field Box:     X(${fieldBox.x?.toFixed(2) || 'N/A'} → ${((fieldBox.x || 0) + (fieldBox.width || 0)).toFixed(2)}), Y(${fieldBox.y?.toFixed(2) || 'N/A'} → ${((fieldBox.y || 0) + (fieldBox.height || 0)).toFixed(2)})`);
+          console.log(`    Overlap Checks:`);
+          console.log(`      expandedSelBox.x(${expandedSelBox.x.toFixed(2)}) + width(${expandedSelBox.width.toFixed(2)}) = ${(expandedSelBox.x + expandedSelBox.width).toFixed(2)} < fieldBox.x(${fieldBox.x?.toFixed(2) || 'N/A'})? ${expandedSelBox.x + expandedSelBox.width < fieldBox.x}`);
+          console.log(`      expandedSelBox.x(${expandedSelBox.x.toFixed(2)}) > fieldBox.x(${fieldBox.x?.toFixed(2) || 'N/A'}) + width(${fieldBox.width?.toFixed(2) || 'N/A'})? ${expandedSelBox.x > (fieldBox.x || 0) + (fieldBox.width || 0)}`);
+          console.log(`      expandedSelBox.y(${expandedSelBox.y.toFixed(2)}) + height(${expandedSelBox.height.toFixed(2)}) = ${(expandedSelBox.y + expandedSelBox.height).toFixed(2)} < fieldBox.y(${fieldBox.y?.toFixed(2) || 'N/A'})? ${expandedSelBox.y + expandedSelBox.height < fieldBox.y}`);
+          console.log(`      expandedSelBox.y(${expandedSelBox.y.toFixed(2)}) > fieldBox.y(${fieldBox.y?.toFixed(2) || 'N/A'}) + height(${fieldBox.height?.toFixed(2) || 'N/A'})? ${expandedSelBox.y > (fieldBox.y || 0) + (fieldBox.height || 0)}`);
+          console.log(`    Result: ${overlaps ? '✅ OVERLAPS' : '❌ NO OVERLAP'}`);
+        }
+        // ═══════════════════════════════════════════════════════════
+
         return overlaps;
       });
 
       if (overlapsWithSelection) {
         fieldsInSelection.push(fieldName);
+        matchedFields++;
+        if (checkedFields <= 10 || (fieldCoords.page === 5 && checkedFields <= 100)) {
+          console.log(`  ✅ MATCHED - Field added to selection\n`);
+        }
+      } else {
+        if (checkedFields <= 10 || (fieldCoords.page === 5 && checkedFields <= 100)) {
+          console.log(`  ❌ NOT MATCHED\n`);
+        }
       }
     }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 🔍 DEBUG LOG - Final Statistics
+    // ═══════════════════════════════════════════════════════════════
+    console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('📊 OVERLAP DETECTION COMPLETE');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('Total Fields Checked:', checkedFields);
+    console.log('Skipped (No Coords):', skippedNoCoords);
+    console.log('Skipped (Wrong Page):', skippedWrongPage);
+    console.log('✅ Matched Fields:', matchedFields);
+    console.log('\n📋 Matched Field Names:');
+    fieldsInSelection.forEach((name, idx) => {
+      console.log(`  ${idx + 1}. ${name}`);
+    });
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+    // ═══════════════════════════════════════════════════════════════
 
     if (fieldsInSelection.length === 0) {
       return {

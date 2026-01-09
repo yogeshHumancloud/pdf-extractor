@@ -224,6 +224,46 @@ function SelectionCanvas({ pageNum, pageWidth, pageHeight, viewport, scale = 1.5
       // Convert to PDF coordinates
       const pdfBox = canvasToPDF(canvasRect, viewport, scale);
 
+      // ═══════════════════════════════════════════════════════════════
+      // 🔍 DEBUG LOG - Selection Box Creation
+      // ═══════════════════════════════════════════════════════════════
+      console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log('🎯 SELECTION BOX CREATED');
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+      console.log('📄 Page:', pageNum);
+      console.log('\n📐 Viewport Info:');
+      console.log('  Width:', viewport.width, 'points');
+      console.log('  Height:', viewport.height, 'points');
+      console.log('  Scale:', viewport.scale);
+      console.log('  Render Scale:', scale);
+      console.log('\n🖱️ Canvas Box (user drew):');
+      console.log('  X:', canvasRect.x.toFixed(2), 'pixels');
+      console.log('  Y:', canvasRect.y.toFixed(2), 'pixels');
+      console.log('  Width:', canvasRect.width.toFixed(2), 'pixels');
+      console.log('  Height:', canvasRect.height.toFixed(2), 'pixels');
+      console.log('  Range X:', canvasRect.x.toFixed(2), '→', (canvasRect.x + canvasRect.width).toFixed(2));
+      console.log('  Range Y:', canvasRect.y.toFixed(2), '→', (canvasRect.y + canvasRect.height).toFixed(2));
+      console.log('\n🔄 Conversion Formula:');
+      console.log('  pdfX = canvasX / scale');
+      console.log('  pdfY = (viewport.height / scale) - (canvasY / scale) - (height / scale)');
+      console.log('\n  Calculation:');
+      console.log('    pdfX = ' + canvasRect.x.toFixed(2) + ' / ' + scale + ' = ' + (canvasRect.x / scale).toFixed(2));
+      console.log('    pdfY = (' + viewport.height + ' / ' + scale + ') - (' + canvasRect.y.toFixed(2) + ' / ' + scale + ') - (' + canvasRect.height.toFixed(2) + ' / ' + scale + ')');
+      console.log('         = ' + (viewport.height / scale).toFixed(2) + ' - ' + (canvasRect.y / scale).toFixed(2) + ' - ' + (canvasRect.height / scale).toFixed(2));
+      console.log('         = ' + pdfBox.y.toFixed(2));
+      console.log('\n📄 PDF Box (converted):');
+      console.log('  X:', pdfBox.x.toFixed(2), 'points');
+      console.log('  Y:', pdfBox.y.toFixed(2), 'points');
+      console.log('  Width:', pdfBox.width.toFixed(2), 'points');
+      console.log('  Height:', pdfBox.height.toFixed(2), 'points');
+      console.log('  Range X:', pdfBox.x.toFixed(2), '→', (pdfBox.x + pdfBox.width).toFixed(2));
+      console.log('  Range Y:', pdfBox.y.toFixed(2), '→', (pdfBox.y + pdfBox.height).toFixed(2));
+      console.log('\n⚙️ Coordinate System:');
+      console.log('  Canvas: Origin = Top-Left, Y↓ increases downward');
+      console.log('  PDF:    Origin = Bottom-Left, Y↑ increases upward');
+      console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
+      // ═══════════════════════════════════════════════════════════════
+
       // Validate PDF box
       if (isValidBox(pdfBox)) {
         // Create selection object

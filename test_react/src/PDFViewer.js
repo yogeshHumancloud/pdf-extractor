@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as unpdfModule from 'unpdf';
 import { useSelection } from './contexts/SelectionContext';
 import SelectionCanvas from './components/SelectionCanvas';
+import CoordinateDebugger from './components/CoordinateDebugger';
 import './PDFViewer.css';
 
 function PDFViewer({ file, rules = null, onClearAll = null }) {
@@ -9,6 +10,7 @@ function PDFViewer({ file, rules = null, onClearAll = null }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showDebugger, setShowDebugger] = useState(false);
 
   // Selection context
   const {
@@ -16,7 +18,8 @@ function PDFViewer({ file, rules = null, onClearAll = null }) {
     setSelectionMode,
     clearSelections,
     getSelectionCount,
-    getPageCount
+    getPageCount,
+    getSelectionsForPage
   } = useSelection();
 
   // Convert rules to field locations for visualization
@@ -143,12 +146,29 @@ function PDFViewer({ file, rules = null, onClearAll = null }) {
             >
               🗑️ Clear All
             </button>
+            <button
+              onClick={() => setShowDebugger(!showDebugger)}
+              className={`toolbar-button ${showDebugger ? 'active' : ''}`}
+              title="Toggle coordinate system debugger"
+            >
+              🔍 Debug
+            </button>
             <span className="selection-info">
               {getSelectionCount()} selection{getSelectionCount() !== 1 ? 's' : ''} across {getPageCount()} page{getPageCount() !== 1 ? 's' : ''}
             </span>
           </>
         )}
       </div>
+
+      {/* Coordinate Debugger */}
+      {showDebugger && pages.length > 0 && (
+        <CoordinateDebugger
+          viewport={pages.find(p => p.pageNum === currentPage)?.viewport}
+          scale={1.5}
+          selections={getSelectionsForPage(currentPage)}
+          pageNum={currentPage}
+        />
+      )}
 
       {/* Page Navigation */}
       {pages.length > 1 && (

@@ -5,6 +5,8 @@ import remarkGfm from 'remark-gfm';
 import { SelectionProvider, useSelection } from './contexts/SelectionContext';
 // import { autoCaptureCoordinates, downloadRulesJSON } from './utils/autoCoordinateCapture';
 import PDFViewer from './PDFViewer';
+import DebugConsole from './components/DebugConsole';
+import DebugLogViewer from './components/DebugLogViewer';
 import { PDFExtractor } from 'indian-tax-pdf-extractor';
 import './PDFExtractorPage.css';
 
@@ -24,6 +26,7 @@ function PDFExtractorPageContent() {
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(null);
   const [extractionMode, setExtractionMode] = useState('full'); // 'full' or 'selection'
+  const [debugData, setDebugData] = useState(null);
 
   // Selection context
   const { selections, hasSelections } = useSelection();
@@ -234,12 +237,23 @@ function PDFExtractorPageContent() {
         // Selection-based extraction using package method
         // The package handles coordinate filtering and regex extraction internally
         console.log('✂️ Using SELECTION-BASED extraction (via package)');
+        console.log('📍 Coordinates being sent:', selections);
 
         const pdfBuffer = await pdfFile.arrayBuffer();
 
         // Call package's extractWithSelections method
         // It handles: 1) Coordinate overlap checking, 2) Regex on full text
         results = await extractor.extractWithSelections(pdfBuffer, selections, 20);
+
+        console.log('📤 Package output received:', results);
+
+        // Update debug console data
+        setDebugData({
+          coordinates: selections,
+          output: results,
+          timestamp: Date.now(),
+          mode: 'selection'
+        });
 
         // Check if extraction returned error
         if (results.error) {
@@ -259,6 +273,16 @@ function PDFExtractorPageContent() {
 
         const pdfBuffer = await pdfFile.arrayBuffer();
         results = await extractor.extract(pdfBuffer);
+
+        console.log('📤 Package output received:', results);
+
+        // Update debug console data (no coordinates for full extraction)
+        setDebugData({
+          coordinates: [],
+          output: results,
+          timestamp: Date.now(),
+          mode: 'full'
+        });
 
         const pdfBuffer3 = await pdfFile.arrayBuffer();
         md = await extractor.exportToMarkdown(pdfBuffer3);
@@ -301,6 +325,7 @@ function PDFExtractorPageContent() {
     setCsv('');
     setStats(null);
     setError(null);
+    setDebugData(null);
   };
 
   // Auto-capture coordinates from PDF (currently disabled)
@@ -554,8 +579,14 @@ function PDFExtractorPageContent() {
               </div>
             </div>
           </div>
+
+          {/* Debug Console */}
+          <DebugConsole debugData={debugData} />
         </div>
       )}
+
+      {/* Debug Log Viewer - Always visible at bottom */}
+      <DebugLogViewer />
     </div>
   );
 }

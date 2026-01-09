@@ -10,10 +10,10 @@
       "description": "Financial year of the statement",
       "coordinates": {
         "page": 1,
-        "x": 565,
-        "y": 474.96,
-        "width": 39.98,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "period": {
@@ -23,10 +23,10 @@
       "description": "Period covered (e.g., Apr-Jun)",
       "coordinates": {
         "page": 1,
-        "x": 565,
-        "y": 458.24,
-        "width": 28.71,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "gstin": {
@@ -36,10 +36,10 @@
       "description": "Goods and Services Tax Identification Number",
       "coordinates": {
         "page": 1,
-        "x": 45,
-        "y": 425.52,
-        "width": 36.83,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "legal_name": {
@@ -49,10 +49,10 @@
       "description": "Legal name of the registered person",
       "coordinates": {
         "page": 1,
-        "x": 45,
-        "y": 408.8,
-        "width": 44.78,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "trade_name": {
@@ -62,10 +62,10 @@
       "description": "Trade name if any",
       "coordinates": {
         "page": 1,
-        "x": 45,
-        "y": 392.08,
-        "width": 45.95,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "date_of_generation": {
@@ -75,10 +75,10 @@
       "description": "Date when the statement was generated",
       "coordinates": {
         "page": 1,
-        "x": 45,
-        "y": 375.36,
-        "width": 40.97,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "eco_documents_integrated_tax": {
@@ -89,10 +89,10 @@
       "description": "ECO Documents (IMS) - Integrated Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 137.33,
-        "width": 19.07,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "eco_documents_central_tax": {
@@ -103,10 +103,10 @@
       "description": "ECO Documents (IMS) - Central Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 137.33,
-        "width": 19.07,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "eco_documents_state_tax": {
@@ -117,10 +117,10 @@
       "description": "ECO Documents (IMS) - State/UT Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 137.33,
-        "width": 19.07,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "eco_documents_cess": {
@@ -131,10 +131,10 @@
       "description": "ECO Documents (IMS) - Cess",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 137.33,
-        "width": 19.07,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_invoices_amendment_integrated_tax": {
@@ -145,10 +145,10 @@
       "description": "B2B Invoices Amendment (IMS) - Integrated Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_invoices_amendment_central_tax": {
@@ -159,10 +159,10 @@
       "description": "B2B Invoices Amendment (IMS) - Central Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_invoices_amendment_state_tax": {
@@ -173,10 +173,10 @@
       "description": "B2B Invoices Amendment (IMS) - State/UT Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_invoices_amendment_cess": {
@@ -187,10 +187,10 @@
       "description": "B2B Invoices Amendment (IMS) - Cess",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_amendment_integrated_tax": {
@@ -201,10 +201,10 @@
       "description": "B2B Debit Notes Amendment (IMS) - Integrated Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_amendment_central_tax": {
@@ -215,10 +215,10 @@
       "description": "B2B Debit Notes Amendment (IMS) - Central Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_amendment_state_tax": {
@@ -229,10 +229,10 @@
       "description": "B2B Debit Notes Amendment (IMS) - State/UT Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_amendment_cess": {
@@ -243,10 +243,10 @@
       "description": "B2B Debit Notes Amendment (IMS) - Cess",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "eco_documents_amendment_integrated_tax": {
@@ -313,10 +313,10 @@
       "description": "ISD Invoices - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "isd_invoices_central_tax": {
@@ -327,10 +327,10 @@
       "description": "ISD Invoices - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "isd_invoices_state_tax": {
@@ -341,10 +341,10 @@
       "description": "ISD Invoices - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "isd_invoices_cess": {
@@ -355,10 +355,10 @@
       "description": "ISD Invoices - Cess",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "isd_invoices_amendment_integrated_tax": {
@@ -369,10 +369,10 @@
       "description": "ISD Invoices Amendment - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "isd_invoices_amendment_central_tax": {
@@ -383,10 +383,10 @@
       "description": "ISD Invoices Amendment - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "isd_invoices_amendment_state_tax": {
@@ -397,10 +397,10 @@
       "description": "ISD Invoices Amendment - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "isd_invoices_amendment_cess": {
@@ -411,10 +411,10 @@
       "description": "ISD Invoices Amendment - Cess",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_integrated_tax": {
@@ -424,11 +424,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_central_tax": {
@@ -438,11 +438,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_state_tax": {
@@ -452,11 +452,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_cess": {
@@ -466,11 +466,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_integrated_tax": {
@@ -480,11 +480,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_central_tax": {
@@ -494,11 +494,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_state_tax": {
@@ -508,11 +508,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_cess": {
@@ -522,11 +522,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 223.01,
-        "y": 205.92,
-        "width": 33.03,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_amendment_integrated_tax": {
@@ -536,11 +536,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices Amendment - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_amendment_central_tax": {
@@ -550,11 +550,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices Amendment - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_amendment_state_tax": {
@@ -564,11 +564,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices Amendment - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_invoices_amendment_cess": {
@@ -578,11 +578,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Invoices Amendment - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_amendment_integrated_tax": {
@@ -592,11 +592,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes Amendment - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_amendment_central_tax": {
@@ -606,11 +606,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes Amendment - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_amendment_state_tax": {
@@ -620,11 +620,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes Amendment - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_b2b_debit_notes_amendment_cess": {
@@ -634,11 +634,11 @@
       "transform": "number",
       "description": "Reverse Charge B2B Debit Notes Amendment - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_overseas_integrated_tax": {
@@ -649,10 +649,10 @@
       "description": "Import of Goods from Overseas - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_overseas_central_tax": {
@@ -663,10 +663,10 @@
       "description": "Import of Goods from Overseas - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_overseas_state_tax": {
@@ -677,10 +677,10 @@
       "description": "Import of Goods from Overseas - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_overseas_cess": {
@@ -691,10 +691,10 @@
       "description": "Import of Goods from Overseas - Cess",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_amendment_integrated_tax": {
@@ -705,10 +705,10 @@
       "description": "Import of Goods Amendment - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_amendment_central_tax": {
@@ -719,10 +719,10 @@
       "description": "Import of Goods Amendment - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_amendment_state_tax": {
@@ -733,10 +733,10 @@
       "description": "Import of Goods Amendment - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impg_amendment_cess": {
@@ -747,10 +747,10 @@
       "description": "Import of Goods Amendment - Cess",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 246.91,
-        "width": 24.57,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_integrated_tax": {
@@ -761,10 +761,10 @@
       "description": "Import of Goods from SEZ - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_central_tax": {
@@ -775,10 +775,10 @@
       "description": "Import of Goods from SEZ - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_state_tax": {
@@ -789,10 +789,10 @@
       "description": "Import of Goods from SEZ - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_cess": {
@@ -803,10 +803,10 @@
       "description": "Import of Goods from SEZ - Cess",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_amendment_integrated_tax": {
@@ -817,10 +817,10 @@
       "description": "Import of Goods from SEZ Amendment - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_amendment_central_tax": {
@@ -831,10 +831,10 @@
       "description": "Import of Goods from SEZ Amendment - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_amendment_state_tax": {
@@ -845,10 +845,10 @@
       "description": "Import of Goods from SEZ Amendment - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "impgsez_amendment_cess": {
@@ -859,10 +859,10 @@
       "description": "Import of Goods from SEZ Amendment - Cess",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 213.47,
-        "width": 42.18,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "b2b_credit_notes_amendment_integrated_tax": {
@@ -872,11 +872,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Amendment (IMS) - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "b2b_credit_notes_amendment_central_tax": {
@@ -886,11 +886,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Amendment (IMS) - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "b2b_credit_notes_amendment_state_tax": {
@@ -900,11 +900,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Amendment (IMS) - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "b2b_credit_notes_amendment_cess": {
@@ -914,11 +914,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Amendment (IMS) - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "b2b_credit_notes_reverse_charge_integrated_tax": {
@@ -928,11 +928,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Reverse Charge - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 45,
-        "y": 239.36,
-        "width": 18.83,
-        "height": 10
+        "page": 4,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "b2b_credit_notes_reverse_charge_central_tax": {
@@ -942,11 +942,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Reverse Charge - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 45,
-        "y": 239.36,
-        "width": 18.83,
-        "height": 10
+        "page": 4,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "b2b_credit_notes_reverse_charge_state_tax": {
@@ -956,11 +956,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Reverse Charge - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 45,
-        "y": 239.36,
-        "width": 18.83,
-        "height": 10
+        "page": 4,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "b2b_credit_notes_reverse_charge_cess": {
@@ -970,11 +970,11 @@
       "transform": "number",
       "description": "B2B Credit Notes Reverse Charge - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "b2b_credit_notes_reverse_charge_amendment_integrated_tax": {
@@ -1040,11 +1040,11 @@
       "transform": "number",
       "description": "ISD Credit Notes - Integrated Tax",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "isd_credit_notes_central_tax": {
@@ -1054,11 +1054,11 @@
       "transform": "number",
       "description": "ISD Credit Notes - Central Tax",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "isd_credit_notes_state_tax": {
@@ -1068,11 +1068,11 @@
       "transform": "number",
       "description": "ISD Credit Notes - State/UT Tax",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "isd_credit_notes_cess": {
@@ -1082,11 +1082,11 @@
       "transform": "number",
       "description": "ISD Credit Notes - Cess",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "isd_credit_notes_amendment_integrated_tax": {
@@ -1096,11 +1096,11 @@
       "transform": "number",
       "description": "ISD Credit Notes Amendment - Integrated Tax",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "isd_credit_notes_amendment_central_tax": {
@@ -1110,11 +1110,11 @@
       "transform": "number",
       "description": "ISD Credit Notes Amendment - Central Tax",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "isd_credit_notes_amendment_state_tax": {
@@ -1124,11 +1124,11 @@
       "transform": "number",
       "description": "ISD Credit Notes Amendment - State/UT Tax",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "isd_credit_notes_amendment_cess": {
@@ -1138,11 +1138,11 @@
       "transform": "number",
       "description": "ISD Credit Notes Amendment - Cess",
       "coordinates": {
-        "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_invoices_integrated_tax": {
@@ -1152,10 +1152,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1166,10 +1166,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1180,10 +1180,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1194,10 +1194,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1208,10 +1208,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1222,10 +1222,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1236,10 +1236,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1250,10 +1250,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1264,10 +1264,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1278,10 +1278,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1292,10 +1292,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1306,10 +1306,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1320,10 +1320,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices Amendment - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1334,10 +1334,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices Amendment - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1348,10 +1348,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices Amendment - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1362,10 +1362,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Invoices Amendment - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1376,10 +1376,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes Amendment - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1390,10 +1390,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes Amendment - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1404,10 +1404,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes Amendment - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1418,10 +1418,10 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Debit Notes Amendment - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1432,10 +1432,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents Amendment - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1446,10 +1446,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents Amendment - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1460,10 +1460,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents Amendment - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1474,10 +1474,10 @@
       "transform": "number",
       "description": "ITC Not Available - ECO Documents Amendment - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1489,10 +1489,10 @@
       "description": "ITC Not Available - ISD Invoices - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_avail_isd_invoices_central_tax": {
@@ -1503,10 +1503,10 @@
       "description": "ITC Not Available - ISD Invoices - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_avail_isd_invoices_state_tax": {
@@ -1517,10 +1517,10 @@
       "description": "ITC Not Available - ISD Invoices - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_avail_isd_invoices_cess": {
@@ -1531,10 +1531,10 @@
       "description": "ITC Not Available - ISD Invoices - Cess",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_avail_isd_invoices_amendment_integrated_tax": {
@@ -1600,10 +1600,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Invoices - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1614,10 +1614,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Invoices - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1628,10 +1628,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Invoices - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1642,10 +1642,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Invoices - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1656,10 +1656,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Debit Notes - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1670,10 +1670,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Debit Notes - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1684,10 +1684,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Debit Notes - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1698,10 +1698,10 @@
       "transform": "number",
       "description": "ITC Not Available - Reverse Charge B2B Debit Notes - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -1824,11 +1824,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_central_tax": {
@@ -1838,11 +1838,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_state_tax": {
@@ -1852,11 +1852,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_cess": {
@@ -1866,11 +1866,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_amendment_integrated_tax": {
@@ -1880,11 +1880,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Amendment - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_amendment_central_tax": {
@@ -1894,11 +1894,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Amendment - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_amendment_state_tax": {
@@ -1908,11 +1908,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Amendment - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_amendment_cess": {
@@ -1922,11 +1922,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Amendment - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_integrated_tax": {
@@ -1936,11 +1936,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_central_tax": {
@@ -1950,11 +1950,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_state_tax": {
@@ -1964,11 +1964,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_cess": {
@@ -1978,11 +1978,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_amendment_integrated_tax": {
@@ -1992,11 +1992,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_amendment_central_tax": {
@@ -2006,11 +2006,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_amendment_state_tax": {
@@ -2020,11 +2020,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_b2b_credit_notes_rc_amendment_cess": {
@@ -2034,11 +2034,11 @@
       "transform": "number",
       "description": "ITC Not Available - B2B Credit Notes Reverse Charge Amendment - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_not_avail_isd_credit_notes_integrated_tax": {
@@ -2048,11 +2048,11 @@
       "transform": "number",
       "description": "ITC Not Available - ISD Credit Notes - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 45,
-        "y": 239.36,
-        "width": 18.83,
-        "height": 10
+        "page": 4,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_avail_isd_credit_notes_central_tax": {
@@ -2062,11 +2062,11 @@
       "transform": "number",
       "description": "ITC Not Available - ISD Credit Notes - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 45,
-        "y": 239.36,
-        "width": 18.83,
-        "height": 10
+        "page": 4,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_avail_isd_credit_notes_state_tax": {
@@ -2076,11 +2076,11 @@
       "transform": "number",
       "description": "ITC Not Available - ISD Credit Notes - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 45,
-        "y": 239.36,
-        "width": 18.83,
-        "height": 10
+        "page": 4,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_avail_isd_credit_notes_cess": {
@@ -2161,10 +2161,10 @@
       "description": "ITC Rejected - B2B Invoices (IMS) - Integrated Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_invoices_central_tax": {
@@ -2175,10 +2175,10 @@
       "description": "ITC Rejected - B2B Invoices (IMS) - Central Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_invoices_state_tax": {
@@ -2189,10 +2189,10 @@
       "description": "ITC Rejected - B2B Invoices (IMS) - State/UT Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_invoices_cess": {
@@ -2203,10 +2203,10 @@
       "description": "ITC Rejected - B2B Invoices (IMS) - Cess",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_debit_notes_integrated_tax": {
@@ -2217,10 +2217,10 @@
       "description": "ITC Rejected - B2B Debit Notes (IMS) - Integrated Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_debit_notes_central_tax": {
@@ -2231,10 +2231,10 @@
       "description": "ITC Rejected - B2B Debit Notes (IMS) - Central Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_debit_notes_state_tax": {
@@ -2245,10 +2245,10 @@
       "description": "ITC Rejected - B2B Debit Notes (IMS) - State/UT Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_debit_notes_cess": {
@@ -2259,10 +2259,10 @@
       "description": "ITC Rejected - B2B Debit Notes (IMS) - Cess",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_eco_documents_integrated_tax": {
@@ -2273,10 +2273,10 @@
       "description": "ITC Rejected - ECO Documents (IMS) - Integrated Tax",
       "coordinates": {
         "page": 1,
-        "x": 414.68,
-        "y": 207.64,
-        "width": 38.33,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "itc_rejected_eco_documents_central_tax": {
@@ -2287,10 +2287,10 @@
       "description": "ITC Rejected - ECO Documents (IMS) - Central Tax",
       "coordinates": {
         "page": 1,
-        "x": 414.68,
-        "y": 207.64,
-        "width": 38.33,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "itc_rejected_eco_documents_state_tax": {
@@ -2301,10 +2301,10 @@
       "description": "ITC Rejected - ECO Documents (IMS) - State/UT Tax",
       "coordinates": {
         "page": 1,
-        "x": 414.68,
-        "y": 207.64,
-        "width": 38.33,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "itc_rejected_eco_documents_cess": {
@@ -2315,10 +2315,10 @@
       "description": "ITC Rejected - ECO Documents (IMS) - Cess",
       "coordinates": {
         "page": 1,
-        "x": 414.68,
-        "y": 207.64,
-        "width": 38.33,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "itc_rejected_b2b_invoices_amendment_integrated_tax": {
@@ -2329,10 +2329,10 @@
       "description": "ITC Rejected - B2B Invoices Amendment (IMS) - Integrated Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_invoices_amendment_central_tax": {
@@ -2343,10 +2343,10 @@
       "description": "ITC Rejected - B2B Invoices Amendment (IMS) - Central Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_invoices_amendment_state_tax": {
@@ -2357,10 +2357,10 @@
       "description": "ITC Rejected - B2B Invoices Amendment (IMS) - State/UT Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_invoices_amendment_cess": {
@@ -2371,10 +2371,10 @@
       "description": "ITC Rejected - B2B Invoices Amendment (IMS) - Cess",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_b2b_debit_notes_amendment_integrated_tax": {
@@ -2497,10 +2497,10 @@
       "description": "ITC Rejected - ISD Invoices - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_invoices_central_tax": {
@@ -2511,10 +2511,10 @@
       "description": "ITC Rejected - ISD Invoices - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_invoices_state_tax": {
@@ -2525,10 +2525,10 @@
       "description": "ITC Rejected - ISD Invoices - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_invoices_cess": {
@@ -2539,10 +2539,10 @@
       "description": "ITC Rejected - ISD Invoices - Cess",
       "coordinates": {
         "page": 2,
-        "x": 185.97,
-        "y": 499.57,
-        "width": 15.42,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_invoices_amendment_integrated_tax": {
@@ -2608,11 +2608,11 @@
       "transform": "number",
       "description": "ITC Rejected - B2B Credit Notes (IMS) - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_rejected_b2b_credit_notes_central_tax": {
@@ -2622,11 +2622,11 @@
       "transform": "number",
       "description": "ITC Rejected - B2B Credit Notes (IMS) - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_rejected_b2b_credit_notes_state_tax": {
@@ -2636,11 +2636,11 @@
       "transform": "number",
       "description": "ITC Rejected - B2B Credit Notes (IMS) - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_rejected_b2b_credit_notes_cess": {
@@ -2650,11 +2650,11 @@
       "transform": "number",
       "description": "ITC Rejected - B2B Credit Notes (IMS) - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "itc_rejected_b2b_credit_notes_amendment_integrated_tax": {
@@ -2833,10 +2833,10 @@
       "description": "B2B Invoices - Integrated Tax amount",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_invoices_central_tax": {
@@ -2847,10 +2847,10 @@
       "description": "B2B Invoices - Central Tax amount",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_invoices_state_tax": {
@@ -2861,10 +2861,10 @@
       "description": "B2B Invoices - State/UT Tax amount",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_invoices_cess": {
@@ -2875,10 +2875,10 @@
       "description": "B2B Invoices - Cess amount",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "all_other_itc_integrated_tax": {
@@ -2889,10 +2889,10 @@
       "description": "All other ITC - Integrated Tax",
       "coordinates": {
         "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "all_other_itc_central_tax": {
@@ -2903,10 +2903,10 @@
       "description": "All other ITC - Central Tax",
       "coordinates": {
         "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "all_other_itc_state_tax": {
@@ -2917,10 +2917,10 @@
       "description": "All other ITC - State/UT Tax",
       "coordinates": {
         "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "all_other_itc_cess": {
@@ -2931,10 +2931,10 @@
       "description": "All other ITC - Cess",
       "coordinates": {
         "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_integrated_tax": {
@@ -2945,10 +2945,10 @@
       "description": "B2B Debit Notes - Integrated Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_central_tax": {
@@ -2959,10 +2959,10 @@
       "description": "B2B Debit Notes - Central Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_state_tax": {
@@ -2973,10 +2973,10 @@
       "description": "B2B Debit Notes - State/UT Tax",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_debit_notes_cess": {
@@ -2987,10 +2987,10 @@
       "description": "B2B Debit Notes - Cess",
       "coordinates": {
         "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "x": 389.39,
+        "y": 538.58,
+        "width": 4.47,
+        "height": 12
       }
     },
     "b2b_credit_notes_integrated_tax": {
@@ -3000,11 +3000,11 @@
       "transform": "number",
       "description": "B2B Credit Notes - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "b2b_credit_notes_central_tax": {
@@ -3014,11 +3014,11 @@
       "transform": "number",
       "description": "B2B Credit Notes - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "b2b_credit_notes_state_tax": {
@@ -3028,11 +3028,11 @@
       "transform": "number",
       "description": "B2B Credit Notes - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "b2b_credit_notes_cess": {
@@ -3042,11 +3042,11 @@
       "transform": "number",
       "description": "B2B Credit Notes - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 88.44,
-        "y": 170.77,
-        "width": 18.08,
-        "height": 10
+        "page": 6,
+        "x": 73.65,
+        "y": 538,
+        "width": 78.83,
+        "height": 12
       }
     },
     "inward_supplies_isd_integrated_tax": {
@@ -3057,10 +3057,10 @@
       "description": "Inward Supplies from ISD - Integrated Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "inward_supplies_isd_central_tax": {
@@ -3071,10 +3071,10 @@
       "description": "Inward Supplies from ISD - Central Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "inward_supplies_isd_state_tax": {
@@ -3085,10 +3085,10 @@
       "description": "Inward Supplies from ISD - State/UT Tax",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "inward_supplies_isd_cess": {
@@ -3099,10 +3099,10 @@
       "description": "Inward Supplies from ISD - Cess",
       "coordinates": {
         "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "reverse_charge_integrated_tax": {
@@ -3168,11 +3168,11 @@
       "transform": "number",
       "description": "Import of Goods - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 489.79,
-        "y": 499.92,
-        "width": 31.71,
-        "height": 11
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "import_goods_central_tax": {
@@ -3182,11 +3182,11 @@
       "transform": "number",
       "description": "Import of Goods - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 489.79,
-        "y": 499.92,
-        "width": 31.71,
-        "height": 11
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "import_goods_state_tax": {
@@ -3196,11 +3196,11 @@
       "transform": "number",
       "description": "Import of Goods - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 489.79,
-        "y": 499.92,
-        "width": 31.71,
-        "height": 11
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "import_goods_cess": {
@@ -3210,11 +3210,11 @@
       "transform": "number",
       "description": "Import of Goods - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 489.79,
-        "y": 499.92,
-        "width": 31.71,
-        "height": 11
+        "page": 2,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_all_other_integrated_tax": {
@@ -3224,11 +3224,11 @@
       "transform": "number",
       "description": "ITC Not Available - All other ITC - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_all_other_central_tax": {
@@ -3238,11 +3238,11 @@
       "transform": "number",
       "description": "ITC Not Available - All other ITC - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_all_other_state_tax": {
@@ -3252,11 +3252,11 @@
       "transform": "number",
       "description": "ITC Not Available - All other ITC - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_all_other_cess": {
@@ -3266,11 +3266,11 @@
       "transform": "number",
       "description": "ITC Not Available - All other ITC - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 758.4,
-        "y": 314.24,
-        "width": 10.3,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_isd_integrated_tax": {
@@ -3280,11 +3280,11 @@
       "transform": "number",
       "description": "ITC Not Available - Inward Supplies from ISD - Integrated Tax",
       "coordinates": {
-        "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_isd_central_tax": {
@@ -3294,11 +3294,11 @@
       "transform": "number",
       "description": "ITC Not Available - Inward Supplies from ISD - Central Tax",
       "coordinates": {
-        "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_isd_state_tax": {
@@ -3308,11 +3308,11 @@
       "transform": "number",
       "description": "ITC Not Available - Inward Supplies from ISD - State/UT Tax",
       "coordinates": {
-        "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_isd_cess": {
@@ -3322,11 +3322,11 @@
       "transform": "number",
       "description": "ITC Not Available - Inward Supplies from ISD - Cess",
       "coordinates": {
-        "page": 2,
-        "x": 88.44,
-        "y": 499.57,
-        "width": 30.29,
-        "height": 10
+        "page": 3,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_not_available_reverse_charge_integrated_tax": {
@@ -3448,10 +3448,10 @@
       "transform": "number",
       "description": "ITC Reversal Rule 37A - Integrated Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 5,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -3462,10 +3462,10 @@
       "transform": "number",
       "description": "ITC Reversal Rule 37A - Central Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 5,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -3476,10 +3476,10 @@
       "transform": "number",
       "description": "ITC Reversal Rule 37A - State/UT Tax",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 5,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -3490,10 +3490,10 @@
       "transform": "number",
       "description": "ITC Reversal Rule 37A - Cess",
       "coordinates": {
-        "page": 1,
-        "x": 400.97,
-        "y": 513.05,
-        "width": 18.21,
+        "page": 5,
+        "x": 73.65,
+        "y": 538,
+        "width": 82.28,
         "height": 12
       }
     },
@@ -3505,10 +3505,10 @@
       "description": "ITC Rejected - All other ITC - Integrated Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_all_other_central_tax": {
@@ -3519,10 +3519,10 @@
       "description": "ITC Rejected - All other ITC - Central Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_all_other_state_tax": {
@@ -3533,10 +3533,10 @@
       "description": "ITC Rejected - All other ITC - State/UT Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_all_other_cess": {
@@ -3547,10 +3547,10 @@
       "description": "ITC Rejected - All other ITC - Cess",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_integrated_tax": {
@@ -3561,10 +3561,10 @@
       "description": "ITC Rejected - Inward Supplies from ISD - Integrated Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_central_tax": {
@@ -3575,10 +3575,10 @@
       "description": "ITC Rejected - Inward Supplies from ISD - Central Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_state_tax": {
@@ -3589,10 +3589,10 @@
       "description": "ITC Rejected - Inward Supplies from ISD - State/UT Tax",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_isd_cess": {
@@ -3603,10 +3603,10 @@
       "description": "ITC Rejected - Inward Supplies from ISD - Cess",
       "coordinates": {
         "page": 5,
-        "x": 40,
-        "y": 387.54,
-        "width": 33.09,
-        "height": 14
+        "x": 73.65,
+        "y": 300,
+        "width": 82.28,
+        "height": 12
       }
     },
     "itc_rejected_others_integrated_tax": {
